@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="300.0" prefWidth="500.0" styleClass="main_cont" stylesheets="@../styles/parkingItem.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.ParkingItemController">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="header_hbox">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="idLabel" styleClass="parking_smaller_font" text="#98" />
+                  <Label fx:id="nameLabel" styleClass="parking_title" text="Galeria Krakowska" />
+                  <Label fx:id="adressLabel" styleClass="parking_smaller_font" text="Pawia 5, Kraków" />
+               </children>
+            </VBox>
+            <Button mnemonicParsing="false" styleClass="icon_button">
+               <graphic>
+                  <ImageView fx:id="mapBtn" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/mapBlue.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="SPACES" />
+                  <Label fx:id="spacesValueLabel" styleClass="parking_title" text="1500" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="AVAILABITY" />
+                  <Label fx:id="availValueLabel" maxWidth="Infinity" text="• Low" VBox.vgrow="ALWAYS">
+                     <styleClass>
+                        <String fx:value="red" />
+                        <String fx:value="avail_label" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="buttons_hbox">
+         <children>
+            <Button fx:id="viewPriceBtn" mnemonicParsing="false" styleClass="buttons_basic" text="View pricing" />
+            <Button fx:id="reservationBtn" mnemonicParsing="false" styleClass="buttons_basic" text="Reservations" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

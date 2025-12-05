@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="parking_item" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.ParkingDashCompController">
+    <children>
+        <!-- Nagłówek: numer i nazwa oraz procent -->
+        <HBox styleClass="parking_item_header">
+            <children>
+                <!-- Lewa strona: numer + nazwa -->
+                <HBox styleClass="parking_item_left" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label fx:id="numberLabel" styleClass="parking_number" text="1" />
+                        <Label fx:id="nameLabel" styleClass="parking_name" text="Galeria Krakowska" />
+                    </children>
+                </HBox>
+
+                <!-- Prawa strona: procent -->
+                <Label fx:id="percentLabel" styleClass="parking_percent" text="87%" />
+            </children>
+        </HBox>
+
+        <!-- Dolna część: Revenue i Sessions -->
+        <HBox styleClass="parking_item_stats">
+            <children>
+            <HBox>
+               <children>
+                      <Label styleClass="parking_revenue" text="Revenue: " HBox.hgrow="ALWAYS" />
+                  <Label fx:id="revenueLabel" text="8900 $">
+                     <styleClass>
+                        <String fx:value="parking_revenue" />
+                        <String fx:value="parking_revenue_value" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                      <Label styleClass="parking_sessions" text="Sessions: " />
+                  <Label fx:id="sessionsLabel" text="342">
+                     <styleClass>
+                        <String fx:value="parking_sessions" />
+                        <String fx:value="parking_sessions_value" />
+                     </styleClass>
+                  </Label>
+               </children>
+            </HBox>
+            </children>
+        </HBox>
+    </children>
+</VBox>

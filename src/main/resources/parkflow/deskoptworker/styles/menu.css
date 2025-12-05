@@ -1,0 +1,38 @@
+.menu_container{
+    -fx-background-color: #2E3593;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 20 20 20 20;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-spacing: 80;
+}
+
+
+.menu_specific{
+    -fx-spacing:28;
+}
+
+.menu_button{
+    -fx-background-color: #2E3593;
+    -fx-graphic-text-gap: 20;
+    -fx-font-family: "Inter 18pt Medium";
+    -fx-font-size: 22px;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center-left;
+    -fx-border-radius: 80;
+    -fx-padding: 10 24 10 20;
+    -fx-cursor:hand;
+}
+.menu_button:hover{
+    -fx-background-color: #3d47b8; /* jaśniejszy niebieski */
+    -fx-padding: 10 24 10 30; /* przesunięcie w prawo o 10px */
+    -fx-scale-x: 1.02;
+    -fx-border-radius: 80;
+    -fx-background-radius: 80;
+    -fx-border-color:#ffffff;
+}
+
+.menu_button.current{
+
+    -fx-border-color:#ffffff;
+}

@@ -1,0 +1,97 @@
+.pricing_main_container{
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-background-color: #ffffff;
+    -fx-spacing: 20;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 18px;
+    -fx-text-fill: #333333;
+    -fx-padding: 20 10;
+}
+
+.pricing_title{
+    -fx-font-family:"Inter 18pt Bold";
+    -fx-font-size: 30;
+}
+
+.pricing_info_value
+{
+    -fx-font-family:"Inter 18pt Bold";
+}
+
+.pricing_section_title{
+    -fx-font-family:"Inter 18pt SemiBold";
+    -fx-font-size: 20;
+}
+
+.pricing_information_hbox{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color:#EBEBEB;
+}
+
+.buttons_basic{
+    -fx-text-fill: #333333;
+    -fx-font-size: 20px;
+    -fx-background-color: #EBEBEB;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.buttons_basic:hover{
+    -fx-background-color: #D5D5D5;
+}
+
+.buttons_basic_add{
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2E3593;
+}
+
+.buttons_basic_add:hover{
+    -fx-background-color: #252B75;
+}
+
+.buttons_hbox{
+    -fx-alignment: center_right;
+    -fx-spacing: 10;
+}
+
+.pricing_text_field{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-border-width: 1;
+    -fx-font-family: "Inter 18pt Regular";
+
+    -fx-padding: 6;
+    -fx-alignment: center-right;
+}
+
+.pricing_text_field:focused{
+    -fx-border-color: #2E3593;
+    -fx-border-width: 2;
+}
+
+.pricing_text_field{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-border-width: 1;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 18px;
+    -fx-padding: 2;
+    -fx-alignment: center-right;
+}
+
+.pricing_text_field:focused{
+    -fx-border-color: #2E3593;
+    -fx-border-width: 2;
+}
+
+.pricing_unit_label{
+    -fx-font-family: "Inter 18pt Bold";
+}
+

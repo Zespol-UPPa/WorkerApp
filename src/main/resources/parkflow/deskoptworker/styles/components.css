@@ -1,0 +1,161 @@
+/*parking_component_dash*/
+.parking_item {
+    -fx-background-color: #F2F3FE;
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+    -fx-spacing: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+.parking_item_header {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+
+.parking_item_left {
+    -fx-spacing: 12;
+    -fx-alignment: center-left;
+}
+
+.parking_number {
+    -fx-background-color: #8B5CF6;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Inter 18pt Bold";
+    -fx-font-size: 14px;
+    -fx-background-radius: 6;
+    -fx-padding: 4 10 4 10;
+    -fx-min-width: 28;
+    -fx-alignment: center;
+}
+
+.parking_name {
+    -fx-font-family: "Inter 18pt Medium";
+    -fx-font-size: 15px;
+    -fx-text-fill: #1a1a1a;
+}
+
+.parking_percent {
+    -fx-font-family: "Inter 18pt Bold";
+    -fx-font-size: 18px;
+}
+
+/* Kolory procentu */
+.percent_high {
+    -fx-text-fill: #EF4444; /* czerwony dla 85%+ */
+}
+
+.percent_medium {
+    -fx-text-fill: #F59E0B; /* pomarańczowy dla 70-84% */
+}
+
+.percent_low {
+    -fx-text-fill: #22C55E; /* zielony dla <70% */
+}
+
+.parking_item_stats {
+    -fx-spacing: 30;
+}
+
+.parking_revenue {
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 13px;
+}
+
+.parking_revenue_value{
+    -fx-font-family: "Inter 18pt Bold";
+    -fx-text-fill: #22C55E;
+}
+
+
+.parking_sessions {
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 13px;
+    -fx-text-fill: #666666;
+}
+.parking_sessions_value{
+    -fx-font-family: "Inter 18pt Bold";
+}
+
+/*Section */
+.section_item{
+    -fx-background-color: #EDEEFD;
+    -fx-border-color: #E0E4FF;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-style: dashed;
+}
+
+.section_name_badge{
+    -fx-background-color: #C0D8F9;
+    -fx-text-fill: #3A41AD;
+    -fx-font-family: "Inter 18pt SemiBold";
+    -fx-font-size: 16px;
+    -fx-padding: 5 10;
+    -fx-background-radius: 8;
+}
+
+.section_field_label{
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 14px;
+    -fx-text-fill: #616161;
+}
+
+.section_text_field{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-border-width: 1;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 14px;
+    -fx-padding: 8;
+}
+
+.section_choice_box{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 14px;
+}
+
+.section_checkbox{
+    -fx-cursor: hand;
+}
+
+.section_checkbox .box{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-border-width: 2;
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+}
+
+.section_checkbox:selected .box{
+    -fx-background-color: #2E3593;
+    -fx-border-color: #2E3593;
+}
+
+.section_checkbox:selected .mark{
+    -fx-background-color: #ffffff;
+}
+
+.delete_button{
+    -fx-background-color: transparent;
+    -fx-text-fill: #D32F2F;
+    -fx-font-size: 20px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-cursor: hand;
+    -fx-padding: 5;
+}
+
+.delete_button:hover{
+    -fx-background-color: #FFE5E5;
+}

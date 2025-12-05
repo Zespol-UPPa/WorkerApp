@@ -1,0 +1,74 @@
+.login_container{
+    -fx-background-color: #ffffff;
+    -fx-alignment: center-left;
+    -fx-background-radius: 20;
+}
+
+.login_bold_text{
+    -fx-font-family: "Inter 18pt SemiBold";
+    -fx-text-fill: #989898;
+    -fx-font-size: 16px;
+}
+
+.login_regular_text{
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-text-fill: #989898;
+    -fx-font-size: 14px;
+}
+
+.login_regular_underscore{
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-text-fill: #595B71;
+    -fx-underline: true;
+    -fx-font-size: 14px;
+}
+.warning_label{
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-text-fill: #AC2525;
+    -fx-font-size: 12px;
+}
+.button_sign_in{
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-background-color: #4C57EB;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8;
+}
+
+.button_sign_in:hover
+{
+    -fx-background-color: #2E3593;
+}
+
+.button_cancel{
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-background-color: #D3D3D3;
+    -fx-text-fill: #535569;
+    -fx-font-size: 16px;
+    -fx-background-radius: 8;
+}
+
+.button_cancel:hover{
+    -fx-background-color: #A3A3A3;
+    -fx-text-fill:#ffffff;
+}
+
+/* Style do pol tekstowych */
+.text-field, .password-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 1;
+    -fx-effect: none;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-fill: 333333;
+    -fx-font-size: 16px;
+    -fx-padding: 4.7 8.2 4.7 36;
+}
+
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #e0e0e0;
+    -fx-background-color: #ffffff;
+}

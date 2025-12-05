@@ -1,0 +1,90 @@
+.main_container{
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-font-family : "Inter 18pt Regular";
+    -fx-text-fill: #616161;
+    -fx-font-size: 20px;
+    -fx-padding: 30;
+}
+
+.main_container_title{
+    -fx-font-family : "Inter 18pt Bold";
+    -fx-font-size: 30px;
+    -fx-text-fill: #333333;
+
+}
+.main_container_subtitle{
+    -fx-font-family : "Inter 18pt SemiBold";
+    -fx-font-size: 22px;
+    -fx-text-fill: #333333;
+}
+
+.main_text_field{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 1;
+    -fx-effect: none;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 16px;
+}
+
+.buttons_basic{
+    -fx-text-fill: #333333;
+    -fx-font-size: 20px;
+    -fx-background-color: #EBEBEB;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.buttons_basic:hover{
+    -fx-background-color: #D5D5D5;
+}
+
+.buttons_basic_add{
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2E3593;
+}
+
+.buttons_basic_add:hover{
+    -fx-background-color: #252B75;
+}
+
+.empty_vbox{
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-style: dashed;
+    -fx-border-color: #616161;
+    -fx-border-width: 2;
+    -fx-padding: 40;
+}
+
+.empty_label_title{
+    -fx-font-family : "Inter 18pt Medium";
+    -fx-font-size: 18px;
+    -fx-text-fill: #616161;
+}
+
+.empty_label_subtitle{
+    -fx-font-family : "Inter 18pt Regular";
+    -fx-font-size: 14px;
+    -fx-text-fill: #9E9E9E;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .content {
+    -fx-background-color: transparent;
+}

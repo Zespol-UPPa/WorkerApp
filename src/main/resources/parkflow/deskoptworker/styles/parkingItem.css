@@ -1,0 +1,79 @@
+.main_cont{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 25 20;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 25px;
+    -fx-spacing: 10;
+}
+
+.parking_title{
+    -fx-font-family: "Inter 18pt Medium";
+
+}
+
+.parking_smaller_font
+{
+    -fx-font-size: 20px;
+}
+
+.header_hbox {
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 0 0 10 0;
+}
+
+.avail_label{
+    -fx-alignment: center-left;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-font-family:"Inter 18pt SemiBold";
+    -fx-padding: 8 15;
+}
+
+.avail_label.red{
+    -fx-background-color: #FFBFBF;
+    -fx-text-fill: #AC2525;
+}
+
+.avail_label.orange{
+    -fx-background-color: #FFFBBF;
+    -fx-text-fill: #C26F37;
+}
+
+.avail_label.green{
+    -fx-background-color: #E7FFDC;
+    -fx-text-fill: #187C08;
+}
+
+.buttons_basic{
+    -fx-text-fill: #333333;
+    -fx-font-size: 20px;
+    -fx-background-color: #EBEBEB;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.buttons_basic:hover{
+    -fx-background-color: #D5D5D5;
+}
+
+.buttons_hbox{
+    -fx-spacing: 10;
+    -fx-alignment: center-right;
+}
+
+.icon_button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.icon_button:hover{
+    -fx-cursor: hand;
+}

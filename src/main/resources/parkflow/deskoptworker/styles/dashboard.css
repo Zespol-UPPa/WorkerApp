@@ -1,0 +1,176 @@
+.dashboard_container {
+    -fx-text-fill: #333333;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-padding: 20 20 20 20;
+    -fx-spacing: 28;
+    -fx-background-color: #F2F3FE;
+}
+
+.dashboard_title {
+    -fx-font-family: "Inter 18pt SemiBold";
+    -fx-font-size: 40px;
+}
+
+.dashboard_subtitle {
+    -fx-font-family: "Inter 18pt Medium";
+    -fx-font-size: 20px;
+}
+
+/*czas*/
+.time_label {
+    -fx-font-family: "Inter 18pt Medium";
+    -fx-font-size: 14px;
+    -fx-text-fill: #888888;
+}
+
+.time_value {
+    -fx-font-family: "Inter 18pt Bold",monospace;
+    -fx-font-size: 24px;
+    -fx-text-fill: #1a1a1a;
+}
+
+/*cards*/
+
+.stats_container {
+    -fx-spacing: 30;
+}
+
+.stat_card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+}
+
+
+.stat_card_orange {
+    -fx-background-color: linear-gradient(to bottom right, #FA7017, #EC9D3D);
+}
+
+.stat_card_green {
+    -fx-background-color: linear-gradient(to bottom right, #1CC35A, #059868);
+}
+
+.stat_card_purple {
+    -fx-background-color: linear-gradient(to bottom right, #A54CE6, #D32B83);
+}
+
+.stat_card_orange .label,
+.stat_card_green .label,
+.stat_card_purple .label {
+    -fx-text-fill: #ffffff;
+}
+
+.stat_card_header {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+.stat_label {
+    -fx-font-size: 18px;
+}
+
+.stat_value {
+    -fx-font-family: "Inter 18pt ExtraBold";
+    -fx-font-size: 36px;
+}
+
+.stat_description {
+    -fx-font-size: 14px;
+}
+
+/*Todays perfromance*/
+.performance_card {
+    -fx-background-radius: 12;
+    -fx-padding: 16 10 16 10; /* mniejszy padding: góra prawo dół lewo */
+    -fx-border-width: 1.5;
+    -fx-border-radius: 12;
+    -fx-spacing: 4; /* mniejszy spacing między elementami */
+    -fx-min-height: 84; /* mniejsza wysokość */
+    -fx-max-height: 100;
+}
+
+.performance_card_blue {
+    -fx-background-color: #E8F6FF;
+    -fx-border-color: #012D9E;
+}
+
+.performance_card_orange {
+    -fx-background-color: #FFF3E8;
+    -fx-border-color: #C97500;
+}
+
+.performance_card_green {
+    -fx-background-color: #E8FFF6;
+    -fx-border-color: #019E42;
+}
+
+.performance_card_purple {
+    -fx-background-color: #F1E8FF;
+    -fx-border-color: #AE00C5;
+}
+
+.performance_card_indigo {
+    -fx-background-color: #E8EEFF;
+    -fx-border-color: #6D3ECA;
+}
+
+.performance_card_red {
+    -fx-background-color: #FFECED;
+    -fx-border-color: #9E0103;
+}
+
+.performance_label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+}
+
+.performance_value {
+    -fx-font-family: "Inter 18pt Bold";
+    -fx-font-size: 28px;
+    -fx-text-fill: #1a1a1a;
+}
+
+
+.performance_card_blue .performance_value {
+    -fx-text-fill: #012D9E;
+}
+
+.performance_card_orange .performance_value {
+    -fx-text-fill: #C97500;
+}
+
+.performance_card_green .performance_value {
+    -fx-text-fill: #019E42; /* zielony */
+}
+
+.performance_card_purple .performance_value {
+    -fx-text-fill: #AE00C5; /* fioletowy */
+}
+
+.performance_card_indigo .performance_value {
+    -fx-text-fill: #6D3ECA; /* indygo */
+}
+
+.performance_card_red .performance_value {
+    -fx-text-fill: #9E0103; /* czerwony */
+}
+
+.section_title{
+    -fx-font-family: "Inter 18pt Bold";
+    -fx-font-size: 22px;
+}
+
+.section_vbox{
+    -fx-spacing: 10;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 20 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+}
+
+.performance_grid{
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}

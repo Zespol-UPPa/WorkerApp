@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="782.0" prefWidth="880.0" spacing="20.0" styleClass="main_container" stylesheets="@../styles/addPark.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.AddParkingController">
+   <children>
+      <Label styleClass="main_container_title" text="Add New Parking" />
+      <VBox spacing="10.0">
+         <children>
+            <Label styleClass="main_container_subtitle" text="Basic Infromation" />
+            <Label text="Parking Name *" />
+            <TextField fx:id="parkingNameField" styleClass="main_text_field" />
+            <Label text="Address *" />
+            <TextField fx:id="addressField" styleClass="main_text_field" />
+            <Label text="Number of floors *" />
+            <TextField fx:id="numberOfFloorsField" styleClass="main_text_field" />
+         </children>
+      </VBox>
+       <VBox prefHeight="645.0" prefWidth="880.0" spacing="20.0" VBox.vgrow="ALWAYS">
+           <children>
+               <HBox prefHeight="50.0" prefWidth="200.0" alignment="CENTER_LEFT">
+                   <children>
+                       <Label styleClass="main_container_subtitle" text="Sections" />
+                       <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                       <Button fx:id="addSectionButton" onAction="#handleAddSection"
+                               styleClass="buttons_basic" text="+ Section" />
+                   </children>
+               </HBox>
+
+               <ScrollPane hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                           prefHeight="400.0" prefWidth="840.0"
+                           fitToWidth="true" VBox.vgrow="ALWAYS"
+                           styleClass="sections_scroll_pane">
+                   <content>
+                       <VBox fx:id="sectionsContainer"
+                             spacing="15.0"
+                             styleClass="sections_container"
+                             minHeight="350.0">
+                           <children>
+                               <!-- Empty state -->
+                               <VBox fx:id="emptyVBox" alignment="CENTER" spacing="10.0"
+                                     VBox.vgrow="ALWAYS" styleClass="empty_vbox"
+                                     minHeight="150.0" maxHeight="200">
+                                   <children>
+                                       <ImageView fitHeight="45.0" fitWidth="50.0"
+                                                  pickOnBounds="true" preserveRatio="true">
+                                           <image>
+                                               <Image url="@../images/emptyGeay.png" />
+                                           </image>
+                                       </ImageView>
+                                       <Label text="No sections added yet"
+                                              styleClass="empty_label_title" />
+                                       <Label text="Click &quot;+ Section&quot; to create parking sections"
+                                              styleClass="empty_label_subtitle" />
+                                   </children>
+                               </VBox>
+                           </children>
+                       </VBox>
+                   </content>
+               </ScrollPane>
+           </children>
+       </VBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" styleClass="buttons_basic" text="Cancel" />
+            <Button fx:id="addParkingButton" mnemonicParsing="false" onAction="#handleAddParking" text="Add Parking">
+               <styleClass>
+                  <String fx:value="buttons_basic_add" />
+                  <String fx:value="buttons_basic" />
+               </styleClass>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>
