@@ -1,4 +1,4 @@
-package parkflow.deskoptworker;
+package parkflow.deskoptworker.Controllers.sharedPanels;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import parkflow.deskoptworker.Controllers.ParkingDashCompController;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

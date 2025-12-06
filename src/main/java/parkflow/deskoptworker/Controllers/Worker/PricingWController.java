@@ -1,9 +1,7 @@
-package parkflow.deskoptworker;
+package parkflow.deskoptworker.Controllers.Worker;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import parkflow.deskoptworker.models.Parking;
 
 public class PricingWController {

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="Infinity" maxWidth="Infinity" minWidth="900" prefWidth="1100" spacing="15" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.ParkingsController">
+    <children>
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" maxHeight="80" minHeight="50" prefHeight="60" styleClass="header-container">
+            <children>
+                <Label styleClass="page-title" text="Parkings" />
+                <Region minWidth="20" HBox.hgrow="ALWAYS" />
+                <Button fx:id="addParkingBtn" managed="false" mnemonicParsing="false" onAction="#handleAddParking" text="+ Add Parking" visible="false">
+               <styleClass>
+                  <String fx:value="buttons_basic" />
+                  <String fx:value="buttons_basic_add" />
+               </styleClass></Button>
+            </children>
+            <padding>
+                <Insets bottom="10" left="20" right="20" top="20" />
+            </padding>
+        </HBox>
+
+        <!-- Search bar -->
+        <HBox alignment="CENTER_LEFT" maxHeight="60" minHeight="40" prefHeight="50" spacing="10" styleClass="search-container">
+            <children>
+                <ImageView fitHeight="18" fitWidth="18" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/search.png" />
+                    </image>
+                </ImageView>
+                <TextField fx:id="searchField" minWidth="200" promptText="Search by location, ID..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+            </children>
+            <padding>
+                <Insets left="20" right="20" />
+            </padding>
+        </HBox>
+
+        <!-- FlowPane z kartami parkingów - bez scrollbara -->
+        <FlowPane fx:id="parkingsContainer" alignment="TOP_LEFT" hgap="20" minHeight="0" minWidth="0" prefWrapLength="1000.0" styleClass="parkings-flow" vgap="20" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="10.0" top="10.0" />
+            </padding>
+        </FlowPane>
+
+        <!-- Pagination - zawsze widoczna na dole -->
+        <HBox fx:id="paginationBox" alignment="CENTER" maxHeight="70" minHeight="50" prefHeight="60" spacing="15" styleClass="pagination-container">
+            <children>
+                <Button fx:id="prevButton" minHeight="35" minWidth="35" onAction="#previousPage" prefHeight="40" prefWidth="40" styleClass="pagination-arrow" text="❮" />
+                <HBox fx:id="dotsContainer" alignment="CENTER" minHeight="40" spacing="10" />
+                <Button fx:id="nextButton" minHeight="35" minWidth="35" onAction="#nextPage" prefHeight="40" prefWidth="40" styleClass="pagination-arrow" text="❯" />
+            </children>
+            <padding>
+                <Insets bottom="20" top="10" />
+            </padding>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+   <stylesheets>
+      <URL value="@../styles/parkings.css" />
+      <URL value="@../styles/mainPanel.css" />
+   </stylesheets>
+</VBox>

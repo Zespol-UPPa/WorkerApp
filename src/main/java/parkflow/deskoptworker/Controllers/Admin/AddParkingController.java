@@ -1,10 +1,11 @@
-package parkflow.deskoptworker;
+package parkflow.deskoptworker.Controllers.Admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import parkflow.deskoptworker.Controllers.SectionController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class AddParkingController {
             }
 
             // Załaduj komponent sekcji
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("components/SectionItem.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/parkflow/deskoptworker/components/SectionItem.fxml"));
             VBox sectionItem = loader.load();
             SectionController controller = loader.getController();
 
@@ -177,7 +178,8 @@ public class AddParkingController {
 
         confirmation.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                // TODO: Zamknij okno lub wróć do poprzedniego widoku
+                Stage stage = (Stage) cancelButton.getScene().getWindow();
+                stage.close();
                 System.out.println("Cancelled");
             }
         });

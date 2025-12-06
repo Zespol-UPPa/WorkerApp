@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="rootContainer" spacing="10.0" styleClass="section_item" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.SectionController"  maxWidth="Infinity">
+<VBox fx:id="rootContainer" spacing="10.0" styleClass="section_item" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.SectionController" maxWidth="Infinity">
     <padding>
         <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
     </padding>

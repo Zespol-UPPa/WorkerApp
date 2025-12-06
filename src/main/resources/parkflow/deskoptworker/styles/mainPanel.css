@@ -1,0 +1,55 @@
+.main_container {
+    -fx-text-fill: #333333;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-padding: 20 20 20 20;
+    -fx-spacing: 28;
+    -fx-background-color: #F2F3FE;
+    -fx-font-size:25px;
+}
+
+.main_title {
+    -fx-font-family: "Inter 18pt SemiBold";
+    -fx-font-size: 40px;
+}
+
+.main_subtitle {
+    -fx-font-family: "Inter 18pt Medium";
+    -fx-font-size: 20px;
+}
+
+.section_title{
+    -fx-font-family: "Inter 18pt Bold";
+    -fx-font-size: 22px;
+}
+
+.section_vbox{
+    -fx-spacing: 10;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 20 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+}
+
+.buttons_basic{
+    -fx-text-fill: #333333;
+    -fx-font-size: 20px;
+    -fx-background-color: #EBEBEB;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.buttons_basic:hover{
+    -fx-background-color: #D5D5D5;
+}
+
+.buttons_basic_add{
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #2E3593;
+}
+
+.buttons_basic_add:hover{
+    -fx-background-color: #252B75;
+}

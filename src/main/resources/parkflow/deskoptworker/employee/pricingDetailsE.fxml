@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="580.0" styleClass="pricing_main_container" stylesheets="@../styles/pricing.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.PricingController">
+<VBox prefHeight="400.0" prefWidth="580.0" styleClass="pricing_main_container" stylesheets="@../styles/pricing.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Admin.PricingController">
     <children>
         <Label fx:id="pricingTitle" styleClass="pricing_title" text="Pricing - Downtown Plaza" />
 

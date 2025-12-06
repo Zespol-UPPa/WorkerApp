@@ -1,4 +1,4 @@
-package parkflow.deskoptworker;
+package parkflow.deskoptworker.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import parkflow.deskoptworker.Controllers.Admin.PricingController;
+import parkflow.deskoptworker.Controllers.Worker.PricingWController;
 import parkflow.deskoptworker.models.Parking;
 import parkflow.deskoptworker.models.UserRole;
 
@@ -115,15 +117,38 @@ public class ParkingItemController {
                 controller.setParkingData(parking);
             }
 
-            // Zmień scenę
-            Stage stage = (Stage) viewPricingBtn.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            // Utwórz nowe modalne okno
+            Stage pricingStage = new Stage();
+            pricingStage.setTitle("View Pricing - " + parking.getName());
+            pricingStage.setScene(new Scene(root));
+
+            // Ustaw rozmiar okna
+            pricingStage.setWidth(580);
+            pricingStage.setHeight(420);
+
+
+            // Zablokuj zmianę rozmiaru
+            pricingStage.setResizable(false);
+
+            // Ustaw jako modalne (blokuje główne okno)
+            pricingStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+
+            // Ustaw właściciela (parent window)
+            pricingStage.initOwner(viewPricingBtn.getScene().getWindow());
+
+            // Wyśrodkuj okno
+            pricingStage.centerOnScreen();
+
+            // Pokaż okno i czekaj aż się zamknie
+            pricingStage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error loading pricing details: " + e.getMessage());
         }
     }
+
+
     /*
     Obsluguje klikniecie rezerwacje
      */
