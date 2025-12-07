@@ -1,4 +1,4 @@
-package parkflow.deskoptworker;
+package parkflow.deskoptworker.Controllers.Admin;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -74,6 +74,14 @@ public class PricingController {
         ratePerMinuteField.setText(String.format("%.2f", parking.getRatePerMinute()));
         reservationFeeField.setText(String.format("%.2f", parking.getReservationFee()));
     }
+
+    @FXML
+    private void handleSave(){
+        System.out.println("Saving....");
+        /*TODO:
+        Obsluga zapisu.
+         */
+    }
 //
 //    @FXML
 //    private void handleSave() {
@@ -131,11 +139,12 @@ public class PricingController {
     }
 
     private void updateViewMode() {
-//        freeMinutesLabel.setText(freeMinutes + " min");
-//        ratePerMinuteLabel.setText(String.format("%.2f $", ratePerMinute));
-//        reservationFeeLabel.setText(String.format("%.2f $", reservationFee));
+        if (parking != null) {
+            freeMinutesLabel.setText(parking.getFreeMinutes() + " min");
+            ratePerMinuteLabel.setText(String.format("%.2f $", parking.getRatePerMinute()));
+            reservationFeeLabel.setText(String.format("%.2f $", parking.getReservationFee()));
+        }
     }
-
     private boolean validateInputs() {
         if (freeMinutesField.getText().isEmpty()) {
             showAlert("Validation Error", "Please enter free minutes!");

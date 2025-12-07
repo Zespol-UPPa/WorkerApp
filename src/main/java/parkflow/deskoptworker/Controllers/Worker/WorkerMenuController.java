@@ -1,4 +1,4 @@
-package parkflow.deskoptworker;
+package parkflow.deskoptworker.Controllers.Worker;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

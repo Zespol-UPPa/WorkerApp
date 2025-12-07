@@ -159,3 +159,47 @@
 .delete_button:hover{
     -fx-background-color: #FFE5E5;
 }
+
+.confirm_container{
+    -fx-font-family:"Inter 18pt Regular";
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 40 40;
+    -fx-spacing: 20;
+    -fx-font-size: 20px;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 20, 0.5, 0, 4);
+}
+
+.confirm_title{
+    -fx-font-family:"Inter 18pt Bold";
+    -fx-font-size:30px;
+}
+
+.add_empl_vbox_info{
+    -fx-spacing: 5px;
+    -fx-alignment: center-left;
+}
+.empl_det_label{
+    -fx-font-family: "Inter 18pt Medium";
+    -fx-text-fill:#727272;
+    -fx-font-size: 20;
+}
+
+.bold-text{
+    -fx-font-family: "Inter 18pt Bold";
+}
+
+.modal-wrapper {
+    -fx-background-color: transparent;
+}
+
+.choice-box{
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 20px;
+}

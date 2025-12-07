@@ -1,0 +1,136 @@
+/* Main container */
+.root {
+    -fx-background-color: #F5F5F7;
+}
+
+/* Header */
+.header-container {
+    -fx-background-color: transparent;
+}
+
+.page-title {
+    -fx-font-family: "Inter 18pt SemiBold";
+    -fx-font-size: 32px;
+    -fx-text-fill: #333333;
+}
+
+
+/* Search container */
+.search-container {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 25;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 25;
+    -fx-border-width: 1;
+    -fx-padding: 12 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 5, 0, 0, 1);
+}
+
+.search-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+    -fx-prompt-text-fill: #999999;
+    -fx-padding: 0;
+}
+
+.search-field:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* ScrollPane */
+.parkings-scroll {
+    -fx-background-color: transparent;
+    -fx-background: #F5F5F7;
+}
+
+.parkings-scroll .viewport {
+    -fx-background-color: #F5F5F7;
+}
+
+.parkings-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.parkings-scroll .scroll-bar:vertical .track {
+    -fx-background-color: #E0E0E0;
+    -fx-background-radius: 5;
+}
+
+.parkings-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #CCCCCC;
+    -fx-background-radius: 5;
+}
+
+.parkings-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #AAAAAA;
+}
+
+/* Parkings FlowPane */
+.parkings-flow {
+    -fx-background-color: transparent;
+}
+
+/* Pagination */
+.pagination-container {
+    -fx-padding: 20 0;
+}
+
+.pagination-arrow {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A5FFF;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-padding: 5 10;
+}
+
+.pagination-arrow:hover {
+    -fx-text-fill: #3A4FEF;
+}
+
+.pagination-arrow:disabled {
+    -fx-text-fill: #D0D0D0;
+    -fx-cursor: default;
+}
+
+.pagination-dot {
+    -fx-cursor: hand;
+}
+
+.pagination-dot-active {
+    -fx-fill: #4A5FFF;
+}
+
+.pagination-dot-inactive {
+    -fx-fill: #D0D0D0;
+}
+
+.pagination-dot-inactive:hover {
+    -fx-fill: #A0A0A0;
+}
+
+.pagination-number {
+    -fx-text-fill: #666666;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-padding: 5 10;
+}
+
+.pagination-number:hover {
+    -fx-text-fill: #4A5FFF;
+}
+
+.pagination-number-active {
+    -fx-text-fill: #4A5FFF;
+    -fx-font-weight: bold;
+}
+
+.pagination-ellipsis {
+    -fx-text-fill: #999999;
+    -fx-font-size: 14px;
+    -fx-padding: 5 10;
+}

@@ -7,6 +7,17 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 25px;
     -fx-spacing: 10;
+
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+.main_cont:hover {
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 15, 0, 0, 4);
 }
 
 .parking_title{
@@ -64,7 +75,7 @@
 
 .buttons_hbox{
     -fx-spacing: 10;
-    -fx-alignment: center-right;
+    -fx-alignment: center-left;
 }
 
 .icon_button {
