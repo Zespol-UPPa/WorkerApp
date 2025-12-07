@@ -8,10 +8,11 @@ public class User {
     private String email;
     private String pesel;
     private UserRole role;
+    private boolean active;
 
     // Konstruktor z wszystkimi polami
     public User(int id, String firstName, String lastName, String phoneNumber,
-                String email, String pesel, UserRole role) {
+                String email, String pesel, UserRole role, boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,6 +20,7 @@ public class User {
         this.email = email;
         this.pesel = pesel;
         this.role = role;
+        this.active = active;
     }
 
     // Konstruktor bez ID (dla nowych użytkowników przed zapisem do DB)
@@ -30,6 +32,7 @@ public class User {
         this.email = email;
         this.pesel = pesel;
         this.role = role;
+        this.active = true;
     }
 
     // Gettery i settery
@@ -127,4 +130,14 @@ public class User {
     public int hashCode() {
         return Integer.hashCode(id);
     }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
 }
+

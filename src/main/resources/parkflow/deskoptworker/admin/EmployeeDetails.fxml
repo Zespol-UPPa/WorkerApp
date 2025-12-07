@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="parkflow.deskoptworker.Controllers.Admin.EmpDetController"
+           prefHeight="700.0" prefWidth="600.0"
+           styleClass="modal-wrapper"
+           stylesheets="@../styles/components.css">
+   <padding>
+      <Insets top="30" right="30" bottom="30" left="30"/>
+   </padding>
+
+   <VBox spacing="15.0" styleClass="confirm_container">
+
+      <Label styleClass="confirm_title" text="Employee Details">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+
+      <VBox spacing="15.0">
+
+         <VBox styleClass="add_empl_vbox_info">
+            <Label styleClass="empl_det_label" text="ID" />
+            <Label fx:id="idLabel" styleClass="bold-text" />
+         </VBox>
+
+         <HBox spacing="20.0">
+            <VBox styleClass="add_empl_vbox_info" HBox.hgrow="ALWAYS">
+               <Label styleClass="empl_det_label" text="First Name" />
+               <Label fx:id="firstNameLabel" styleClass="bold-text" />
+            </VBox>
+            <VBox styleClass="add_empl_vbox_info" HBox.hgrow="ALWAYS">
+               <Label styleClass="empl_det_label" text="Last Name" />
+               <Label fx:id="lastNameLabel" styleClass="bold-text" />
+            </VBox>
+         </HBox>
+
+         <VBox styleClass="add_empl_vbox_info">
+            <Label styleClass="empl_det_label" text="PESEL" />
+            <Label fx:id="peselLabel" styleClass="bold-text" />
+         </VBox>
+
+         <VBox styleClass="add_empl_vbox_info">
+            <Label styleClass="empl_det_label" text="Email" />
+            <Label fx:id="emailLabel" styleClass="bold-text" />
+         </VBox>
+
+         <VBox styleClass="add_empl_vbox_info">
+            <Label styleClass="empl_det_label" text="Phone" />
+            <Label fx:id="phoneLabel" styleClass="bold-text" />
+         </VBox>
+
+         <VBox styleClass="add_empl_vbox_info">
+            <Label styleClass="empl_det_label" text="Role" />
+            <Label fx:id="roleLabel" styleClass="bold-text" />
+         </VBox>
+
+         <VBox styleClass="add_empl_vbox_info">
+            <Label styleClass="empl_det_label" text="Status" />
+            <Label fx:id="statusLabel" styleClass="bold-text" />
+         </VBox>
+
+      </VBox>
+
+      <HBox alignment="CENTER_RIGHT">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+         <Button fx:id="closeBtn" text="Close" styleClass="buttons_basic"
+                 stylesheets="@../styles/mainPanel.css"
+                 onAction="#handleCancel"
+                 prefWidth="120.0" />
+      </HBox>
+
+   </VBox>
+
+</StackPane>

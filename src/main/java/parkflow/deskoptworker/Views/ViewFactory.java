@@ -1,11 +1,17 @@
 package parkflow.deskoptworker.Views;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import parkflow.deskoptworker.Controllers.Admin.AdminController;
+import javafx.stage.StageStyle;
+import parkflow.deskoptworker.Controllers.Admin.*;
+import parkflow.deskoptworker.models.User;
 
 import java.io.IOException;
 
@@ -77,14 +83,42 @@ public class ViewFactory {
 
     // Admin-only views
     public VBox getPersonnelView() {
+        System.out.println("=== getPersonnelView() called ===");
+
         if (personnelView == null) {
             try {
-                // Tymczasowo zwróć placeholder
-                personnelView = createPlaceholder("Personnel View - Coming Soon");
+                System.out.println("Loading PersonnelManagement.fxml...");
+
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/parkflow/deskoptworker/admin/Personnel.fxml")
+                );
+
+                System.out.println("FXML URL: " + loader.getLocation());
+
+                personnelView = loader.load();
+                System.out.println("FXML loaded successfully");
+                System.out.println("PersonnelView: " + personnelView);
+
+                // Przekaż ViewFactory do controllera
+                PersonnelController controller = loader.getController();
+                System.out.println("Controller: " + controller);
+
+                if (controller != null) {
+                    controller.setViewFactory(this);
+                    System.out.println("ViewFactory przekazany do PersonnelController");
+                } else {
+                    System.err.println("Controller is NULL!");
+                }
+
             } catch (Exception e) {
+                System.err.println(" Failed to load Personnel.fxml");
                 e.printStackTrace();
             }
+        } else {
+            System.out.println("Returning cached personnelView");
         }
+
+        System.out.println("=== Returning personnelView: " + personnelView + " ===");
         return personnelView;
     }
 
@@ -118,14 +152,13 @@ public class ViewFactory {
                     getClass().getResource("/parkflow/deskoptworker/admin/Admin.fxml")
             );
 
-            // RĘCZNE PRZYPISANIE CONTROLLERA
             AdminController controller = new AdminController();
             loader.setController(controller);
 
             BorderPane root = loader.load();
 
-            System.out.println("✓ Admin.fxml loaded");
-            System.out.println("✓ Controller: " + controller);
+            System.out.println("Admin.fxml loaded");
+            System.out.println("Controller: " + controller);
 
             Scene scene = new Scene(root);
 
@@ -136,11 +169,11 @@ public class ViewFactory {
 
             stage.setMaximized(true);
             stage.setScene(scene);
-            stage.setTitle("ParkFlow - Admin Panel");
+            stage.setTitle("ParkFlow");
             stage.show();
 
         } catch (Exception e) {
-            System.err.println("✗ Failed to load Admin window!");
+            System.err.println("Failed to load Admin window!");
             e.printStackTrace();
         }
     }
@@ -161,6 +194,169 @@ public class ViewFactory {
         stage.setTitle("ParkFlow");
         stage.show();
     }
+
+    /**
+     * Otwiera okno dodawania pracownika (modal, bez paska)
+     */
+    public User showAddEmployeeModal() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/admin/AddNewEmployee.fxml")
+            );
+
+            Parent root = loader.load();
+
+            // Dodaj cień
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setRadius(50);
+            dropShadow.setOffsetX(0);
+            dropShadow.setOffsetY(20);
+            dropShadow.setColor(Color.rgb(0, 0, 0, 0.5));
+            root.setEffect(dropShadow);
+
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setResizable(false);
+
+            stage.showAndWait();
+
+            // Pobierz controller i sprawdź czy zapisano
+            AddEmpController controller = loader.getController();
+            return controller.getSavedEmployee(); // Zwróć nowego użytkownika lub null
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load AddNewEmployee.fxml");
+            return null;
+        }}
+
+    /**
+     * Otwiera okno szczegółów pracownika (modal, bez paska)
+     */
+    public void showEmployeeDetailsModal(User employee) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/admin/EmployeeDetails.fxml")
+            );
+
+            Parent root = loader.load();
+
+            // TERAZ możesz pobrać controller i wywołać metody
+            EmpDetController controller = loader.getController();
+            controller.setEmployee(employee);
+            controller.updateView();
+
+
+            // Dodaj cień do root
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setRadius(50);
+            dropShadow.setOffsetX(0);
+            dropShadow.setOffsetY(20);
+            dropShadow.setColor(Color.rgb(0, 0, 0, 0.1));
+            root.setEffect(dropShadow);
+
+            // Użyj już załadowanego root
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT); // Tylko TRANSPARENT, nie UNDECORATED osobno
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setResizable(false);
+
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load EmployeeDetails.fxml");
+        }
+    }
+
+    /**
+     * Otwiera okno dezaktywacji pracownika (modal, bez paska)
+     * Zwraca true jeśli użytkownik potwierdził dezaktywację
+     */
+    public boolean showDeactivateEmployeeModal(User employee) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/admin/DeactivateEmployee.fxml")
+            );
+
+            Parent root = loader.load(); // Załaduj TYLKO RAZ
+
+            // Dodaj cień do root
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setRadius(50);
+            dropShadow.setOffsetX(0);
+            dropShadow.setOffsetY(20);
+            dropShadow.setColor(Color.rgb(0, 0, 0, 0.1));
+            root.setEffect(dropShadow);
+
+            // Użyj już załadowanego root
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+
+            DeactivateController controller = loader.getController();
+            controller.setEmployee(employee);
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT); // Tylko TRANSPARENT, nie UNDECORATED osobno
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setResizable(false);
+
+            stage.showAndWait();
+
+            return controller.isConfirmed();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load DeactivateEmployee.fxml");
+            return false;
+        }
+    }
+
+    /**
+     * Otwiera okno aktywacji pracownika (modal, bez paska)
+     * Zwraca true jeśli użytkownik potwierdził aktywację
+     */
+    public boolean showActivateEmployeeModal(User employee) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/admin/ActivateEmployee.fxml")
+            );
+
+            Scene scene = new Scene(loader.load());
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+            // Tutaj też przekażesz dane gdy będziesz mieć controller
+
+            Stage stage = new Stage();
+            stage.setTitle("Activate Employee");
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setResizable(false);
+
+            stage.showAndWait();
+
+            return true; // Zwróć rezultat z controllera
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load ActivateEmployee.fxml");
+            return false;
+        }
+    }
+
+
+
 
     public void closeStage(Stage stage) {
         stage.close();

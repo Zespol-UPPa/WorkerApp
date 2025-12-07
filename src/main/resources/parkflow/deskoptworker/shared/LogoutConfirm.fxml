@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" styleClass="confirm_container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.LogoutController">
+   <children>
+      <Label text="Confirm Logout">
+         <styleClass>
+            <String fx:value="section_title" />
+            <String fx:value="confirm_title" />
+         </styleClass>
+      </Label>
+      <Label text="Are you sure you want to logout? Any unsaved changes will be lost." wrapText="true" />
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#handleCancel" styleClass="buttons_basic" text="Cancel" />
+            <Button fx:id="logoutBtn" mnemonicParsing="false" text="Logout">
+               <styleClass>
+                  <String fx:value="buttons_basic" />
+                  <String fx:value="buttons_basic_delete" />
+               </styleClass>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@../styles/mainPanel.css" />
+      <URL value="@../styles/components.css" />
+   </stylesheets>
+</VBox>
