@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -14,6 +15,7 @@ import parkflow.deskoptworker.Controllers.Admin.*;
 import parkflow.deskoptworker.models.User;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ViewFactory {
     // Cache widoków
@@ -60,8 +62,9 @@ public class ViewFactory {
     public VBox getReportsView() {
         if (reportsView == null) {
             try {
-                // Tymczasowo zwróć placeholder
-                reportsView = createPlaceholder("Reports View - Coming Soon");
+               reportsView = new FXMLLoader(
+                       getClass().getResource("/parkflow/deskoptworker/reports/ReportsMain.fxml"))
+                       .load();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -170,6 +173,13 @@ public class ViewFactory {
             stage.setMaximized(true);
             stage.setScene(scene);
             stage.setTitle("ParkFlow");
+            stage.getIcons().add(
+                    new Image(
+                            Objects.requireNonNull(
+                                    getClass().getResourceAsStream("/parkflow/deskoptworker/images/LogoIcon.png")
+                            )
+                    )
+            );
             stage.show();
 
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package parkflow.deskoptworker.models;
 
+
 public class Parking {
     private int id;
     private String name;

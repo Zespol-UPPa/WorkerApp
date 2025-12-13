@@ -1,0 +1,642 @@
+/* ====================== METRIC CARDS ====================== */
+
+.metric-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);
+}
+
+.metric-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 12, 0, 0, 4);
+    -fx-translate-y: -2;
+}
+
+/* Card color themes */
+.metric-card.card-green {
+    -fx-background-color: linear-gradient(to bottom right, #1DC45A, #039668);
+}
+
+.metric-card.card-blue {
+    -fx-background-color: linear-gradient(to bottom right, #3E81F6, #2A26BF);
+}
+
+.metric-card.card-purple {
+    -fx-background-color: linear-gradient(to bottom right, #A34DE9, #D5297E);
+}
+
+.metric-card.card-orange {
+    -fx-background-color: linear-gradient(to bottom right, #FA7017, #EC433D);
+}
+
+.metric-card.card-red {
+    -fx-background-color: linear-gradient(to bottom right, #EC433D, #BD1473);
+}
+
+/* Text styles for colored cards */
+.metric-card.card-green .metric-title,
+.metric-card.card-blue .metric-title,
+.metric-card.card-purple .metric-title,
+.metric-card.card-orange .metric-title,
+.metric-card.card-red .metric-title {
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+
+.metric-card.card-green .metric-value,
+.metric-card.card-blue .metric-value,
+.metric-card.card-purple .metric-value,
+.metric-card.card-orange .metric-value,
+.metric-card.card-red .metric-value {
+    -fx-text-fill: white;
+}
+
+.metric-card.card-green .metric-subtitle,
+.metric-card.card-blue .metric-subtitle,
+.metric-card.card-purple .metric-subtitle,
+.metric-card.card-orange .metric-subtitle,
+.metric-card.card-red .metric-subtitle {
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+}
+
+/* White card variant */
+.metric-card.card-white {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+}
+
+.metric-card.card-white .metric-title {
+    -fx-text-fill: #6b7280;
+}
+
+.metric-card.card-white .metric-value {
+    -fx-text-fill: #111827;
+}
+
+.metric-card.card-white .metric-subtitle {
+    -fx-text-fill: #9ca3af;
+}
+
+/* Text labels - inside metric cards */
+.metric-card .metric-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+}
+
+.metric-card .metric-value {
+    -fx-font-size: 32px;
+    -fx-font-weight: 700;
+    -fx-padding: 8 0 4 0;
+}
+
+.metric-card .metric-subtitle {
+    -fx-font-size: 13px;
+    -fx-font-weight: 400;
+}
+
+/* ====================== SIMPLE METRIC BOX ====================== */
+
+.simple-metric-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-width: 2px;
+    -fx-min-width: 180px;
+    -fx-pref-width: 200px;
+}
+
+/* Metric Labels */
+.metric-title {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6b7280;
+    -fx-font-weight: 500;
+}
+
+.metric-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+}
+
+
+.metric-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+    -fx-font-weight: 400;
+}
+
+/* Color variants for Simple Metric Cards */
+.simple-metric-card.metric-green {
+    -fx-border-color: #86efac;
+    -fx-background-color: #f0fdf4;
+}
+
+.simple-metric-card.metric-green .metric-value {
+    -fx-text-fill: #16a34a;
+}
+
+.simple-metric-card.metric-blue {
+    -fx-border-color: #93c5fd;
+    -fx-background-color: #eff6ff;
+}
+
+.simple-metric-card.metric-blue .metric-value {
+    -fx-text-fill: #2563eb;
+}
+
+.simple-metric-card.metric-purple {
+    -fx-border-color: #c4b5fd;
+    -fx-background-color: #f5f3ff;
+}
+
+.simple-metric-card.metric-purple .metric-value {
+    -fx-text-fill: #7c3aed;
+}
+
+.simple-metric-card.metric-orange {
+    -fx-border-color: #fdba74;
+    -fx-background-color: #fff7ed;
+}
+
+.simple-metric-card.metric-orange .metric-value {
+    -fx-text-fill: #ea580c;
+}
+
+.simple-metric-card.metric-red {
+    -fx-border-color: #fca5a5;
+    -fx-background-color: #fee2e2;
+}
+
+.simple-metric-card.metric-red .metric-value {
+    -fx-text-fill: #dc2626;
+}
+
+.simple-metric-card.metric-pink {
+    -fx-border-color: #f9a8d4;
+    -fx-background-color: #fce7f3;
+}
+
+.simple-metric-card.metric-pink .metric-value {
+    -fx-text-fill: #be185d;
+}
+
+/* ====================== FILTER BAR ====================== */
+
+.filter-bar {
+    -fx-background-color: #ffffff;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.filter-combo {
+    -fx-background-color: #EDEEFD;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12 6 12;
+    -fx-font-size: 18px;
+    -fx-pref-height: 36px;
+}
+
+.filter-combo .list-cell {
+    -fx-padding: 8 10;
+}
+
+.filter-combo .list-cell:hover {
+    -fx-background-color: #f3f4f6;
+}
+
+/* ====================== CUSTOMERS REPORT STYLES ====================== */
+
+/* Customers Table */
+.customers-table {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-background-radius: 12;
+}
+
+.customers-table .table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+}
+
+.customers-table .column-header {
+    -fx-background-color: #f9fafb;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #1f2937;
+    -fx-padding: 12 8;
+}
+
+.customers-table .column-header-background {
+    -fx-background-color: #f9fafb;
+}
+
+.customers-table .column-header .label {
+    -fx-text-fill: #1f2937 !important;
+    -fx-font-weight: 700 !important;
+}
+
+.customers-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f3f4f6 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 60px;
+}
+
+.customers-table .table-row-cell:hover {
+    -fx-background-color: #f9fafb;
+}
+
+.customers-table .table-cell {
+    -fx-padding: 12 16;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 14px;
+    -fx-text-fill: #111827;
+}
+
+/* Rank column specific styling */
+.customers-table .rank-column .table-cell {
+    -fx-font-weight: 700;
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER;
+}
+
+/* Sessions column - purple badge style */
+.customers-table .sessions-column .table-cell {
+    -fx-text-fill: #5b21b6;
+    -fx-font-weight: 600;
+}
+
+/* Total Spent column - green */
+.customers-table .spent-column .table-cell {
+    -fx-text-fill: #059669;
+    -fx-font-weight: 700;
+}
+
+/* Avg Duration column - gray */
+.customers-table .duration-column .table-cell {
+    -fx-text-fill: #6b7280;
+}
+
+/* Remove table borders */
+.customers-table .table-view:focused {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Scrollbar styling for table */
+.customers-table .scroll-bar:vertical {
+    -fx-pref-width: 8px;
+    -fx-background-color: transparent;
+}
+
+.customers-table .scroll-bar:vertical .track {
+    -fx-background-color: #f3f4f6;
+    -fx-background-radius: 4px;
+}
+
+.customers-table .scroll-bar:vertical .thumb {
+    -fx-background-color: #d1d5db;
+    -fx-background-radius: 4px;
+}
+
+.customers-table .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #9ca3af;
+}
+
+/* ====================== SCROLL PANE ====================== */
+
+.report-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.report-scroll-pane > .viewport {
+    -fx-background-color: #F2F3FE;
+    -fx-padding: 0;
+}
+
+/* Custom scrollbar */
+.report-scroll-pane > .scroll-bar:vertical {
+    -fx-pref-width: 10px;
+    -fx-background-color: transparent;
+    -fx-padding: 2 2 2 2;
+}
+
+.report-scroll-pane > .scroll-bar:vertical .track {
+    -fx-background-color: #E8E9F3;
+    -fx-background-radius: 5px;
+}
+
+.report-scroll-pane > .scroll-bar:vertical .thumb {
+    -fx-background-color: #2E3593;
+    -fx-background-radius: 5px;
+}
+
+.report-scroll-pane > .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #252B75;
+}
+
+.report-scroll-pane > .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #1B1F57;
+}
+
+.report-scroll-pane > .scroll-bar:vertical .increment-button,
+.report-scroll-pane > .scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+/* ====================== CHARTS ====================== */
+
+.chart {
+    -fx-padding: 10px;
+    -fx-min-height: 280px;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.chart-content {
+    -fx-padding: 10px;
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+
+.chart-series-area-fill {
+    -fx-fill: linear-gradient(to bottom, rgba(34, 197, 94, 0.6), rgba(255,255,255));
+}
+
+.chart-series-area-line {
+    -fx-stroke: #22c55e;
+    -fx-stroke-width: 3px;
+}
+
+/* Line Chart - Occupancy */
+.chart-series-line {
+    -fx-stroke: #3b82f6;
+    -fx-stroke-width: 3px;
+}
+
+.chart-line-symbol {
+    -fx-background-color: #3b82f6, white;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Axis styling */
+.chart .axis {
+    -fx-tick-label-fill: #64748b;
+    -fx-font-size: 6px;
+}
+
+.chart .axis-label {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 8px;
+    -fx-font-weight: 500;
+}
+
+.chart .axis-tick-mark {
+    -fx-stroke: #e2e8f0;
+    -fx-stroke-width: 1;
+}
+
+/* Grid lines */
+.chart .chart-vertical-grid-lines {
+    -fx-stroke: #e2e8f0;
+    -fx-stroke-dash-array: 2, 2;
+}
+
+.chart .chart-horizontal-grid-lines {
+    -fx-stroke: #e2e8f0;
+    -fx-stroke-dash-array: 2, 2;
+}
+
+/* Bar Chart specific styles */
+#durationDistributionChart .chart-bar {
+    -fx-bar-fill: #2E3593;
+    -fx-background-radius: 4 4 0 0;
+}
+
+#durationDistributionChart .chart-bar:hover {
+    -fx-bar-fill: #252B75;
+}
+
+/* Financial - Revenue vs Usage Chart */
+#revenueUsageChart .default-color0.chart-bar {
+    -fx-bar-fill: #10b981;
+}
+
+#revenueUsageChart .default-color1.chart-bar {
+    -fx-bar-fill: #a855f7;
+}
+
+#revenueUsageChart .chart-bar:hover {
+    -fx-opacity: 0.8;
+}
+
+.bar-chart .default-color0.chart-bar {
+    -fx-bar-fill: #10b981;
+}
+
+.bar-chart .default-color1.chart-bar {
+    -fx-bar-fill: #a855f7;
+}
+
+.bar-chart .chart-bar:hover {
+    -fx-opacity: 0.8;
+}
+
+/* ====================== OCCUPANCY REPORT SPECIFIC STYLES ====================== */
+
+#hourlyOccupancyChart .chart-series-area-fill {
+    -fx-fill: linear-gradient(to bottom, rgba(59, 130, 246, 0.6), rgba(147, 197, 253, 0.2));
+}
+
+#hourlyOccupancyChart .chart-series-area-line {
+    -fx-stroke: #3b82f6;
+    -fx-stroke-width: 3px;
+}
+
+#weeklyOccupancyChart .default-color0.chart-bar {
+    -fx-bar-fill: #7c3aed;
+}
+
+#weeklyOccupancyChart .chart-bar:hover {
+    -fx-opacity: 0.85;
+}
+
+/* Peak Hours Cards */
+.peak-hour-card {
+    -fx-background-color: #fce4ec;
+    -fx-background-radius: 12px;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);
+}
+
+.peak-hour-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 12, 0, 0, 4);
+    -fx-translate-y: -2;
+}
+
+.peak-hour-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #880e4f;
+}
+
+.peak-hour-time {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #ad1457;
+}
+
+.peak-hour-sessions {
+    -fx-font-size: 14px;
+    -fx-text-fill: #c2185b;
+}
+
+/* Occupancy badge colors */
+.occupancy-badge-container {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 8px;
+    -fx-padding: 8 16;
+}
+
+.occupancy-high .occupancy-badge-container {
+    -fx-background-color: rgba(239, 68, 68, 0.1);
+}
+
+.occupancy-high .occupancy-percent {
+    -fx-text-fill: #dc2626;
+}
+
+.occupancy-medium .occupancy-badge-container {
+    -fx-background-color: rgba(249, 115, 22, 0.1);
+}
+
+.occupancy-medium .occupancy-percent {
+    -fx-text-fill: #ea580c;
+}
+
+.occupancy-low .occupancy-badge-container {
+    -fx-background-color: rgba(34, 197, 94, 0.1);
+}
+
+.occupancy-low .occupancy-percent {
+    -fx-text-fill: #16a34a;
+}
+
+/* ====================== DURATION BREAKDOWN ====================== */
+
+.duration-breakdown-item {
+    -fx-spacing: 12;
+}
+
+.duration-progress-container {
+    -fx-background-color: #E5E7EB;
+    -fx-background-radius: 25;
+    -fx-min-height: 48;
+    -fx-pref-height: 48;
+}
+
+.duration-time-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #4b5563;
+    -fx-min-width: 100px;
+}
+
+.duration-count-label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #4b5563;
+    -fx-font-weight: 600;
+}
+
+.duration-progress-track {
+    -fx-background-color: transparent;
+    -fx-min-height: 48;
+    -fx-pref-height: 48;
+}
+
+.duration-progress-bar {
+    -fx-background-color: linear-gradient(to right, #7c3aed, #a855f7);
+    -fx-background-radius: 25 0 0 25;
+    -fx-min-width: 80;
+    -fx-min-height: 48;
+    -fx-pref-height: 48;
+}
+
+.duration-percentage-label {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-padding: 0 0 0 16;
+}
+
+/* ====================== STATUS CARDS ====================== */
+
+.status-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+}
+
+.status-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 15, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.status-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
+    -fx-font-weight: 500;
+}
+
+.status-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #1a1a1a;
+}
+
+.status-change {
+    -fx-font-size: 13px;
+    -fx-text-fill: #10b981;
+    -fx-font-weight: 500;
+}
+
+.status-change.negative {
+    -fx-text-fill: #ef4444;
+}
+
+/* ====================== HOVER EFFECTS ====================== */
+
+.simple-metric-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+/* ====================== PIE CHART ====================== */
+
+#revenueDistributionChart .chart-pie-label {
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+    -fx-fill: #1f2937;
+}
+
+#revenueDistributionChart .chart-pie-label-line {
+    -fx-stroke: #94a3b8;
+    -fx-stroke-width: 1;
+}
+
+#revenueDistributionChart .chart-legend-item-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #333333 !important;
+}

@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import parkflow.deskoptworker.Controllers.SectionController;
+import parkflow.deskoptworker.Controllers.Components.SectionController;
 
 import java.io.IOException;
 import java.util.ArrayList;

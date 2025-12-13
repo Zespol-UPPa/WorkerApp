@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefWidth="1110.0" spacing="8" stylesheets="@../styles/reports.css, @../styles/mainPanel.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="parkflow.deskoptworker.Controllers.Reports.ReportReservationsController"
+      style="-fx-background-color: transparent;">
+
+    <VBox spacing="12" style="-fx-background-color: transparent;">
+
+        <!-- Title section -->
+        <VBox spacing="4">
+            <Label styleClass="main_title" text="Reservation Metrics" />
+            <Label styleClass="main_subtitle" text="Real-time analytics and performance metrics" />
+        </VBox>
+
+        <!-- Top Metric Cards Grid - 4 cards with icons -->
+        <GridPane fx:id="metricsGrid" hgap="16" vgap="16">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+            </columnConstraints>
+        </GridPane>
+
+        <!-- Filter Bar -->
+        <fx:include source="../components/filterBar.fxml" fx:id="filterBar"/>
+
+        <!-- Revenue & Usage Section -->
+        <HBox spacing="20" VBox.vgrow="ALWAYS">
+            <children>
+                <!-- Reservation Revenue Card -->
+                <VBox spacing="16" styleClass="section_vbox" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="section_title" text="Reservation Revenue" />
+                        <VBox spacing="8" styleClass="simple-metric-card metric-green" style="-fx-padding: 16;">
+                            <Label styleClass="metric-title" text="From reservation fees" />
+                            <Label styleClass="metric-value" style="-fx-text-fill: #16a34a;" text="6235.00 $" />
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <!-- Avg Lead Time Card -->
+                <VBox spacing="16" styleClass="section_vbox" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="section_title" text="Avg Lead Time" />
+                        <VBox spacing="8" styleClass="simple-metric-card metric-blue" style="-fx-padding: 16;">
+                            <Label styleClass="metric-title" text="Before parking starts" />
+                            <Label styleClass="metric-value" style="-fx-text-fill: #2563eb;" text="18.5h" />
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <!-- No-Show Rate Card -->
+                <VBox spacing="16" styleClass="section_vbox" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="section_title" text="No-Show Rate" />
+                        <VBox spacing="8" styleClass="simple-metric-card metric-orange" style="-fx-padding: 16;">
+                            <Label styleClass="metric-title" text="Expired without use" />
+                            <Label styleClass="metric-value" style="-fx-text-fill: #ea580c;" text="12.7%" />
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <!-- Reservation Status Breakdown Section -->
+        <VBox spacing="16" styleClass="section_vbox">
+            <children>
+                <Label styleClass="section_title" text="Reservation Status Breakdown" />
+
+                <GridPane fx:id="breakdownGrid" hgap="20" vgap="8">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="100" prefHeight="120" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="20" prefHeight="30" vgrow="NEVER" />
+                    </rowConstraints>
+                </GridPane>
+
+            </children>
+        </VBox>
+
+    </VBox>
+
+</VBox>

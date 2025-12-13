@@ -41,7 +41,7 @@ public class AdminMenuController {
 
     private void handleLogout() {
         System.out.println("Logging out...");
-        // TODO: Implement logout
+        //HANDLE LOGOUT
     }
 
     private void setActiveButton(Button button) {

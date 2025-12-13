@@ -33,9 +33,9 @@ public class AdminController {
                 case "Parkings":
                     contentArea.setCenter(viewFactory.getParkingsView());
                     break;
-//                case "Reports":
-//                    contentArea.setCenter(viewFactory.getReportsView());
-//                    break;
+                case "Reports":
+                    contentArea.setCenter(viewFactory.getReportsView());
+                    break;
                 case "Personnel":
                     contentArea.setCenter(viewFactory.getPersonnelView());
                     break;

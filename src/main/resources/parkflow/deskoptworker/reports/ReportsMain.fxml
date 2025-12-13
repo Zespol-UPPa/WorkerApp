@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      fx:controller="parkflow.deskoptworker.Controllers.Reports.ReportsController"
+      stylesheets="@../styles/mainPanel.css, @../styles/reports.css"
+      minWidth="1200">
+
+    <!-- Top Menu Bar - Fixed at top with padding -->
+    <VBox styleClass="main_container_reports" style="-fx-padding: 8 10 0 10;">
+        <fx:include source="reportsTopMenu.fxml" fx:id="topMenu"/>
+    </VBox>
+
+    <!-- Scrollable Content Area -->
+    <ScrollPane fx:id="contentScrollPane"
+                styleClass="report-scroll-pane"
+                fitToWidth="true"
+                fitToHeight="true"
+                VBox.vgrow="ALWAYS"
+                style="-fx-background-color: transparent; -fx-background: transparent;">
+        <VBox fx:id="contentArea" styleClass="main_container_reports" style="-fx-padding: 0 10 20 10;"/>
+    </ScrollPane>
+
+</VBox>

@@ -1,4 +1,4 @@
-package parkflow.deskoptworker.Controllers;
+package parkflow.deskoptworker.Controllers.Components;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

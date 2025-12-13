@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import parkflow.deskoptworker.Controllers.ParkingItemController;
+import parkflow.deskoptworker.Controllers.Components.ParkingItemController;
 import parkflow.deskoptworker.SessionManager;
 import parkflow.deskoptworker.models.Parking;
 import parkflow.deskoptworker.models.UserRole;

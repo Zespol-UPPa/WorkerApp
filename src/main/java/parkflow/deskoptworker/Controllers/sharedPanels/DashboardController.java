@@ -8,7 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import parkflow.deskoptworker.Controllers.ParkingDashCompController;
+import parkflow.deskoptworker.Controllers.Components.ParkingDashCompController;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
