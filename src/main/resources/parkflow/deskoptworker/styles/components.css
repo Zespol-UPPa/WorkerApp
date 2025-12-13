@@ -203,3 +203,94 @@
     -fx-font-family: "Inter 18pt Regular";
     -fx-font-size: 20px;
 }
+
+/*Parking performance Item*/
+/* Parking Name and Address */
+
+.parking-card {
+    -fx-background-color: #EDEEFD;
+    -fx-background-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.04), 4, 0, 0, 1);
+}
+
+.parking-name {
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #111827;
+}
+
+.parking-address {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6b7280;
+}
+
+/* Occupancy Badge Container */
+.occupancy-badge-container {
+    -fx-min-width: 140;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.occupancy-percent {
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #111827;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.occupancy-spots {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+/* Color variants based on occupancy */
+.occupancy-low .occupancy-percent {
+    -fx-text-fill: #10b981;
+}
+
+.occupancy-medium .occupancy-percent {
+    -fx-text-fill: #f59e0b;
+}
+
+.occupancy-high .occupancy-percent {
+    -fx-text-fill: #ef4444;
+}
+
+.occupancy-low .occupancy-badge-container {
+    -fx-background-color: rgba(16, 185, 129, 0.1);
+    -fx-background-radius: 8;
+    -fx-padding: 8 16;
+}
+
+.occupancy-medium .occupancy-badge-container {
+    -fx-background-color: rgba(245, 158, 11, 0.1);
+    -fx-background-radius: 8;
+    -fx-padding: 8 16;
+}
+
+.occupancy-high .occupancy-badge-container {
+    -fx-background-color: rgba(239, 68, 68, 0.1);
+    -fx-background-radius: 8;
+    -fx-padding: 8 16;
+}
+
+.metric-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6b7280;
+    -fx-font-weight: 500;
+}
+
+.metric-value {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #111827;
+}
+
+.metric-value-revenue {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #10b981;
+}

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="parking_item" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.ParkingDashCompController">
+<VBox styleClass="parking_item" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.ParkingDashCompController">
     <children>
         <!-- Nagłówek: numer i nazwa oraz procent -->
         <HBox styleClass="parking_item_header">

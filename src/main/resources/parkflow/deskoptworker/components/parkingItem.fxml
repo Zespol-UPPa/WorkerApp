@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="300.0" maxHeight="320" minHeight="280" styleClass="main_cont" stylesheets="@../styles/parkingItem.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.ParkingItemController">
+<VBox prefHeight="300.0" maxHeight="320" minHeight="280" styleClass="main_cont" stylesheets="@../styles/parkingItem.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.ParkingItemController">
    <children>
       <HBox  styleClass="header_hbox">
          <children>

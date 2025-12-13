@@ -9,16 +9,19 @@
 
 .main_title {
     -fx-font-family: "Inter 18pt SemiBold";
+    -fx-text-fill: #333333 !important;
     -fx-font-size: 40px;
 }
 
 .main_subtitle {
     -fx-font-family: "Inter 18pt Medium";
+    -fx-text-fill: #333333 !important;
     -fx-font-size: 20px;
 }
 
 .section_title{
     -fx-font-family: "Inter 18pt Bold";
+    -fx-text-fill: #333333 !important;
     -fx-font-size: 22px;
 }
 
@@ -31,6 +34,14 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
 }
 
+.main_container_reports {
+    -fx-text-fill: #333333;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-padding:  10 0 10 10;
+    -fx-spacing: 20;
+    -fx-background-color: #F2F3FE;
+    -fx-font-size:25px;
+}
 .buttons_basic{
     -fx-text-fill: #333333;
     -fx-font-size: 20px;

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" maxWidth="Infinity" spacing="16" styleClass="parking-card" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.PerformanceItemController">
+
+   <padding>
+      <Insets bottom="20" left="24" right="24" top="20" />
+   </padding>
+
+   <!-- Header z nazwą, adresem i occupancy badge -->
+   <HBox alignment="CENTER_LEFT" spacing="0">
+      <!-- Left: Name and Address -->
+      <VBox spacing="4" HBox.hgrow="ALWAYS">
+         <Label fx:id="parkingNameLabel" styleClass="parking-name" text="Galeria Krakowska" />
+         <Label fx:id="parkingAddressLabel" styleClass="parking-address" text="ul. Pawia 5, Kraków" />
+      </VBox>
+
+      <!-- Right: Occupancy Badge -->
+      <VBox alignment="TOP_RIGHT" spacing="4" styleClass="occupancy-badge-container">
+         <Label fx:id="occupancyPercentLabel" styleClass="occupancy-percent" text="87%" />
+         <Label fx:id="occupancySpotsLabel" styleClass="occupancy-spots" text="1305/1500 spots" />
+      </VBox>
+   </HBox>
+
+   <!-- Metrics Row -->
+   <HBox alignment="CENTER_LEFT" spacing="40">
+      <!-- Revenue Today -->
+      <VBox spacing="6" HBox.hgrow="ALWAYS">
+         <Label styleClass="metric-label" text="Revenue Today" />
+         <Label fx:id="revenueLabel" styleClass="metric-value-revenue" text="18900.00 $" />
+      </VBox>
+
+      <!-- Sessions -->
+      <VBox spacing="6" HBox.hgrow="ALWAYS">
+         <Label styleClass="metric-label" text="Sessions" />
+         <Label fx:id="sessionsLabel" styleClass="metric-value" text="342" />
+      </VBox>
+
+      <!-- Avg Time -->
+      <VBox spacing="6" HBox.hgrow="ALWAYS">
+         <Label styleClass="metric-label" text="Avg Time" />
+         <Label fx:id="avgTimeLabel" styleClass="metric-value" text="2.8h" />
+      </VBox>
+
+      <!-- Peak Hour -->
+      <VBox spacing="6" HBox.hgrow="ALWAYS">
+         <Label styleClass="metric-label" text="Peak Hour" />
+         <Label fx:id="peakHourLabel" styleClass="metric-value" text="14:00" />
+      </VBox>
+   </HBox>
+
+</VBox>

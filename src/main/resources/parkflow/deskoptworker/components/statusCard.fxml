@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="cardContainer" styleClass="status-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.StatusCardController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <!-- Icon Container with colored background -->
+        <VBox fx:id="iconContainer" styleClass="icon-container" alignment="CENTER" minWidth="40" minHeight="40" maxWidth="40" maxHeight="40">
+            <ImageView fx:id="icon" fitWidth="24" fitHeight="24" preserveRatio="true"/>
+        </VBox>
+
+        <!-- Text Content -->
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label fx:id="titleLabel" styleClass="status-title"/>
+            <Label fx:id="subtitleLabel" styleClass="status-subtitle"/>
+        </VBox>
+    </HBox>
+
+    <VBox spacing="4" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+            <Insets top="12"/>
+        </VBox.margin>
+
+        <Label fx:id="valueLabel" styleClass="status-value"/>
+        <Label fx:id="changeLabel" styleClass="status-change"/>
+    </VBox>
+</VBox>
