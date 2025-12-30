@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefWidth="1110.0" spacing="8" stylesheets="@../../styles/reports.css, @../../styles/mainPanel.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportCustomersController"
+      style="-fx-background-color: transparent;">
+
+    <VBox spacing="12" style="-fx-background-color: transparent;">
+
+        <!-- Title section -->
+        <VBox spacing="4">
+            <Label styleClass="main_title" text="Customer Insights" />
+            <Label styleClass="main_subtitle" text="Real-time analytics and performance metrics" />
+        </VBox>
+
+        <!-- Top 4 Metric Cards (kolorowe z ikonkami) -->
+        <GridPane hgap="16" vgap="16">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+            </columnConstraints>
+
+            <fx:include source="../../components/MetricCard.fxml" fx:id="totalCustomersCard" GridPane.columnIndex="0" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="activeCard" GridPane.columnIndex="1" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="newCard" GridPane.columnIndex="2" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="retentionCard" GridPane.columnIndex="3" />
+        </GridPane>
+
+        <!-- Filter Bar -->
+        <fx:include source="../../components/filterBar.fxml" fx:id="filterBar"/>
+
+        <!-- Top Customers by Spending Table -->
+        <VBox spacing="16" styleClass="section_vbox">
+            <Label styleClass="section_title" text="Top Customers by Spending" />
+
+            <TableView fx:id="topCustomersTable"
+                       styleClass="customers-table"
+                       minHeight="300"
+                       prefHeight="350">
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+                <columns>
+                    <TableColumn fx:id="rankColumn" text="RANK" minWidth="80" styleClass="rank-column" />
+                    <TableColumn fx:id="customerColumn" text="CUSTOMER" minWidth="200" />
+                    <TableColumn fx:id="sessionsColumn" text="SESSIONS" minWidth="100" styleClass="sessions-column" />
+                    <TableColumn fx:id="totalSpentColumn" text="TOTAL SPENT" minWidth="120" styleClass="spent-column" />
+                    <TableColumn fx:id="avgDurationColumn" text="AVG DURATION" minWidth="120" />
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Bottom Row: Customer Behavior & Growth Metrics -->
+        <HBox spacing="20">
+            <!-- Customer Behavior Box -->
+            <VBox spacing="16" styleClass="section_vbox" HBox.hgrow="ALWAYS">
+                <Label styleClass="section_title" text="Customer Behavior" />
+
+                <VBox spacing="12">
+                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="avgSessionsCard" />
+                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="retentionRateCard" />
+                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="churnRateCard" />
+                </VBox>
+            </VBox>
+
+            <!-- Growth Metrics Box -->
+            <VBox spacing="16" styleClass="section_vbox" HBox.hgrow="ALWAYS">
+                <Label styleClass="section_title" text="Growth Metrics" />
+
+                <VBox spacing="12">
+                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="newCustomersCard" />
+                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="activeCustomersCard" />
+                </VBox>
+            </VBox>
+        </HBox>
+
+    </VBox>
+
+</VBox>

@@ -1,4 +1,4 @@
-package parkflow.deskoptworker.Controllers.Reports;
+package parkflow.deskoptworker.Controllers.sharedPanels.Reports;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,51 +40,51 @@ public class ReportOccupancyController {
      * Setup top 4 metric cards using MetricCard with colored gradients, NO ICONS
      */
     private void setupTopMetrics() {
-        // Card 1: Current Occupancy (White card)
+
         MetricCardController currentCard = loadMetricCard(
                 "Current Occupancy",
                 "87 %",
                 "3088/3550 spots",
                 null,  // NO ICON
-                "card-purple"
+                "card-white"
         );
         if (currentCard != null) {
             metricsGrid.add(currentCard.getRoot(), 0, 0);
         }
 
-        // Card 2: Daily Average (Blue gradient)
         MetricCardController avgCard = loadMetricCard(
                 "Daily Average",
                 "72 %",
                 "Consistent usage",
                 null,  // NO ICON
-                "card-blue"
+                "card-white"
         );
         if (avgCard != null) {
+            avgCard.setValueColor("value-green");
             metricsGrid.add(avgCard.getRoot(), 1, 0);
         }
 
-        // Card 3: Peak Today (Red gradient)
         MetricCardController peakCard = loadMetricCard(
                 "Peak Today",
                 "95 %",
                 "At 14:00",
                 null,  // NO ICON
-                "card-red"
+                "card-white"
         );
         if (peakCard != null) {
+            peakCard.setValueColor("value-red");
             metricsGrid.add(peakCard.getRoot(), 2, 0);
         }
 
-        // Card 4: Low Today (Green gradient)
         MetricCardController lowCard = loadMetricCard(
                 "Low Today",
                 "45 %",
                 "At 04:00",
                 null,  // NO ICON
-                "card-green"
+                "card-white"
         );
         if (lowCard != null) {
+            lowCard.setValueColor("value-blue");
             metricsGrid.add(lowCard.getRoot(), 3, 0);
         }
     }

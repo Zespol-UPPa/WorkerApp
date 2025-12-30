@@ -9,13 +9,9 @@ public class PricingWController {
     private Label freeMinutesLabel;
     @FXML private Label ratePerMinLabel;
     @FXML private Label reservationFeeLabel;
+    @FXML private Label pricingTitle;
 
     Parking parking;
-
-    @FXML
-    public void initialize() {
-        // Początkowy stan - puste, dopóki nie przyjdą dane
-    }
 
     /**
      * Ustawia dane parkingu i wyświetla jego cennik

@@ -4,12 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import lombok.Setter;
 
 public class FilterBarController {
 
     @FXML private ComboBox<String> timePeriodCombo;
     @FXML private ComboBox<String> parkingCombo;
 
+    // Public setters
+    @Setter
     private FilterChangeListener filterChangeListener;
 
     // Interface dla komunikacji z parent controllerem
@@ -53,8 +56,8 @@ public class FilterBarController {
 
     private void setupListeners() {
         // Auto-apply on selection change
-        timePeriodCombo.setOnAction(e -> notifyFilterChange());
-        parkingCombo.setOnAction(e -> notifyFilterChange());
+        timePeriodCombo.setOnAction(_ -> notifyFilterChange());
+        parkingCombo.setOnAction(_ -> notifyFilterChange());
     }
 
     private void notifyFilterChange() {
@@ -63,11 +66,6 @@ public class FilterBarController {
             String parking = parkingCombo.getValue();
             filterChangeListener.onFiltersChanged(timePeriod, parking);
         }
-    }
-
-    // Public setters
-    public void setFilterChangeListener(FilterChangeListener listener) {
-        this.filterChangeListener = listener;
     }
 
     public String getSelectedTimePeriod() {

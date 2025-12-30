@@ -1,4 +1,4 @@
-package parkflow.deskoptworker.Controllers.Reports;
+package parkflow.deskoptworker.Controllers.sharedPanels.Reports;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -50,24 +50,22 @@ public class ReportFinancialController {
                 "#E8F5E9"  // Light green background
         );
 
-        // Parking Usage (From Wallets) - z ikoną clockBlue.png
         parkingUsageCardController.setData(
                 "Parking Usage",
                 "(Finalized)",
                 "28920.00 $",
                 "1247 transactions",
                 "/parkflow/deskoptworker/images/clockBlue.png",
-                "#E3F2FD"  // Light blue background
+                "#E3F2FD"
         );
 
-        // Pending Payments (Awaiting Customer) - z ikoną dollarOrange.png
         pendingPaymentsCardController.setData(
                 "Pending Payments",
                 "(Awaiting Customer)",
                 "2340.00 $",
                 "To be collected",
                 "/parkflow/deskoptworker/images/dollarOrange.png",
-                "#FFF3E0"  // Light orange background
+                "#FFF3E0"
         );
     }
 

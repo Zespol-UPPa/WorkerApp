@@ -29,7 +29,7 @@ public class HelloApplication extends Application {
                 "+48 123 456 789",
                 "jan.kowalski@parkflow.com",
                 "90010112345",
-                UserRole.ADMIN, true
+                UserRole.WORKER, true
         );
         SessionManager.setCurrentUser(testUser);
 

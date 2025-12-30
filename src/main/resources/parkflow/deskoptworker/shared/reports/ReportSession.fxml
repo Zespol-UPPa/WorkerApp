@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="1110.0" spacing="0" stylesheets="@../styles/reports.css, @../styles/mainPanel.css"
+<VBox prefWidth="1110.0" spacing="0" stylesheets="@../../styles/reports.css, @../../styles/mainPanel.css"
       xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="parkflow.deskoptworker.Controllers.Reports.ReportSessionController"
+      fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportSessionController"
       style="-fx-background-color: transparent;">
 
     <VBox spacing="12" style="-fx-background-color: transparent;">
@@ -28,7 +28,7 @@
         </VBox>
 
         <!-- Filter Bar Component -->
-        <fx:include source="../components/filterBar.fxml" fx:id="filterBar" />
+        <fx:include source="../../components/filterBar.fxml" fx:id="filterBar" />
 
         <!-- Metric Cards Grid -->
         <GridPane hgap="16" vgap="16">
@@ -40,16 +40,16 @@
             </columnConstraints>
 
             <!-- Card 1: Avg Duration -->
-            <fx:include source="../components/MetricCard.fxml" fx:id="avgDurationCard" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="avgDurationCard" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
             <!-- Card 2: Total Sessions -->
-            <fx:include source="../components/MetricCard.fxml" fx:id="totalSessionsCard" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="totalSessionsCard" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
             <!-- Card 3: Active Now -->
-            <fx:include source="../components/MetricCard.fxml" fx:id="activeNowCard" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="activeNowCard" GridPane.columnIndex="2" GridPane.rowIndex="0" />
 
             <!-- Card 4: Completed -->
-            <fx:include source="../components/MetricCard.fxml" fx:id="completedCard" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="completedCard" GridPane.columnIndex="3" GridPane.rowIndex="0" />
         </GridPane>
 
         <!-- Charts row - Duration Distribution and Breakdown -->

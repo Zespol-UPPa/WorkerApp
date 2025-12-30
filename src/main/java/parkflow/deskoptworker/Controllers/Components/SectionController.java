@@ -3,8 +3,10 @@ package parkflow.deskoptworker.Controllers.Components;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
 
 public class SectionController {
+    @Getter
     @FXML private VBox rootContainer;
     @FXML private Label sectionNameLabel;
     @FXML private TextField numberOfSpacesField;
@@ -12,12 +14,13 @@ public class SectionController {
     @FXML private CheckBox isReservableCheckBox;
     @FXML private Button deleteButton;
 
+    // Gettery do odczytu danych
+    @Getter
     private String sectionLetter;
     private Runnable onDeleteCallback;
 
     public void initialize() {
-        // Walidacja - tylko liczby
-        numberOfSpacesField.textProperty().addListener((obs, oldVal, newVal) -> {
+        numberOfSpacesField.textProperty().addListener((_, oldVal, newVal) -> {
             if (!newVal.matches("\\d*")) {
                 numberOfSpacesField.setText(oldVal);
             }
@@ -38,16 +41,11 @@ public class SectionController {
 
     public void setOnDelete(Runnable callback) {
         this.onDeleteCallback = callback;
-        deleteButton.setOnAction(e -> {
+        deleteButton.setOnAction(_ -> {
             if (onDeleteCallback != null) {
                 onDeleteCallback.run();
             }
         });
-    }
-
-    // Gettery do odczytu danych
-    public String getSectionLetter() {
-        return sectionLetter;
     }
 
     public int getNumberOfSpaces() {
@@ -72,7 +70,4 @@ public class SectionController {
                 floorChoiceBox.getValue() != null;
     }
 
-    public VBox getRootContainer() {
-        return rootContainer;
-    }
 }

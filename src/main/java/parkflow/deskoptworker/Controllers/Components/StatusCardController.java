@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.util.Objects;
+
 public class StatusCardController {
 
     @FXML
@@ -47,7 +49,7 @@ public class StatusCardController {
 
         // Ustawienie ikony
         try {
-            Image iconImage = new Image(getClass().getResourceAsStream(iconPath));
+            Image iconImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
             icon.setImage(iconImage);
         } catch (Exception e) {
             System.err.println("Error loading icon: " + iconPath);
@@ -58,33 +60,102 @@ public class StatusCardController {
         iconContainer.setStyle("-fx-background-color: " + iconBackgroundColor + ";");
     }
 
+    // === SETTERY DO AKTUALIZACJI POJEDYNCZYCH PÓL ===
+
+    public void setTitle(String title) {
+        if (title != null) {
+            titleLabel.setText(title);
+            titleLabel.setVisible(true);
+            titleLabel.setManaged(true);
+        } else {
+            titleLabel.setVisible(false);
+            titleLabel.setManaged(false);
+        }
+    }
+
+    public void setSubtitle(String subtitle) {
+        if (subtitle != null && !subtitle.isEmpty()) {
+            subtitleLabel.setText(subtitle);
+            subtitleLabel.setVisible(true);
+            subtitleLabel.setManaged(true);
+        } else {
+            subtitleLabel.setVisible(false);
+            subtitleLabel.setManaged(false);
+        }
+    }
+
+    public void setValue(String value) {
+        if (value != null) {
+            valueLabel.setText(value);
+        }
+    }
+
+    public void setChange(String change) {
+        if (change != null && !change.isEmpty()) {
+            changeLabel.setText(change);
+            changeLabel.setVisible(true);
+            changeLabel.setManaged(true);
+        } else {
+            changeLabel.setVisible(false);
+            changeLabel.setManaged(false);
+        }
+    }
+
+    public void setIcon(String iconPath, String backgroundColor) {
+        if (iconPath != null && !iconPath.isEmpty()) {
+            try {
+                Image iconImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
+                icon.setImage(iconImage);
+                icon.setVisible(true);
+                icon.setManaged(true);
+                iconContainer.setVisible(true);
+                iconContainer.setManaged(true);
+            } catch (Exception e) {
+                System.err.println("Error loading icon: " + iconPath);
+                hideIcon();
+            }
+        } else {
+            hideIcon();
+        }
+
+        if (backgroundColor != null) {
+            iconContainer.setStyle("-fx-background-color: " + backgroundColor + ";");
+        }
+    }
+
+    private void hideIcon() {
+        icon.setVisible(false);
+        icon.setManaged(false);
+        iconContainer.setVisible(false);
+        iconContainer.setManaged(false);
+    }
+
     /**
      * Wariant dla typu karty (green, blue, orange)
      * @param type "revenue", "usage", "pending"
      */
     public void setCardType(String type) {
         String iconBg = "";
-        String iconPath = "";
-
-        switch (type.toLowerCase()) {
-            case "revenue":
+        String iconPath = switch (type.toLowerCase()) {
+            case "revenue" -> {
                 iconBg = "#E8F5E9"; // Light green
-                iconPath = "/icons/dollar-icon.png";
-                break;
-            case "usage":
+                yield "/icons/dollar-icon.png";
+            }
+            case "usage" -> {
                 iconBg = "#E3F2FD"; // Light blue
-                iconPath = "/icons/parking-icon.png";
-                break;
-            case "pending":
+                yield "/icons/parking-icon.png";
+            }
+            case "pending" -> {
                 iconBg = "#FFF3E0"; // Light orange
-                iconPath = "/icons/pending-icon.png";
-                break;
-        }
+                yield "/icons/pending-icon.png";
+            }
+            default -> "";
+        };
 
         iconContainer.setStyle("-fx-background-color: " + iconBg + ";");
 
         try {
-            Image iconImage = new Image(getClass().getResourceAsStream(iconPath));
+            Image iconImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath)));
             icon.setImage(iconImage);
         } catch (Exception e) {
             System.err.println("Error loading icon for type: " + type);
@@ -105,4 +176,13 @@ public class StatusCardController {
     public void setChangeColor(String color) {
         changeLabel.setStyle("-fx-text-fill: " + color + ";");
     }
+
+    public void setValueColor(String color) {
+        if (color != null && !color.isEmpty()) {
+            valueLabel.setStyle("-fx-text-fill: " + color + ";");
+            };
+
+        }
+
+
 }

@@ -31,7 +31,7 @@ public class AddParkingController {
     @FXML
     public void initialize() {
         // Walidacja - tylko liczby dla pięter
-        numberOfFloorsField.textProperty().addListener((obs, oldVal, newVal) -> {
+        numberOfFloorsField.textProperty().addListener((_, oldVal, newVal) -> {
             if (!newVal.matches("\\d*")) {
                 numberOfFloorsField.setText(oldVal);
             }

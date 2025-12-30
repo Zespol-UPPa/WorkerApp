@@ -1,4 +1,4 @@
-package parkflow.deskoptworker.Controllers.Reports;
+package parkflow.deskoptworker.Controllers.sharedPanels.Reports;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

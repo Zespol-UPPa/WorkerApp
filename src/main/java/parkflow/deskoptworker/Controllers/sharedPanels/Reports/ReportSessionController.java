@@ -1,18 +1,12 @@
-package parkflow.deskoptworker.Controllers.Reports;
+package parkflow.deskoptworker.Controllers.sharedPanels.Reports;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import parkflow.deskoptworker.Controllers.Components.FilterBarController;
 import parkflow.deskoptworker.Controllers.Components.MetricCardController;
 
@@ -81,7 +75,7 @@ public class ReportSessionController {
                 "Avg Duration",
                 "1.6h",
                 "",
-                null, // no icon
+                "/parkflow/deskoptworker/images/clockWhite.png",
                 "card-blue"
         );
 
@@ -90,7 +84,7 @@ public class ReportSessionController {
                 "Total Sessions",
                 "1200",
                 "",
-                null,
+                "/parkflow/deskoptworker/images/increase.png",
                 "card-green"
         );
 
@@ -99,7 +93,7 @@ public class ReportSessionController {
                 "Active Now",
                 "124",
                 "",
-                null,
+                "/parkflow/deskoptworker/images/beatWhite.png",
                 "card-purple"
         );
 
@@ -108,7 +102,7 @@ public class ReportSessionController {
                 "Completed",
                 "1076",
                 "",
-                null,
+                "/parkflow/deskoptworker/images/targetWhite.png",
                 "card-orange"
         );
     }

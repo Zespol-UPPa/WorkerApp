@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="workerMenu"
+      minWidth="260" prefWidth="220" maxWidth="280"
+      minHeight="0" maxHeight="Infinity"
+      styleClass="menu_container"
+      stylesheets="@../styles/menu.css"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="parkflow.deskoptworker.Controllers.Worker.WorkerMenuController">
+   <children>
+      <!-- Logo Section -->
+      <VBox alignment="CENTER" minHeight="100" prefHeight="120" maxHeight="150">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="180.0"
+                       pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logoWhite.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets top="10" bottom="10"/>
+         </padding>
+      </VBox>
+
+      <!-- Menu Options Container -->
+      <VBox prefHeight="100.0" minHeight="0" VBox.vgrow="ALWAYS" styleClass="menu_options">
+         <children>
+            <!-- Main Menu Items -->
+            <VBox styleClass="menu_specific" spacing="5">
+               <children>
+                  <Button fx:id="dashboardBtn"
+                          minHeight="50" prefHeight="55" maxWidth="Infinity"
+                          mnemonicParsing="false"
+                          styleClass="menu_button"
+                          text="Dashboard">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+
+                  <Button fx:id="parkingBtn"
+                          minHeight="50" prefHeight="55" maxWidth="Infinity"
+                          mnemonicParsing="false"
+                          styleClass="menu_button"
+                          text="Parkings">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/parking.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+
+                  <Button fx:id="reportsBtn"
+                          minHeight="50" prefHeight="55" maxWidth="Infinity"
+                          mnemonicParsing="false"
+                          styleClass="menu_button"
+                          text="Reports">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/graph.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+
+                  <Button fx:id="customersBtn"
+                          minHeight="50" prefHeight="55" maxWidth="Infinity"
+                          mnemonicParsing="false"
+                          styleClass="menu_button"
+                          text="Customers">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/customers.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+
+            <!-- Spacer to push bottom buttons down -->
+            <Region VBox.vgrow="ALWAYS" minHeight="0" />
+
+            <!-- Bottom Menu Items -->
+            <VBox styleClass="menu_specific">
+               <children>
+                  <Button fx:id="settingsBtn"
+                          minHeight="50" prefHeight="55" maxWidth="Infinity"
+                          mnemonicParsing="false"
+                          styleClass="menu_button"
+                          text="Settings">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/settings.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+
+                  <Button fx:id="logoutBtn"
+                          minHeight="50" prefHeight="55" maxWidth="Infinity"
+                          mnemonicParsing="false"
+                          styleClass="menu_button"
+                          text="Logout">
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>

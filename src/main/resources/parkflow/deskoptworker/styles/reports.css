@@ -1,183 +1,3 @@
-/* ====================== METRIC CARDS ====================== */
-
-.metric-card {
-    -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);
-}
-
-.metric-card:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 12, 0, 0, 4);
-    -fx-translate-y: -2;
-}
-
-/* Card color themes */
-.metric-card.card-green {
-    -fx-background-color: linear-gradient(to bottom right, #1DC45A, #039668);
-}
-
-.metric-card.card-blue {
-    -fx-background-color: linear-gradient(to bottom right, #3E81F6, #2A26BF);
-}
-
-.metric-card.card-purple {
-    -fx-background-color: linear-gradient(to bottom right, #A34DE9, #D5297E);
-}
-
-.metric-card.card-orange {
-    -fx-background-color: linear-gradient(to bottom right, #FA7017, #EC433D);
-}
-
-.metric-card.card-red {
-    -fx-background-color: linear-gradient(to bottom right, #EC433D, #BD1473);
-}
-
-/* Text styles for colored cards */
-.metric-card.card-green .metric-title,
-.metric-card.card-blue .metric-title,
-.metric-card.card-purple .metric-title,
-.metric-card.card-orange .metric-title,
-.metric-card.card-red .metric-title {
-    -fx-text-fill: rgba(255, 255, 255, 0.9);
-}
-
-.metric-card.card-green .metric-value,
-.metric-card.card-blue .metric-value,
-.metric-card.card-purple .metric-value,
-.metric-card.card-orange .metric-value,
-.metric-card.card-red .metric-value {
-    -fx-text-fill: white;
-}
-
-.metric-card.card-green .metric-subtitle,
-.metric-card.card-blue .metric-subtitle,
-.metric-card.card-purple .metric-subtitle,
-.metric-card.card-orange .metric-subtitle,
-.metric-card.card-red .metric-subtitle {
-    -fx-text-fill: rgba(255, 255, 255, 0.8);
-}
-
-/* White card variant */
-.metric-card.card-white {
-    -fx-background-color: white;
-    -fx-border-color: #e5e7eb;
-    -fx-border-width: 1;
-    -fx-border-radius: 12;
-}
-
-.metric-card.card-white .metric-title {
-    -fx-text-fill: #6b7280;
-}
-
-.metric-card.card-white .metric-value {
-    -fx-text-fill: #111827;
-}
-
-.metric-card.card-white .metric-subtitle {
-    -fx-text-fill: #9ca3af;
-}
-
-/* Text labels - inside metric cards */
-.metric-card .metric-title {
-    -fx-font-size: 14px;
-    -fx-font-weight: 500;
-}
-
-.metric-card .metric-value {
-    -fx-font-size: 32px;
-    -fx-font-weight: 700;
-    -fx-padding: 8 0 4 0;
-}
-
-.metric-card .metric-subtitle {
-    -fx-font-size: 13px;
-    -fx-font-weight: 400;
-}
-
-/* ====================== SIMPLE METRIC BOX ====================== */
-
-.simple-metric-card {
-    -fx-background-color: white;
-    -fx-background-radius: 8px;
-    -fx-border-radius: 8px;
-    -fx-border-width: 2px;
-    -fx-min-width: 180px;
-    -fx-pref-width: 200px;
-}
-
-/* Metric Labels */
-.metric-title {
-    -fx-font-size: 13px;
-    -fx-text-fill: #6b7280;
-    -fx-font-weight: 500;
-}
-
-.metric-value {
-    -fx-font-size: 24px;
-    -fx-font-weight: 700;
-}
-
-
-.metric-subtitle {
-    -fx-font-size: 12px;
-    -fx-text-fill: #6b7280;
-    -fx-font-weight: 400;
-}
-
-/* Color variants for Simple Metric Cards */
-.simple-metric-card.metric-green {
-    -fx-border-color: #86efac;
-    -fx-background-color: #f0fdf4;
-}
-
-.simple-metric-card.metric-green .metric-value {
-    -fx-text-fill: #16a34a;
-}
-
-.simple-metric-card.metric-blue {
-    -fx-border-color: #93c5fd;
-    -fx-background-color: #eff6ff;
-}
-
-.simple-metric-card.metric-blue .metric-value {
-    -fx-text-fill: #2563eb;
-}
-
-.simple-metric-card.metric-purple {
-    -fx-border-color: #c4b5fd;
-    -fx-background-color: #f5f3ff;
-}
-
-.simple-metric-card.metric-purple .metric-value {
-    -fx-text-fill: #7c3aed;
-}
-
-.simple-metric-card.metric-orange {
-    -fx-border-color: #fdba74;
-    -fx-background-color: #fff7ed;
-}
-
-.simple-metric-card.metric-orange .metric-value {
-    -fx-text-fill: #ea580c;
-}
-
-.simple-metric-card.metric-red {
-    -fx-border-color: #fca5a5;
-    -fx-background-color: #fee2e2;
-}
-
-.simple-metric-card.metric-red .metric-value {
-    -fx-text-fill: #dc2626;
-}
-
-.simple-metric-card.metric-pink {
-    -fx-border-color: #f9a8d4;
-    -fx-background-color: #fce7f3;
-}
-
-.simple-metric-card.metric-pink .metric-value {
-    -fx-text-fill: #be185d;
-}
 
 /* ====================== FILTER BAR ====================== */
 
@@ -203,106 +23,6 @@
 
 .filter-combo .list-cell:hover {
     -fx-background-color: #f3f4f6;
-}
-
-/* ====================== CUSTOMERS REPORT STYLES ====================== */
-
-/* Customers Table */
-.customers-table {
-    -fx-background-color: white;
-    -fx-border-color: transparent;
-    -fx-background-radius: 12;
-}
-
-.customers-table .table-view {
-    -fx-background-color: white;
-    -fx-background-radius: 12;
-}
-
-.customers-table .column-header {
-    -fx-background-color: #f9fafb;
-    -fx-font-size: 11px;
-    -fx-font-weight: 700;
-    -fx-text-fill: #1f2937;
-    -fx-padding: 12 8;
-}
-
-.customers-table .column-header-background {
-    -fx-background-color: #f9fafb;
-}
-
-.customers-table .column-header .label {
-    -fx-text-fill: #1f2937 !important;
-    -fx-font-weight: 700 !important;
-}
-
-.customers-table .table-row-cell {
-    -fx-background-color: white;
-    -fx-border-color: transparent transparent #f3f4f6 transparent;
-    -fx-border-width: 0 0 1 0;
-    -fx-cell-size: 60px;
-}
-
-.customers-table .table-row-cell:hover {
-    -fx-background-color: #f9fafb;
-}
-
-.customers-table .table-cell {
-    -fx-padding: 12 16;
-    -fx-alignment: CENTER_LEFT;
-    -fx-font-size: 14px;
-    -fx-text-fill: #111827;
-}
-
-/* Rank column specific styling */
-.customers-table .rank-column .table-cell {
-    -fx-font-weight: 700;
-    -fx-font-size: 16px;
-    -fx-alignment: CENTER;
-}
-
-/* Sessions column - purple badge style */
-.customers-table .sessions-column .table-cell {
-    -fx-text-fill: #5b21b6;
-    -fx-font-weight: 600;
-}
-
-/* Total Spent column - green */
-.customers-table .spent-column .table-cell {
-    -fx-text-fill: #059669;
-    -fx-font-weight: 700;
-}
-
-/* Avg Duration column - gray */
-.customers-table .duration-column .table-cell {
-    -fx-text-fill: #6b7280;
-}
-
-/* Remove table borders */
-.customers-table .table-view:focused {
-    -fx-background-color: white;
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-}
-
-/* Scrollbar styling for table */
-.customers-table .scroll-bar:vertical {
-    -fx-pref-width: 8px;
-    -fx-background-color: transparent;
-}
-
-.customers-table .scroll-bar:vertical .track {
-    -fx-background-color: #f3f4f6;
-    -fx-background-radius: 4px;
-}
-
-.customers-table .scroll-bar:vertical .thumb {
-    -fx-background-color: #d1d5db;
-    -fx-background-radius: 4px;
-}
-
-.customers-table .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: #9ca3af;
 }
 
 /* ====================== SCROLL PANE ====================== */
@@ -580,41 +300,7 @@
     -fx-padding: 0 0 0 16;
 }
 
-/* ====================== STATUS CARDS ====================== */
 
-.status-card {
-    -fx-background-color: white;
-    -fx-background-radius: 12px;
-    -fx-padding: 24;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
-}
-
-.status-card:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 15, 0, 0, 3);
-    -fx-cursor: hand;
-}
-
-.status-label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #6b7280;
-    -fx-font-weight: 500;
-}
-
-.status-value {
-    -fx-font-size: 28px;
-    -fx-font-weight: 700;
-    -fx-text-fill: #1a1a1a;
-}
-
-.status-change {
-    -fx-font-size: 13px;
-    -fx-text-fill: #10b981;
-    -fx-font-weight: 500;
-}
-
-.status-change.negative {
-    -fx-text-fill: #ef4444;
-}
 
 /* ====================== HOVER EFFECTS ====================== */
 
@@ -639,4 +325,128 @@
 #revenueDistributionChart .chart-legend-item-text {
     -fx-font-size: 12px;
     -fx-text-fill: #333333 !important;
+}
+/* ====================== CUSTOMERS TABLE ====================== */
+
+.customers-table {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-background-radius: 12;
+}
+
+.customers-table .table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+}
+
+/* Nagłówki tabeli */
+.customers-table .column-header-background {
+    -fx-background-color: #F8F9FA;
+}
+
+.customers-table .column-header {
+    -fx-background-color: #F8F9FA;
+    -fx-padding: 12 8;
+}
+
+.customers-table .column-header .label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6B7280;
+    -fx-alignment: center-left;
+}
+
+/* Wiersze tabeli */
+.customers-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent #f3f4f6 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 50px;
+}
+
+.customers-table .table-row-cell:hover {
+    -fx-background-color: #f9fafb;
+}
+
+/* Komórki tabeli - domyślnie center-left */
+.customers-table .table-cell {
+    -fx-alignment: center-left;
+    -fx-padding: 8 16;
+    -fx-font-size: 14px;
+    -fx-text-fill: #111827;
+}
+
+/* RANK i SESSIONS - wycentrowane */
+.rank-column.table-cell,
+.sessions-column.table-cell {
+    -fx-alignment: center;
+}
+
+.rank-column.column-header .label,
+.sessions-column.column-header .label {
+    -fx-alignment: center;
+}
+
+/* TOTAL SPENT - zielony tekst */
+.spent-column.table-cell {
+    -fx-text-fill: #22C55E;
+    -fx-font-weight: bold;
+}
+
+/* AVG DURATION - szary tekst */
+.duration-column.table-cell {
+    -fx-text-fill: #6b7280;
+}
+
+/* Rank badge */
+.rank-badge {
+    -fx-background-color: linear-gradient(to bottom right, #943AD0, #C436A3);
+    -fx-background-radius: 6;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 10;
+}
+
+/* Sessions badge */
+.sessions-badge {
+    -fx-background-color: #D3E5FF;
+    -fx-background-radius: 6;
+    -fx-text-fill: #2E3593;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 4 12;
+}
+
+/* Focus i scrollbar */
+.customers-table .table-view:focused {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Scrollbar tabeli */
+.customers-table .scroll-bar:vertical {
+    -fx-pref-width: 8px;
+    -fx-background-color: transparent;
+}
+
+.customers-table .scroll-bar:vertical .track {
+    -fx-background-color: #f3f4f6;
+    -fx-background-radius: 4px;
+}
+
+.customers-table .scroll-bar:vertical .thumb {
+    -fx-background-color: #d1d5db;
+    -fx-background-radius: 4px;
+}
+
+.customers-table .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #9ca3af;
+}
+
+.customers-table .scroll-bar:vertical .increment-button,
+.customers-table .scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
 }

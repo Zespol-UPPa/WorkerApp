@@ -6,23 +6,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" alignment="TOP_LEFT" minWidth="200" prefHeight="140" spacing="8" styleClass="metric-card" stylesheets="@../styles/reports.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.MetricCardController">
+<VBox fx:id="root" alignment="TOP_LEFT" minWidth="200" styleClass="metric-card" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.MetricCardController">
 
     <padding>
-        <Insets bottom="20" left="20" right="20" top="20" />
+        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
     </padding>
 
     <!-- Header: Icon + Title -->
     <HBox alignment="CENTER_LEFT" spacing="12">
-        <ImageView fx:id="iconView" fitHeight="24" fitWidth="24" preserveRatio="true" styleClass="metric-icon" />
+        <ImageView fx:id="iconView" fitHeight="24" fitWidth="24" managed="false" preserveRatio="true" visible="false" />
 
-        <Label fx:id="titleLabel" styleClass="metric-title" wrapText="true" HBox.hgrow="ALWAYS" />
+        <Label fx:id="titleLabel" styleClass="metric-title" text="Title" wrapText="true" HBox.hgrow="ALWAYS" />
     </HBox>
 
     <!-- Value -->
     <Label fx:id="valueLabel" styleClass="metric-value" text="0" />
 
     <!-- Subtitle -->
-    <Label fx:id="subtitleLabel" styleClass="metric-subtitle" wrapText="true" />
+    <Label fx:id="subtitleLabel" styleClass="metric-subtitle" text="description" wrapText="true" />
 
 </VBox>

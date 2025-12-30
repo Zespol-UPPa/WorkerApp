@@ -7,8 +7,8 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       xmlns="http://javafx.com/javafx/23.0.1"
-      fx:controller="parkflow.deskoptworker.Controllers.Reports.ReportsController"
-      stylesheets="@../styles/mainPanel.css, @../styles/reports.css"
+      fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportsController"
+      stylesheets="@../../styles/mainPanel.css, @../../styles/reports.css"
       minWidth="1200">
 
     <!-- Top Menu Bar - Fixed at top with padding -->

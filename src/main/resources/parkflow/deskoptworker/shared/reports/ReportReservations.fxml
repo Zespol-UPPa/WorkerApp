@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefWidth="1110.0" spacing="8" style="-fx-background-color: transparent;"
+      stylesheets="@../../styles/reports.css, @../../styles/mainPanel.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportReservationsController">
+
+    <VBox spacing="12" style="-fx-background-color: transparent;">
+
+        <!-- Title section -->
+        <VBox spacing="4">
+            <Label styleClass="main_title" text="Reservation Metrics" />
+            <Label styleClass="main_subtitle" text="Real-time analytics and performance metrics" />
+        </VBox>
+
+        <!-- Top 4 Metric Cards (kolorowe z ikonkami) -->
+        <GridPane hgap="16" vgap="16">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+            </columnConstraints>
+
+            <fx:include source="../../components/MetricCard.fxml" fx:id="totalReservationsCard" GridPane.columnIndex="0" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="usedCard" GridPane.columnIndex="1" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="utilizationCard" GridPane.columnIndex="2" />
+            <fx:include source="../../components/MetricCard.fxml" fx:id="paidCard" GridPane.columnIndex="3" />
+        </GridPane>
+
+        <!-- Filter Bar -->
+        <fx:include fx:id="filterBar" source="../../components/filterBar.fxml" />
+
+        <!-- 3 Status Cards (białe z ikonkami) -->
+        <HBox spacing="20">
+            <fx:include source="../../components/statusCard.fxml" fx:id="revenueCard" HBox.hgrow="ALWAYS" />
+            <fx:include source="../../components/statusCard.fxml" fx:id="leadTimeCard" HBox.hgrow="ALWAYS" />
+            <fx:include source="../../components/statusCard.fxml" fx:id="noShowCard" HBox.hgrow="ALWAYS" />
+        </HBox>
+
+        <!-- Reservation Status Breakdown Section -->
+        <VBox spacing="16" styleClass="section_vbox">
+            <Label styleClass="section_title" text="Reservation Status Breakdown" />
+
+            <GridPane hgap="16" vgap="8">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                </columnConstraints>
+
+                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="usedBreakdown" GridPane.columnIndex="0" />
+                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="paidBreakdown" GridPane.columnIndex="1" />
+                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="expiredBreakdown" GridPane.columnIndex="2" />
+                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="successBreakdown" GridPane.columnIndex="3" />
+            </GridPane>
+        </VBox>
+
+    </VBox>
+
+</VBox>

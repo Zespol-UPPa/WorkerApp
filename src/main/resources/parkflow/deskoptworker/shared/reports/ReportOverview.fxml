@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="1110.0" spacing="8" stylesheets="@../styles/reports.css, @../styles/mainPanel.css"
+<VBox prefWidth="1110.0" spacing="8" stylesheets="@../../styles/reports.css, @../../styles/mainPanel.css"
       xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="parkflow.deskoptworker.Controllers.Reports.ReportOverviewController"
+      fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportOverviewController"
       style="-fx-background-color: transparent;">
 
     <VBox spacing="12" style="-fx-background-color: transparent;">

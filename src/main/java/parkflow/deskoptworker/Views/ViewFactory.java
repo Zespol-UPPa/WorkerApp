@@ -30,6 +30,8 @@ public class ViewFactory {
 
     // Shared views
     public VBox getDashboardView() {
+
+        System.out.println("Showing dashboard view");
         if (dashboardView == null) {
             try {
                 dashboardView = new FXMLLoader(
@@ -63,7 +65,7 @@ public class ViewFactory {
         if (reportsView == null) {
             try {
                reportsView = new FXMLLoader(
-                       getClass().getResource("/parkflow/deskoptworker/reports/ReportsMain.fxml"))
+                       getClass().getResource("/parkflow/deskoptworker/shared/reports/ReportsMain.fxml"))
                        .load();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -129,10 +131,13 @@ public class ViewFactory {
     public VBox getCustomersView() {
         if (customersView == null) {
             try {
-                // Tymczasowo zwróć placeholder
-                customersView = createPlaceholder("Customers View - Coming Soon");
+             customersView= new FXMLLoader(
+                     getClass().getResource("/parkflow/deskoptworker/worker/Customers.fxml"))
+                     .load();
             } catch (Exception e) {
                 e.printStackTrace();
+                // Tymczasowo zwróć placeholder
+                customersView = createPlaceholder("Customers View - Coming Soon");
             }
         }
         return customersView;
@@ -189,20 +194,36 @@ public class ViewFactory {
     }
 
     public void showWorkerWindow() {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/parkflow/deskoptworker/employee/Worker.fxml")
-        );
-        Scene scene = null;
+        System.out.println("Worker window opened");
         try {
-            scene = new Scene(loader.load());
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/worker/Worker.fxml")
+            );
+
+            BorderPane root = loader.load();
+            System.out.println("Worker.fxml loaded");
+
+            Scene scene = new Scene(root);
+
+            Stage stage = new Stage();
+            stage.setMinWidth(1200);
+            stage.setMinHeight(700);
+            stage.setMaximized(true);
+            stage.setScene(scene);
+            stage.setTitle("ParkFlow - Worker");
+            stage.getIcons().add(
+                    new Image(
+                            Objects.requireNonNull(
+                                    getClass().getResourceAsStream("/parkflow/deskoptworker/images/LogoIcon.png")
+                            )
+                    )
+            );
+            stage.show();
+
         } catch (Exception e) {
+            System.err.println("Failed to load Worker window!");
             e.printStackTrace();
         }
-
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("ParkFlow");
-        stage.show();
     }
 
     /**

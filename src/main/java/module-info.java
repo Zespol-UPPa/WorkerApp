@@ -6,6 +6,7 @@ module parkflow.deskoptworker {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires com.almasb.fxgl.all;
+    requires static lombok;
 
     opens parkflow.deskoptworker to javafx.fxml;
     exports parkflow.deskoptworker;
@@ -18,8 +19,9 @@ module parkflow.deskoptworker {
     exports parkflow.deskoptworker.Controllers.sharedPanels;
     opens parkflow.deskoptworker.Controllers.sharedPanels to javafx.fxml;
     opens parkflow.deskoptworker.models to javafx.fxml, javafx.base;
+    exports parkflow.deskoptworker.models;
     exports parkflow.deskoptworker.Controllers.Components;
     opens parkflow.deskoptworker.Controllers.Components to javafx.fxml;
-    exports parkflow.deskoptworker.Controllers.Reports;
-    opens parkflow.deskoptworker.Controllers.Reports to javafx.fxml;
+    exports parkflow.deskoptworker.Controllers.sharedPanels.Reports;
+    opens parkflow.deskoptworker.Controllers.sharedPanels.Reports to javafx.fxml;
 }

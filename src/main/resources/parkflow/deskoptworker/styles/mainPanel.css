@@ -1,7 +1,7 @@
 .main_container {
     -fx-text-fill: #333333;
     -fx-font-family: "Inter 18pt Regular";
-    -fx-padding: 20 20 20 20;
+    -fx-padding: 16 16 16 16;
     -fx-spacing: 28;
     -fx-background-color: #F2F3FE;
     -fx-font-size:25px;
@@ -143,4 +143,48 @@
     -fx-font-family: "Inter 18pt Regular";
     -fx-text-fill: #AC2525;
     -fx-font-size: 12px;
+}
+
+/* ====================== SCROLL PANE ====================== */
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #F2F3FE;
+    -fx-padding: 0;
+}
+
+/* Custom scrollbar */
+.scroll-pane > .scroll-bar:vertical {
+    -fx-pref-width: 10px;
+    -fx-background-color: transparent;
+    -fx-padding: 2 2 2 2;
+}
+
+.scroll-pane > .scroll-bar:vertical .track {
+    -fx-background-color: #E8E9F3;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane > .scroll-bar:vertical .thumb {
+    -fx-background-color: #2E3593;
+    -fx-background-radius: 5px;
+}
+
+.scroll-pane > .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #252B75;
+}
+
+.scroll-pane > .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #1B1F57;
+}
+
+.scroll-pane > .scroll-bar:vertical .increment-button,
+.scroll-pane > .scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
 }

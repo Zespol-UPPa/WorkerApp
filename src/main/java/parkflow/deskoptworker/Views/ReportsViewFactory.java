@@ -21,7 +21,7 @@ public class ReportsViewFactory {
             try {
                 System.out.println("Loading ReportOverview.fxml...");
                 overviewView = new FXMLLoader(
-                        getClass().getResource("/parkflow/deskoptworker/reports/ReportOverview.fxml")
+                        getClass().getResource("/parkflow/deskoptworker/shared/reports/ReportOverview.fxml")
                 ).load();
                 System.out.println("ReportOverview.fxml loaded successfully");
             } catch (IOException e) {
@@ -38,7 +38,7 @@ public class ReportsViewFactory {
             try {
                 System.out.println("Loading Financial report view...");
                  financialView = new FXMLLoader(
-                         getClass().getResource("/parkflow/deskoptworker/reports/ReportFinancial.fxml")
+                         getClass().getResource("/parkflow/deskoptworker/shared/reports/ReportFinancial.fxml")
                  ).load();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -53,7 +53,7 @@ public class ReportsViewFactory {
             try {
                 System.out.println("Loading Occupancy report view...");
                  occupancyView = new FXMLLoader(
-                         getClass().getResource("/parkflow/deskoptworker/reports/ReportOccupancy.fxml")
+                         getClass().getResource("/parkflow/deskoptworker/shared/reports/ReportOccupancy.fxml")
                  ).load();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -69,7 +69,7 @@ public class ReportsViewFactory {
                 System.out.println("Loading ReportSession" +
                         ".fxml...");
                 sessionView = new FXMLLoader(
-                        getClass().getResource("/parkflow/deskoptworker/reports/ReportSession.fxml")
+                        getClass().getResource("/parkflow/deskoptworker/shared/reports/ReportSession.fxml")
                 ).load();
                 System.out.println("ReportOverview.fxml loaded successfully");
             } catch (IOException e) {
@@ -81,27 +81,28 @@ public class ReportsViewFactory {
         return sessionView;
     }
 
+    // Worker-only views
     public VBox getCustomersView() {
         if (customersView == null) {
             try {
-                System.out.println("Loading Customers report view...");
-                 customersView = new FXMLLoader(
-                         getClass().getResource("/parkflow/deskoptworker/reports/ReportCustomers.fxml")
-                 ).load();
+                customersView = new FXMLLoader(
+                        getClass().getResource("/parkflow/deskoptworker/shared/reports/ReportCustomers.fxml")
+                ).load();
             } catch (Exception e) {
                 e.printStackTrace();
-                customersView = createPlaceholder("Customers View");
+                customersView= createPlaceholder("Customers View");
             }
         }
         return customersView;
     }
+
 
     public VBox getReservationsView() {
         if (reservationsView == null) {
             try {
                 System.out.println("Loading Reservations report view...");
                 reservationsView = new FXMLLoader(
-                        getClass().getResource("/parkflow/deskoptworker/reports/ReportReservations.fxml")
+                        getClass().getResource("/parkflow/deskoptworker/shared/reports/ReportReservations.fxml")
                 ).load();
             } catch (Exception e) {
                 e.printStackTrace();

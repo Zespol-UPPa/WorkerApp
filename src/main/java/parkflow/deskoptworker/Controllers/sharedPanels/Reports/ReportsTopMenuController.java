@@ -1,4 +1,4 @@
-package parkflow.deskoptworker.Controllers.Reports;
+package parkflow.deskoptworker.Controllers.sharedPanels.Reports;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

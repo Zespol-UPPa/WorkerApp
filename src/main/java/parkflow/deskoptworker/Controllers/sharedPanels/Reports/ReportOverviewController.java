@@ -1,4 +1,4 @@
-package parkflow.deskoptworker.Controllers.Reports;
+package parkflow.deskoptworker.Controllers.sharedPanels.Reports;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +11,6 @@ import javafx.scene.layout.VBox;
 import parkflow.deskoptworker.Controllers.Components.MetricCardController;
 import parkflow.deskoptworker.Controllers.Components.PerformanceItemController;
 import parkflow.deskoptworker.Controllers.Components.PerformanceItemController.ParkingPerformanceData;
-
-import java.io.IOException;
 
 public class ReportOverviewController {
 
@@ -86,7 +84,7 @@ public class ReportOverviewController {
             System.err.println("Failed to load metric card from components folder: " + e.getMessage());
             // Try reports folder as fallback
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/parkflow/deskoptworker/reports/MetricCard.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/parkflow/deskoptworker/shared/reports/MetricCard.fxml"));
                 VBox cardRoot = loader.load();
                 MetricCardController controller = loader.getController();
                 controller.setData(title, value, subtitle, iconPath, colorClass);
