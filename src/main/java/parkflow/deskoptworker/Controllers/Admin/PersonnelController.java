@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import lombok.Setter;
 import parkflow.deskoptworker.Views.ViewFactory;
 import parkflow.deskoptworker.models.User;
 import parkflow.deskoptworker.models.UserRole;
@@ -38,6 +39,7 @@ public class PersonnelController {
 
     private ObservableList<User> employeeList = FXCollections.observableArrayList();
     private ObservableList<User> filteredList = FXCollections.observableArrayList();
+    @Setter
     private ViewFactory viewFactory = new ViewFactory();
 
     @FXML
@@ -48,9 +50,6 @@ public class PersonnelController {
         setupSearch();
     }
 
-    public void setViewFactory(ViewFactory viewFactory) {
-        this.viewFactory = viewFactory;
-    }
     private void setupTableColumns() {
         // PropertyValueFactory - automatycznie pobiera wartość z gettera
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -191,9 +190,7 @@ public class PersonnelController {
     }
 
     private void setupSearch() {
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterEmployees(newValue);
-        });
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterEmployees(newValue));
     }
 
     private void filterEmployees(String searchText) {

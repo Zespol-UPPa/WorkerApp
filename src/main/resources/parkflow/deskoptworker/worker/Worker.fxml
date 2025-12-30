@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="parkflow.deskoptworker.Controllers.Worker.WorkerController"
+            minWidth="1200" minHeight="700"
+            maxWidth="Infinity" maxHeight="Infinity"
+            stylesheets="@../styles/mainPanel.css"
+            styleClass="main_container">
+
+    <left>
+        <fx:include source="workerMenu.fxml" fx:id="workerMenu"/>
+    </left>
+
+    <center>
+        <BorderPane fx:id="contentArea"
+                    minWidth="0" minHeight="0"
+                    maxWidth="Infinity" maxHeight="Infinity"/>
+    </center>
+
+</BorderPane>

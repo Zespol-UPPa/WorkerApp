@@ -6,30 +6,30 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="cardContainer" styleClass="status-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.StatusCardController">
+<VBox fx:id="cardContainer" styleClass="status-card" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.StatusCardController">
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <HBox spacing="12" alignment="CENTER_LEFT">
+    <HBox alignment="CENTER_LEFT" spacing="12">
         <!-- Icon Container with colored background -->
-        <VBox fx:id="iconContainer" styleClass="icon-container" alignment="CENTER" minWidth="40" minHeight="40" maxWidth="40" maxHeight="40">
-            <ImageView fx:id="icon" fitWidth="24" fitHeight="24" preserveRatio="true"/>
+        <VBox fx:id="iconContainer" alignment="CENTER" maxHeight="40" maxWidth="40" minHeight="40" minWidth="40" styleClass="icon-container">
+            <ImageView fx:id="icon" fitHeight="24" fitWidth="24" preserveRatio="true" />
         </VBox>
 
         <!-- Text Content -->
         <VBox spacing="4" HBox.hgrow="ALWAYS">
-            <Label fx:id="titleLabel" styleClass="status-title"/>
-            <Label fx:id="subtitleLabel" styleClass="status-subtitle"/>
+            <Label fx:id="titleLabel" styleClass="status-title" text="Title Label" />
+            <Label fx:id="subtitleLabel" styleClass="status-subtitle" text="Short description" />
         </VBox>
     </HBox>
 
     <VBox spacing="4" VBox.vgrow="ALWAYS">
         <VBox.margin>
-            <Insets top="12"/>
+            <Insets top="12" />
         </VBox.margin>
 
-        <Label fx:id="valueLabel" styleClass="status-value"/>
-        <Label fx:id="changeLabel" styleClass="status-change"/>
+        <Label fx:id="valueLabel" styleClass="status-value" text="Main Value" />
+        <Label fx:id="changeLabel" styleClass="status-change" text="Additional information" />
     </VBox>
 </VBox>

@@ -6,6 +6,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import lombok.Getter;
 import parkflow.deskoptworker.models.User;
 import parkflow.deskoptworker.models.UserRole;
 
@@ -31,6 +32,7 @@ public class AddEmpController {
     @FXML
     private Label errorLabel;
 
+    @Getter
     private User savedEmployee = null; // Nowy użytkownik
     private static int nextId = 10003;
 
@@ -47,21 +49,21 @@ public class AddEmpController {
     }
     private void setupValidation() {
         // Imię - tylko litery (i spacje, myślniki dla dwuczłonowych imion)
-        firstNameField.textProperty().addListener((observable, oldValue, newValue) -> {
+        firstNameField.textProperty().addListener((_, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\\s-]*")) {
                 firstNameField.setText(oldValue);
             }
         });
 
         // Nazwisko - tylko litery (i spacje, myślniki)
-        lastNameField.textProperty().addListener((observable, oldValue, newValue) -> {
+        lastNameField.textProperty().addListener((_, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\\s-]*")) {
                 lastNameField.setText(oldValue);
             }
         });
 
         // PESEL - tylko cyfry, max 11
-        peselField.textProperty().addListener((observable, oldValue, newValue) -> {
+        peselField.textProperty().addListener((_, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 peselField.setText(oldValue);
             }
@@ -71,7 +73,7 @@ public class AddEmpController {
         });
 
         // Telefon - tylko + i cyfry
-        phoneField.textProperty().addListener((observable, oldValue, newValue) -> {
+        phoneField.textProperty().addListener((_, oldValue, newValue) -> {
             if (!newValue.matches("[+\\d]*")) {
                 phoneField.setText(oldValue);
             }
@@ -151,10 +153,6 @@ public class AddEmpController {
         setFieldError(peselField, false);
         setFieldError(emailField, false);
         setFieldError(phoneField, false);
-    }
-
-    public User getSavedEmployee() {
-        return savedEmployee;
     }
 
     @FXML

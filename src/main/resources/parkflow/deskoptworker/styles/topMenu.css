@@ -8,6 +8,20 @@
     -fx-background-radius: 10;
 }
 
+/* Wrapper HBox */
+.menu-item-box {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20;
+    -fx-padding: 0 8 0 0;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.menu-item-box.selected {
+    -fx-background-color: #2E3593;
+    -fx-effect: dropshadow(gaussian, rgba(46, 53, 147, 0.4), 8, 0.5, 0, 2);
+}
+
+/* Button - bazowy styl */
 .menu-button {
     -fx-background-color: transparent;
     -fx-text-fill: #555555;
@@ -35,6 +49,21 @@
     -fx-effect: dropshadow(gaussian, rgba(46, 53, 147, 0.4), 8, 0.5, 0, 2);
 }
 
+.menu-button.selected:hover {
+    -fx-background-color: #2E3593;
+}
+
+/* Gdy HBox jest selected, button ma biały tekst bez własnego tła */
+.menu-item-box.selected .menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.menu-item-box.selected .menu-button:hover {
+    -fx-background-color: transparent;
+}
+
 .menu-button:pressed {
     -fx-background-color: #3A7BC8;
 }
@@ -44,17 +73,25 @@
     -fx-background-color: transparent;
 }
 
-.menu-button.selected:focused {
-    -fx-background-color: #2E3593;
+.menu-item-box.selected .menu-button:focused {
+    -fx-background-color: transparent;
 }
 
 .menu-button .text {
     -fx-font-family: "Inter 18pt Regular";
 }
 
-@media (max-width: 800px) {
-    .menu-button {
-        -fx-font-size: 12px;
-        -fx-padding: 15 10 15 10;
-    }
+/* Filter label */
+.filter-label {
+    -fx-text-fill: #666666;
+    -fx-font-size: 11px;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-padding: 2 6 2 6;
+    -fx-background-color: rgba(0, 0, 0, 0.08);
+    -fx-background-radius: 8;
+}
+
+.menu-item-box.selected .filter-label {
+    -fx-text-fill: rgba(255, 255, 255, 0.85);
+    -fx-background-color: rgba(255, 255, 255, 0.2);
 }

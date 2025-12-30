@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,233 +16,193 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="1110.0" styleClass="dashboard_container" stylesheets="@../styles/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.DashboardController">
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.DashboardController">
     <children>
-        <HBox maxHeight="100" minHeight="70" prefHeight="80" spacing="20">
-            <children>
-                <VBox minWidth="300" spacing="5" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Label maxWidth="Infinity" styleClass="dashboard_title" text="Dashboard Overview" wrapText="true" />
-                        <Label maxWidth="Infinity" styleClass="dashboard_subtitle" text="Welcome back! Here's what's happening today." wrapText="true" />
-                    </children>
-                </VBox>
-
-
-                <Region minWidth="20" HBox.hgrow="SOMETIMES" />
-
-
-                <VBox alignment="TOP_RIGHT" minWidth="200" spacing="2">
-                    <children>
-                        <Label styleClass="time_label" text="Current Time" />
-                        <Label fx:id="currentTimeLabel" styleClass="time_value" text="06:09:58 PM" />
-                        <Label fx:id="currentDateLabel" maxWidth="250" styleClass="time_label" text="Tuesday, 25 November 2025" wrapText="true" />
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
-        <HBox minHeight="120" styleClass="stats_container">
-            <children>
-                <VBox maxWidth="Infinity" minWidth="200" HBox.hgrow="ALWAYS">
-                    <children>
-                        <HBox styleClass="stat_card_header">
-                            <children>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/target.png" />
-                                    </image>
-                                </ImageView>
-                                <Label styleClass="stat_label" text="Current Occupancy" />
-                            </children>
-                        </HBox>
-                        <Label styleClass="stat_value" text="87 %" />
-                        <Label styleClass="stat_description" text="Occupied Spots" />
-                        <Label styleClass="stat_description" text="3088/3550" />
-                    </children>
-               <styleClass>
-                  <String fx:value="stat_card" />
-                  <String fx:value="stat_card_orange" />
-               </styleClass>
-                </VBox>
-                <VBox maxWidth="Infinity" minWidth="200" HBox.hgrow="ALWAYS">
-                    <children>
-                        <HBox styleClass="stat_card_header">
-                            <children>
-                                <ImageView fitHeight="2.0" fitWidth="2.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/dollar.png" />
-                                    </image>
-                                </ImageView>
-                                <Label styleClass="stat_label" text="Current Occupancy" />
-                            </children>
-                        </HBox>
-                        <Label styleClass="stat_value" text="87 %" />
-                        <Label styleClass="stat_description" text="Occupied Spots" />
-                        <Label styleClass="stat_description" text="3088/3550" />
-                    </children>
-                    <styleClass>
-                        <String fx:value="stat_card_green" />
-                        <String fx:value="stat_card" />
-                    </styleClass>
-                </VBox>
-                <VBox maxWidth="Infinity" minWidth="200" HBox.hgrow="ALWAYS">
-                    <children>
-                        <HBox styleClass="stat_card_header">
-                            <children>
-                                <ImageView fitHeight="2.0" fitWidth="2.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/group.png" />
-                                    </image>
-                                </ImageView>
-                                <Label styleClass="stat_label" text="Current Occupancy" />
-                            </children>
-                        </HBox>
-                        <Label styleClass="stat_value" text="87 %" />
-                        <Label styleClass="stat_description" text="Occupied Spots" />
-                        <Label styleClass="stat_description" text="3088/3550" />
-                    </children>
-                    <styleClass>
-                        <String fx:value="stat_card_purple" />
-                        <String fx:value="stat_card" />
-                    </styleClass>
-                </VBox>
-            </children>
-        </HBox>
-        <VBox styleClass="section_vbox">
-            <children>
-                <Label styleClass="section_title" text="Today's performance" />
-                <GridPane styleClass="performance_grid">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
-                        <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
-                        <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints vgrow="NEVER" />
-                        <RowConstraints vgrow="NEVER" />
-                    </rowConstraints>
-                    <children>
-                        <!-- Usuń prefHeight/prefWidth TYLKO z HBox wewnątrz VBox -->
-                        <VBox styleClass="performance_card, performance_card_blue">
-                            <children>
-                                <HBox styleClass="stat_card_header">
-                                    <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/checkBlue.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Label styleClass="performance_label" text="Completed Sessions" />
-                                    </children>
-                                </HBox>
-                                <Label styleClass="performance_value" text="456" />
-                            </children>
-                        </VBox>
-
-                        <VBox styleClass="performance_card, performance_card_orange" GridPane.columnIndex="1">
-                            <children>
-                                <HBox styleClass="stat_card_header">
-                                    <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/calendarOrange.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Label styleClass="performance_label" text="New Reservations" />
-                                    </children>
-                                </HBox>
-                                <Label styleClass="performance_value" text="89" />
-                            </children>
-                        </VBox>
-
-                        <VBox styleClass="performance_card, performance_card_green" GridPane.columnIndex="2">
-                            <children>
-                                <HBox styleClass="stat_card_header">
-                                    <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/walletGreen.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Label styleClass="performance_label" text="Wallet Deposits" />
-                                    </children>
-                                </HBox>
-                                <Label styleClass="performance_value" text="15781 $" />
-                            </children>
-                        </VBox>
-
-                        <VBox styleClass="performance_card, performance_card_purple" GridPane.rowIndex="1">
-                            <children>
-                                <HBox styleClass="stat_card_header">
-                                    <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/clockPurple.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Label styleClass="performance_label" text="Avg Session Time" />
-                                    </children>
-                                </HBox>
-                                <Label styleClass="performance_value" text="2.4h" />
-                            </children>
-                        </VBox>
-
-                        <VBox styleClass="performance_card, performance_card_indigo" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <children>
-                                <HBox styleClass="stat_card_header">
-                                    <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/checkBlue.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Label styleClass="performance_label" text="Active Reservations" />
-                                    </children>
-                                </HBox>
-                                <Label styleClass="performance_value" text="145" />
-                            </children>
-                        </VBox>
-
-                        <VBox styleClass="performance_card, performance_card_red" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                            <children>
-                                <HBox styleClass="stat_card_header">
-                                    <children>
-                                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/warningRed.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Label styleClass="performance_label" text="Pending Payments" />
-                                    </children>
-                                </HBox>
-                                <Label styleClass="performance_value" text="2340 $" />
-                            </children>
-                        </VBox>
-                    </children>
-                </GridPane>
-            </children>
-        </VBox>
-        <HBox prefHeight="340.0" prefWidth="1120.0" spacing="30.0">
-            <children>
-                <VBox prefHeight="340.0" prefWidth="111.0" styleClass="section_vbox" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Label styleClass="section_title" text="Today's Revenue by Hour" />
-                        <AreaChart>
-                            <xAxis>
-                                <CategoryAxis side="BOTTOM" />
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis side="LEFT" />
-                            </yAxis>
-                        </AreaChart>
-                    </children>
-                </VBox>
-                <VBox prefHeight="200.0" prefWidth="100.0" styleClass="section_vbox" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Label styleClass="section_title" text="Parking Performance Today" />
-                        <VBox fx:id="parkingContainer" prefHeight="266.0" prefWidth="434.0" spacing="10.0" />
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
+        <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox styleClass="dashboard_container">
+               <children>
+                    <HBox maxHeight="100" minHeight="70" prefHeight="80" spacing="20">
+                        <children>
+                            <VBox minWidth="300" spacing="5" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <Label maxWidth="Infinity" styleClass="dashboard_title" text="Dashboard Overview" wrapText="true" />
+                                    <Label maxWidth="Infinity" styleClass="dashboard_subtitle" text="Welcome back! Here's what's happening today." wrapText="true" />
+                                </children>
+                            </VBox>
+            
+            
+                            <Region minWidth="20" HBox.hgrow="SOMETIMES" />
+            
+            
+                            <VBox alignment="TOP_RIGHT" minWidth="200" spacing="2">
+                                <children>
+                                    <Label styleClass="time_label" text="Current Time" />
+                                    <Label fx:id="currentTimeLabel" styleClass="time_value" text="06:09:58 PM" />
+                                    <Label fx:id="currentDateLabel" maxWidth="250" styleClass="time_label" text="Tuesday, 25 November 2025" wrapText="true" />
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+                   <HBox styleClass="stats_container">
+                       <fx:include source="../components/MetricCard.fxml" fx:id="occupancyCard" HBox.hgrow="ALWAYS" />
+                       <fx:include source="../components/MetricCard.fxml" fx:id="revenueCard" HBox.hgrow="ALWAYS" />
+                       <fx:include source="../components/MetricCard.fxml" fx:id="customersCard" HBox.hgrow="ALWAYS" />
+                   </HBox>
+                    <VBox styleClass="section_vbox">
+                        <children>
+                            <Label styleClass="section_title" text="Today's performance" />
+                            <GridPane styleClass="performance_grid">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints vgrow="NEVER" />
+                                    <RowConstraints vgrow="NEVER" />
+                                </rowConstraints>
+                                <children>
+            
+                                    <HBox styleClass="performance_card, performance_card_blue">
+                                        <children>
+                                            <HBox styleClass="stat_card_header">
+                                                <children>
+                                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../images/checkBlue.png" />
+                                                        </image>
+                                                    </ImageView>
+                                                    <Label styleClass="performance_label" text="Completed Sessions" />
+                                                </children>
+                                            </HBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                            <Label styleClass="performance_value" text="456" />
+                                        </children>
+                                    </HBox>
+            
+                                    <HBox styleClass="performance_card, performance_card_orange" GridPane.columnIndex="1">
+                                        <children>
+                                            <HBox styleClass="stat_card_header">
+                                                <children>
+                                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../images/calendarOrange.png" />
+                                                        </image>
+                                                    </ImageView>
+                                                    <Label styleClass="performance_label" text="New Reservations" />
+                                                </children>
+                                            </HBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                            <Label styleClass="performance_value" text="89" />
+                                        </children>
+                                    </HBox>
+            
+                                    <HBox styleClass="performance_card, performance_card_green" GridPane.columnIndex="2">
+                                        <children>
+                                            <HBox styleClass="stat_card_header">
+                                                <children>
+                                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../images/walletGreen.png" />
+                                                        </image>
+                                                    </ImageView>
+                                                    <Label styleClass="performance_label" text="Wallet Deposits" />
+                                                </children>
+                                            </HBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                            <Label styleClass="performance_value" text="15781 $" />
+                                        </children>
+                                    </HBox>
+            
+                                    <HBox styleClass="performance_card, performance_card_purple" GridPane.rowIndex="1">
+                                        <children>
+                                            <HBox styleClass="stat_card_header">
+                                                <children>
+                                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../images/clockPurple.png" />
+                                                        </image>
+                                                    </ImageView>
+                                                    <Label styleClass="performance_label" text="Avg Session Time" />
+                                                </children>
+                                            </HBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                            <Label styleClass="performance_value" text="2.4h" />
+                                        </children>
+                                    </HBox>
+            
+                                    <HBox styleClass="performance_card, performance_card_indigo" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                        <children>
+                                            <HBox styleClass="stat_card_header">
+                                                <children>
+                                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../images/checkBlue.png" />
+                                                        </image>
+                                                    </ImageView>
+                                                    <Label styleClass="performance_label" text="Active Reservations" />
+                                                </children>
+                                            </HBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                            <Label styleClass="performance_value" text="145" />
+                                        </children>
+                                    </HBox>
+            
+                                    <HBox styleClass="performance_card, performance_card_red" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                        <children>
+                                            <HBox styleClass="stat_card_header">
+                                                <children>
+                                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                        <image>
+                                                            <Image url="@../images/warningRed.png" />
+                                                        </image>
+                                                    </ImageView>
+                                                    <Label styleClass="performance_label" text="Pending Payments" />
+                                                </children>
+                                            </HBox>
+                                    <Region HBox.hgrow="ALWAYS" />
+                                            <Label styleClass="performance_value" text="2340 $" />
+                                        </children>
+                                    </HBox>
+                                </children>
+                            </GridPane>
+                        </children>
+                    </VBox>
+                    <HBox prefHeight="340.0" prefWidth="1120.0" spacing="30.0">
+                        <children>
+                            <VBox prefHeight="340.0" prefWidth="111.0" styleClass="section_vbox" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <Label styleClass="section_title" text="Today's Revenue by Hour" />
+                                    <AreaChart>
+                                        <xAxis>
+                                            <CategoryAxis side="BOTTOM" />
+                                        </xAxis>
+                                        <yAxis>
+                                            <NumberAxis side="LEFT" />
+                                        </yAxis>
+                                    </AreaChart>
+                                </children>
+                            </VBox>
+                            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="section_vbox" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <Label styleClass="section_title" text="Parking Performance Today" />
+                                    <VBox fx:id="parkingContainer" prefHeight="266.0" prefWidth="434.0" spacing="10.0" />
+                                </children>
+                            </VBox>
+                        </children>
+                    </HBox>
+               </children>
+            </VBox>
+         </content>
+         <styleClass>
+            <String fx:value="scroll-pane" />
+            <String fx:value="scroll-bar" />
+         </styleClass>
+      </ScrollPane>
     </children>
+   <stylesheets>
+      <URL value="@../styles/dashboard.css" />
+      <URL value="@../styles/mainPanel.css" />
+   </stylesheets>
 </VBox>

@@ -56,6 +56,6 @@
    </children>
    <stylesheets>
       <URL value="@../styles/mainPanel.css" />
-      <URL value="@../styles/personnel.css" />
+      <URL value="@../styles/table.css" />
    </stylesheets>
 </VBox>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Reservation Card Component - Full Width Horizontal Layout -->
+
+<HBox alignment="CENTER_LEFT" spacing="0" styleClass="reservation-card" stylesheets="@../styles/customers.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="parkflow.deskoptworker.Controllers.Components.ReservationComponentController">
+
+    <!-- Left Section: Status + Details -->
+    <VBox spacing="10" HBox.hgrow="ALWAYS">
+
+        <!-- Header: Status Badge + ID -->
+        <HBox alignment="CENTER_LEFT" spacing="12">
+            <Label fx:id="typeLabel" styleClass="status-badge, status-upcoming" text="Upcoming" />
+            <Label fx:id="reservationIdLabel" styleClass="reservation-id" text="#R001" />
+        </HBox>
+
+        <!-- Details Grid -->
+        <HBox spacing="32">
+            <!-- Column 1: Customer + Location -->
+            <VBox spacing="6">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/UsersBlue.png" />
+                        </image>
+                    </ImageView>
+                    <Label fx:id="customerNameLabel" styleClass="reservation-detail-value" text="Jan Kowalski" />
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/LocationBlue.png" />
+                        </image>
+                    </ImageView>
+                    <Label fx:id="locationLabel" styleClass="reservation-detail-label" text="Galeria Krakowska" />
+                </HBox>
+            </VBox>
+
+            <!-- Column 2: License + Spot -->
+            <VBox spacing="6">
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/CarBlue.png" />
+                        </image>
+                    </ImageView>
+                    <Label fx:id="licenseLabel" styleClass="reservation-detail-label" text="KR 12345" />
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <ImageView fitHeight="16" fitWidth="16" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/ParkingBlue.png" />
+                        </image>
+                    </ImageView>
+                    <Label fx:id="parkingSpotLabel" styleClass="reservation-detail-label" text="R-23" />
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <!-- Spacer -->
+    <Region HBox.hgrow="ALWAYS" />
+
+    <!-- Right Section: Date + Cost -->
+    <HBox spacing="48" alignment="CENTER_RIGHT">
+        <VBox spacing="4" alignment="CENTER_LEFT">
+            <Label styleClass="reservation-meta-label" text="Date" />
+            <Label fx:id="dateLabel" styleClass="reservation-meta-value" text="2025-11-24" />
+        </VBox>
+        <VBox spacing="4" alignment="CENTER_LEFT">
+            <Label styleClass="reservation-meta-label" text="Cost" />
+            <Label fx:id="costLabel" styleClass="reservation-cost" text="5.00 $" />
+        </VBox>
+    </HBox>
+
+</HBox>

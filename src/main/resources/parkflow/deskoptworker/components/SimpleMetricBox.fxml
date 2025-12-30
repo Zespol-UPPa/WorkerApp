@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="cardContainer" styleClass="simple-metric-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.SimpleMetricBoxController">
+<VBox fx:id="cardContainer" stylesheets="@../styles/components.css" styleClass="simple-metric-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.SimpleMetricBoxController">
     <padding>
         <Insets top="16" right="16" bottom="16" left="16"/>
     </padding>

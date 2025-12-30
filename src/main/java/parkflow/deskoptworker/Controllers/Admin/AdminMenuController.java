@@ -2,6 +2,7 @@ package parkflow.deskoptworker.Controllers.Admin;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import lombok.Setter;
 
 public class AdminMenuController {
     @FXML private Button dashboardBtn;
@@ -12,21 +13,18 @@ public class AdminMenuController {
     @FXML private Button logoutBtn;
 
     private Button currentButton;
+    @Setter
     private AdminController parentController;
 
     public void initialize() {
         setActiveButton(dashboardBtn);
 
-        dashboardBtn.setOnAction(e -> handleMenuClick(dashboardBtn, "Dashboard"));
-        parkingBtn.setOnAction(e -> handleMenuClick(parkingBtn, "Parkings"));
-        reportsBtn.setOnAction(e -> handleMenuClick(reportsBtn, "Reports"));
-        personnelBtn.setOnAction(e -> handleMenuClick(personnelBtn, "Personnel"));
-        settingsBtn.setOnAction(e -> handleMenuClick(settingsBtn, "Settings"));
-        logoutBtn.setOnAction(e -> handleLogout());
-    }
-
-    public void setParentController(AdminController controller) {
-        this.parentController = controller;
+        dashboardBtn.setOnAction(_ -> handleMenuClick(dashboardBtn, "Dashboard"));
+        parkingBtn.setOnAction(_ -> handleMenuClick(parkingBtn, "Parkings"));
+        reportsBtn.setOnAction(_ -> handleMenuClick(reportsBtn, "Reports"));
+        personnelBtn.setOnAction(_ -> handleMenuClick(personnelBtn, "Personnel"));
+        settingsBtn.setOnAction(_ -> handleMenuClick(settingsBtn, "Settings"));
+        logoutBtn.setOnAction(_ -> handleLogout());
     }
 
     private void handleMenuClick(Button clickedButton, String viewName) {

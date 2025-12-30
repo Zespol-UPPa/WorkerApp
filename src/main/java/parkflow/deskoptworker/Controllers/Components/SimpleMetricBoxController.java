@@ -123,6 +123,26 @@ public class SimpleMetricBoxController {
     }
 
     /**
+     * Aktualizuje tylko wartość
+     * @param value Nowa wartość
+     */
+    public void setValue(String value) {
+        if (value != null) {
+            valueLabel.setText(value);
+        }
+    }
+
+    /**
+     * Aktualizuje tylko tytuł
+     * @param title Nowy tytuł
+     */
+    public void setTitle(String title) {
+        if (title != null) {
+            titleLabel.setText(title);
+        }
+    }
+
+    /**
      * Zwraca główny kontener (dla kompatybilności)
      * @return VBox container
      */

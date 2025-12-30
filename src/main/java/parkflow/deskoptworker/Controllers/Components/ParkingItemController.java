@@ -110,7 +110,7 @@ public class ParkingItemController {
 
             } else {
                 // Dla workera - PricingWController
-                loader = new FXMLLoader(getClass().getResource("/parkflow/deskoptworker/employee/pricingDetailsE.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/parkflow/deskoptworker/worker/pricingDetailsE.fxml"));
                 root = loader.load();
 
                 PricingWController controller = loader.getController();
@@ -149,33 +149,16 @@ public class ParkingItemController {
     }
 
 
-    /*
-    Obsluguje klikniecie rezerwacje
+    /**
+     * Obsługuje kliknięcie "Reservations" - nawiguje do Customers → Reservations z filtrem parkingu
      */
     @FXML
     private void handleReservations() {
-        System.out.println("Przejscie do rezerwacji");
-//        try {
-//            FXMLLoader loader = new FXMLLoader(
-//                    getClass().getResource("/parkflow/deskoptworker/employee/reservations.fxml")
-//            );
-//            Parent root = loader.load();
-//
-//            // Przekaż dane parkingu
-//            Object controller = loader.getController();
-//            if (controller instanceof ReservationsController) {
-//                ((ReservationsController) controller).setParkingData(parking);
-//            }
-//
-//            Stage stage = (Stage) reservationsBtn.getScene().getWindow();
-//            stage.setScene(new Scene(root));
-//
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            System.err.println("Error loading reservations: " + e.getMessage());
-//        }
-   }
+        System.out.println("Navigating to reservations for parking: " + parking.getName());
+
+        // Użyj NavigationManager do nawigacji
+        parkflow.deskoptworker.Navigation.NavigationManager.getInstance().navigateToReservationsWithParkingFilter(parking);
+    }
     /**
      * Obsługuje kliknięcie w ikonę mapy
      */

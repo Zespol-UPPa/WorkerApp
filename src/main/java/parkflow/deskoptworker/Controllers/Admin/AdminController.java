@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import parkflow.deskoptworker.Views.ViewFactory;
 
 public class AdminController {
@@ -25,7 +24,7 @@ public class AdminController {
         System.out.println("AdminController initialized");
         System.out.println("adminMenuController: "+ adminMenuController);
         // Listener na zmianę wybranego menu
-        selectedMenuItem.addListener((observable, oldValue, newValue) -> {
+        selectedMenuItem.addListener((_, _, newValue) -> {
             switch (newValue) {
                 case "Dashboard":
                     contentArea.setCenter(viewFactory.getDashboardView());

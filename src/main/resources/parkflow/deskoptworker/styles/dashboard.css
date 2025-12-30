@@ -1,9 +1,10 @@
 .dashboard_container {
     -fx-text-fill: #333333;
     -fx-font-family: "Inter 18pt Regular";
-    -fx-padding: 20 20 20 20;
+    -fx-padding: 16 16 16 16;
     -fx-spacing: 20;
     -fx-background-color: #F2F3FE;
+    -fx-alignment: SPACE-AROUND;
 }
 
 .dashboard_title {
@@ -33,13 +34,14 @@
 
 .stats_container {
     -fx-spacing: 30;
+
 }
 
 .stat_card {
     -fx-background-color: #ffffff;
     -fx-background-radius: 15;
     -fx-border-radius: 15;
-    -fx-padding: 20;
+    -fx-padding: 16;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
 }
 
@@ -82,12 +84,11 @@
 /*Todays perfromance*/
 .performance_card {
     -fx-background-radius: 12;
-    -fx-padding: 16 10 16 10; /* mniejszy padding: góra prawo dół lewo */
+    -fx-padding: 12 8;
     -fx-border-width: 1.5;
     -fx-border-radius: 12;
-    -fx-spacing: 4; /* mniejszy spacing między elementami */
-    -fx-min-height: 84; /* mniejsza wysokość */
-    -fx-max-height: 100;
+    -fx-spacing: 4;
+    -fx-alignment: center-left;
 }
 
 .performance_card_blue {
@@ -121,7 +122,7 @@
 }
 
 .performance_label {
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
     -fx-text-fill: #666666;
 }
 

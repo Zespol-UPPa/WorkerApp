@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ScrollPane.ScrollBarPolicy?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="0" styleClass="reservations-view" stylesheets="@../styles/customers.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="parkflow.deskoptworker.Controllers.Worker.CustomerReservationsController">
+
+   <padding>
+      <Insets top="20" right="24" bottom="20" left="24"/>
+   </padding>
+
+   <!-- Clear Filter Button (hidden by default) -->
+   <HBox fx:id="clearFilterBox" alignment="CENTER_LEFT" spacing="8" managed="false" visible="false">
+      <padding>
+         <Insets bottom="12"/>
+      </padding>
+      <Button fx:id="clearFilterBtn" styleClass="clear-filter-btn" onAction="#onClearFilter">
+         <graphic>
+            <HBox alignment="CENTER_LEFT" spacing="6">
+               <Label text="✕" styleClass="clear-filter-x"/>
+               <Label fx:id="clearFilterLabel" text="Clear filter" styleClass="clear-filter-text"/>
+            </HBox>
+         </graphic>
+      </Button>
+   </HBox>
+
+   <!-- Title Section -->
+   <VBox spacing="4">
+      <Label fx:id="titleLabel" styleClass="main_title" text="All Reservations"/>
+      <Label fx:id="subtitleLabel" styleClass="main_subtitle" text="Manage and monitor parking reservations"/>
+   </VBox>
+
+   <!-- Filter Bar - included component -->
+   <fx:include source="../components/filterBarReservations.fxml" fx:id="filterBar"/>
+
+   <!-- Reservations List Container -->
+   <ScrollPane fitToWidth="true"
+               styleClass="reservations-scroll-pane"
+               hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+               VBox.vgrow="ALWAYS">
+      <VBox fx:id="reservationsContainer" styleClass="reservations-list" spacing="16">
+         <padding>
+            <Insets top="8" right="8" bottom="20" left="8"/>
+         </padding>
+      </VBox>
+   </ScrollPane>
+
+   <!-- Empty State (shown when no reservations) -->
+   <VBox fx:id="emptyState" alignment="CENTER" spacing="12" managed="false" visible="false"
+         VBox.vgrow="ALWAYS">
+      <padding>
+         <Insets top="60" bottom="60"/>
+      </padding>
+      <ImageView fitHeight="64" fitWidth="64" opacity="0.5">
+         <image>
+            <Image url="@../images/calendarBlack.png"/>
+         </image>
+      </ImageView>
+      <Label fx:id="emptyStateTitle" styleClass="empty-state-title" text="No reservations found"/>
+      <Label fx:id="emptyStateSubtitle" styleClass="empty-state-subtitle" text="There are no reservations matching your criteria"/>
+   </VBox>
+
+</VBox>
