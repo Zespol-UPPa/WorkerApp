@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import parkflow.deskoptworker.Views.CustomersViewFactory;
 import parkflow.deskoptworker.models.Customer;
 import parkflow.deskoptworker.models.Parking;
+import parkflow.deskoptworker.utils.NavigationManager;
 
 public class CustomersController {
     @FXML private VBox contentArea;
@@ -25,7 +26,7 @@ public class CustomersController {
         System.out.println("CustomersController initialized");
         System.out.println("topMenuController: " + topMenuController);
 
-        parkflow.deskoptworker.Navigation.NavigationManager.getInstance().registerCustomersController(this);
+        NavigationManager.getInstance().registerCustomersController(this);
 
         // KRYTYCZNE: Przekaż siebie do Factory PRZED załadowaniem widoków
         customersViewFactory.setParentController(this);

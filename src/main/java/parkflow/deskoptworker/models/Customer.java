@@ -1,7 +1,6 @@
 package parkflow.deskoptworker.models;
 
 import javafx.beans.property.*;
-import lombok.Builder;
 
 
 

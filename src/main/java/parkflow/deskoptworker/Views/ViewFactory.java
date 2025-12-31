@@ -77,9 +77,11 @@ public class ViewFactory {
     public VBox getSettingsView() {
         if (settingsView == null) {
             try {
-                // Tymczasowo zwróć placeholder
-                settingsView = createPlaceholder("Settings View - Coming Soon");
+                settingsView = new FXMLLoader(
+                        getClass().getResource("/parkflow/deskoptworker/shared/Settings.fxml"))
+                        .load();
             } catch (Exception e) {
+                settingsView = createPlaceholder("Settings View - Coming Soon");
                 e.printStackTrace();
             }
         }

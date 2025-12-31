@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" alignment="TOP_LEFT" minWidth="200" styleClass="metric-card" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.MetricCardController">
+<VBox fx:id="root" minWidth="200" styleClass="metric-card" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.MetricCardController">
 
     <padding>
         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />

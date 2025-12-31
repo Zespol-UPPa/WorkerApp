@@ -1,5 +1,6 @@
-package parkflow.deskoptworker.Navigation;
+package parkflow.deskoptworker.utils;
 
+import lombok.Getter;
 import parkflow.deskoptworker.Controllers.Worker.CustomersController;
 import parkflow.deskoptworker.Controllers.Worker.WorkerController;
 import parkflow.deskoptworker.models.Customer;
@@ -10,6 +11,7 @@ import parkflow.deskoptworker.models.Parking;
  * Używany gdy komponent z jednego modułu (np. Parkings)
  * chce przejść do innego modułu (np. Customers/Reservations) z parametrami.
  */
+@Getter
 public class NavigationManager {
 
     private static NavigationManager instance;
@@ -74,14 +76,6 @@ public class NavigationManager {
     }
 
     // ==================== GETTERY ====================
-
-    public WorkerController getWorkerController() {
-        return workerController;
-    }
-
-    public CustomersController getCustomersController() {
-        return customersController;
-    }
 
     /**
      * Czyści wszystkie referencje (wywoływane przy wylogowaniu)

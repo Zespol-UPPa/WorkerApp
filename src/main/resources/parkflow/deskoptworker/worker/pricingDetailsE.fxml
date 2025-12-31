@@ -1,62 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.String?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="580.0" styleClass="pricing_main_container" stylesheets="@../styles/pricing.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Worker.PricingWController">
-    <children>
-        <Label fx:id="pricingTitle" styleClass="pricing_title" text="Pricing - Downtown Plaza" />
+<VBox prefHeight="400.0" prefWidth="580.0" styleClass="pricing_main_container" stylesheets="@../styles/pricing.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="parkflow.deskoptworker.Controllers.Worker.PricingWController">
+    <Label fx:id="pricingTitle" styleClass="pricing_title" text="Pricing - Downtown Plaza"/>
 
-        <!-- Standard Parking Section -->
-        <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-            <children>
-                <Label styleClass="pricing_section_title" text="Standard Parking" />
-
-
-                <HBox fx:id="freeMinutesViewHBox" managed="true" maxHeight="40.0" styleClass="pricing_information_hbox" visible="true">
-                    <children>
-                        <Label text="Free minutes" />
-                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="freeMinutesLabel" styleClass="pricing_info_value" text="15 min" />
-                    </children>
-                </HBox>
+    <!-- Standard Parking Section -->
+    <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+        <Label styleClass="pricing_section_title" text="Standard Parking"/>
 
 
-
-                <HBox fx:id="ratePerMinuteViewHBox" managed="true" maxHeight="40.0" styleClass="pricing_information_hbox" visible="true">
-                    <children>
-                        <Label text="Rate per minute" />
-                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="ratePerMinLabel" styleClass="pricing_info_value" text="0.10 $" />
-                    </children>
-                </HBox>
+        <HBox fx:id="freeMinutesViewHBox"  maxHeight="40.0" styleClass="pricing_information_hbox">
+            <Label text="Free minutes"/>
+            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+            <Label fx:id="freeMinutesLabel" styleClass="pricing_info_value" text="15 min"/>
+        </HBox>
 
 
-            </children>
-        </VBox>
+        <HBox fx:id="ratePerMinuteViewHBox" maxHeight="40.0" styleClass="pricing_information_hbox"
+        >
+            <Label text="Rate per minute"/>
+            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+            <Label fx:id="ratePerMinLabel" styleClass="pricing_info_value" text="0.10 $"/>
+        </HBox>
 
 
-        <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-            <children>
-                <Label styleClass="pricing_section_title" text="Reservation" />
-
-                <!-- Reservation fee - VIEW MODE -->
-                <HBox fx:id="reservationFeeViewHBox" managed="true" maxHeight="40.0" styleClass="pricing_information_hbox" visible="true">
-                    <children>
-                        <Label text="Reservation fee" />
-                        <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <Label fx:id="reservationFeeLabel" styleClass="pricing_info_value" text="5 $" />
-                    </children>
-                </HBox>
+    </VBox>
 
 
-            </children>
-        </VBox>
+    <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+        <Label styleClass="pricing_section_title" text="Reservation"/>
 
-    </children>
+        <!-- Reservation fee - VIEW MODE -->
+        <HBox fx:id="reservationFeeViewHBox" maxHeight="40.0" styleClass="pricing_information_hbox">
+            <Label text="Reservation fee"/>
+            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+            <Label fx:id="reservationFeeLabel" styleClass="pricing_info_value" text="5 $"/>
+        </HBox>
+
+
+    </VBox>
+
 </VBox>

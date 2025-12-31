@@ -6,68 +6,59 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox alignment="CENTER_LEFT" prefHeight="66.0" spacing="0" styleClass="top-menu-bar" stylesheets="@../../styles/topMenu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportsTopMenuController">
+<HBox alignment="CENTER_LEFT" prefHeight="66.0" styleClass="top-menu-bar" stylesheets="@../../styles/topMenu.css"
+      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportsTopMenuController">
    <padding>
-      <Insets left="260" />
+      <Insets left="260"/>
    </padding>
-   <children>
-      <Button fx:id="overviewButton" mnemonicParsing="false" styleClass="menu-button" text="Overview" HBox.hgrow="ALWAYS">
-         <graphic>
-            <ImageView fx:id="overviewIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/beatBlack.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+   <Button fx:id="overviewButton" mnemonicParsing="false" styleClass="menu-button" text="Overview" HBox.hgrow="ALWAYS">
+      <graphic>
+         <ImageView fx:id="overviewIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../images/beatBlack.png"/>
+         </ImageView>
+      </graphic>
+   </Button>
 
-      <Button fx:id="financialButton" mnemonicParsing="false" styleClass="menu-button" text="Financial" HBox.hgrow="ALWAYS">
-         <graphic>
-            <ImageView fx:id="financialIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/dollarBlack.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+   <Button fx:id="financialButton" mnemonicParsing="false" styleClass="menu-button" text="Financial"
+           HBox.hgrow="ALWAYS">
+      <graphic>
+         <ImageView fx:id="financialIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../images/dollarBlack.png"/>
+         </ImageView>
+      </graphic>
+   </Button>
 
-      <Button fx:id="occupancyButton" mnemonicParsing="false" styleClass="menu-button" text="Occupancy" HBox.hgrow="ALWAYS">
-         <graphic>
-            <ImageView fx:id="occupancyIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/columnBlack.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+   <Button fx:id="occupancyButton" mnemonicParsing="false" styleClass="menu-button" text="Occupancy"
+           HBox.hgrow="ALWAYS">
+      <graphic>
+         <ImageView fx:id="occupancyIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../images/columnBlack.png"/>
+         </ImageView>
+      </graphic>
+   </Button>
 
-      <Button fx:id="sessionButton" mnemonicParsing="false" styleClass="menu-button" text="Session" HBox.hgrow="ALWAYS">
-         <graphic>
-            <ImageView fx:id="sessionIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/clockBlack.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+   <Button fx:id="sessionButton" mnemonicParsing="false" styleClass="menu-button" text="Session" HBox.hgrow="ALWAYS">
+      <graphic>
+         <ImageView fx:id="sessionIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../images/clockBlack.png"/>
+         </ImageView>
+      </graphic>
+   </Button>
 
-      <Button fx:id="customersButton" mnemonicParsing="false" styleClass="menu-button" text="Customers" HBox.hgrow="ALWAYS">
-         <graphic>
-            <ImageView fx:id="customersIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/customersBlack.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="reservationButton" mnemonicParsing="false" styleClass="menu-button" text="Reservations">
-         <graphic>
-            <ImageView fx:id="reservationIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/calendarBlack.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-   </children>
+   <Button fx:id="customersButton" mnemonicParsing="false" styleClass="menu-button" text="Customers"
+           HBox.hgrow="ALWAYS">
+      <graphic>
+         <ImageView fx:id="customersIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../images/customersBlack.png"/>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button fx:id="reservationButton" mnemonicParsing="false" styleClass="menu-button" text="Reservations">
+      <graphic>
+         <ImageView fx:id="reservationIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../images/calendarBlack.png"/>
+         </ImageView>
+      </graphic>
+   </Button>
 </HBox>
