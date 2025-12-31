@@ -138,6 +138,28 @@
     -fx-font-size: 20px;
     -fx-padding: 8;
 }
+.text-field_basic.password {
+    -fx-font-size: 14px;
+    -fx-padding: 11 8;
+}
+/* Pola nieedytowalne zawsze szare*/
+.text-field_disabled {
+    -fx-background-color: #EBEBEB;
+    -fx-border-color: #AAAAAA;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-border-width: 1;
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 20px;
+    -fx-padding: 8;
+    -fx-text-fill: #878585;
+}
+
+.text-label{
+-fx-font-family:"Inter 18pt Regular";
+-fx-background-color: #ffffff;
+-fx-font-size: 20px;
+-fx-text-fill: #333333;}
 
 .warning_label{
     -fx-font-family: "Inter 18pt Regular";

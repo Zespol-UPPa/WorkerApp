@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
@@ -24,7 +23,6 @@ import java.util.stream.Collectors;
 public class CustomerReservationsController {
 
     @FXML private HBox clearFilterBox;
-    @FXML private Button clearFilterBtn;
     @FXML private Label clearFilterLabel;
     @FXML private Label titleLabel;
     @FXML private Label subtitleLabel;
@@ -155,9 +153,6 @@ public class CustomerReservationsController {
 
     @FXML
     private void onClearFilter() {
-        // Zapamiętaj typ filtra przed wyczyszczeniem
-        boolean wasCustomerFilter = filteredCustomer != null;
-        boolean wasParkingFilter = filteredParking != null;
 
         // Wyczyść filtry
         clearEntityFilter();

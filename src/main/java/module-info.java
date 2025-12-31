@@ -24,4 +24,5 @@ module parkflow.deskoptworker {
     opens parkflow.deskoptworker.Controllers.Components to javafx.fxml;
     exports parkflow.deskoptworker.Controllers.sharedPanels.Reports;
     opens parkflow.deskoptworker.Controllers.sharedPanels.Reports to javafx.fxml;
+    exports parkflow.deskoptworker.utils;
 }

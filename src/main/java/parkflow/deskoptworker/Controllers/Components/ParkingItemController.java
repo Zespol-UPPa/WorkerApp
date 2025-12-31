@@ -11,6 +11,7 @@ import parkflow.deskoptworker.Controllers.Admin.PricingController;
 import parkflow.deskoptworker.Controllers.Worker.PricingWController;
 import parkflow.deskoptworker.models.Parking;
 import parkflow.deskoptworker.models.UserRole;
+import parkflow.deskoptworker.utils.NavigationManager;
 
 import java.io.IOException;
 
@@ -157,7 +158,7 @@ public class ParkingItemController {
         System.out.println("Navigating to reservations for parking: " + parking.getName());
 
         // Użyj NavigationManager do nawigacji
-        parkflow.deskoptworker.Navigation.NavigationManager.getInstance().navigateToReservationsWithParkingFilter(parking);
+        NavigationManager.getInstance().navigateToReservationsWithParkingFilter(parking);
     }
     /**
      * Obsługuje kliknięcie w ikonę mapy

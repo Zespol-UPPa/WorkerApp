@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -39,70 +38,62 @@
 
         <!-- Charts Row - Hourly Pattern & Weekly Trend -->
         <HBox spacing="20.0" VBox.vgrow="ALWAYS">
-            <children>
-                <!-- Hourly Occupancy Pattern - Area Chart -->
-                <VBox styleClass="section_vbox" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label styleClass="section_title" text="Hourly Occupancy Pattern" />
-                        <AreaChart fx:id="hourlyOccupancyChart"
-                                   legendVisible="false"
-                                   minHeight="300"
-                                   prefHeight="300"
-                                   VBox.vgrow="ALWAYS">
-                            <xAxis>
-                                <CategoryAxis side="BOTTOM" />
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis side="LEFT" label="Occupancy %" upperBound="100" />
-                            </yAxis>
-                        </AreaChart>
-                    </children>
-                </VBox>
+            <!-- Hourly Occupancy Pattern - Area Chart -->
+            <VBox styleClass="section_vbox" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <Label styleClass="section_title" text="Hourly Occupancy Pattern"/>
+                <AreaChart fx:id="hourlyOccupancyChart"
+                           legendVisible="false"
+                           minHeight="300"
+                           prefHeight="300"
+                           VBox.vgrow="ALWAYS">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis side="LEFT" label="Occupancy %"/>
+                    </yAxis>
+                </AreaChart>
+            </VBox>
 
-                <!-- Weekly Occupancy Trend - Bar Chart -->
-                <VBox styleClass="section_vbox" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label styleClass="section_title" text="Weekly Occupancy Trend" />
-                        <BarChart fx:id="weeklyOccupancyChart"
-                                  legendVisible="false"
-                                  minHeight="300"
-                                  prefHeight="300"
-                                  VBox.vgrow="ALWAYS">
-                            <xAxis>
-                                <CategoryAxis side="BOTTOM" />
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis side="LEFT" label="Occupancy %" upperBound="100" />
-                            </yAxis>
-                        </BarChart>
-                    </children>
-                </VBox>
-            </children>
+            <!-- Weekly Occupancy Trend - Bar Chart -->
+            <VBox styleClass="section_vbox" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <children>
+                    <Label styleClass="section_title" text="Weekly Occupancy Trend"/>
+                    <BarChart fx:id="weeklyOccupancyChart"
+                              legendVisible="false"
+                              minHeight="300"
+                              prefHeight="300"
+                              VBox.vgrow="ALWAYS">
+                        <xAxis>
+                            <CategoryAxis side="BOTTOM"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis side="LEFT" label="Occupancy %"/>
+                        </yAxis>
+                    </BarChart>
+                </children>
+            </VBox>
         </HBox>
 
         <!-- Peak Hours Analysis Section -->
         <VBox spacing="16" styleClass="section_vbox">
-            <children>
-                <Label styleClass="section_title" text="Peak Hours Analysis" />
+            <Label styleClass="section_title" text="Peak Hours Analysis"/>
 
-                <!-- Grid for 3 peak period cards -->
-                <GridPane fx:id="peakHoursGrid" hgap="16" vgap="16">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
-                        <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
-                        <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
-                    </columnConstraints>
-                </GridPane>
-            </children>
+            <!-- Grid for 3 peak period cards -->
+            <GridPane fx:id="peakHoursGrid" hgap="16" vgap="16">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
+                </columnConstraints>
+            </GridPane>
         </VBox>
 
         <!-- Individual Parking Analysis Section -->
         <VBox spacing="16" styleClass="section_vbox">
-            <children>
-                <Label styleClass="section_title" text="Individual Parking Analysis" />
-                <VBox fx:id="parkingPerformanceContainer" spacing="12"/>
+            <Label styleClass="section_title" text="Individual Parking Analysis"/>
+            <VBox fx:id="parkingPerformanceContainer" spacing="12"/>
 
-            </children>
         </VBox>
 
     </VBox>

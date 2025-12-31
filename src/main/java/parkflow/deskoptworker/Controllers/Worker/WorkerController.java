@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 import parkflow.deskoptworker.Views.ViewFactory;
 import parkflow.deskoptworker.models.Customer;
 import parkflow.deskoptworker.models.Parking;
+import parkflow.deskoptworker.utils.NavigationManager;
 
 public class WorkerController {
 
@@ -31,7 +32,7 @@ public class WorkerController {
         System.out.println("WorkerController initialized");
         System.out.println("workerMenuController: " + workerMenuController);
 
-        parkflow.deskoptworker.Navigation.NavigationManager.getInstance().registerWorkerController(this);
+        NavigationManager.getInstance().registerWorkerController(this);
 
 
         // Listener na zmianę wybranego menu
@@ -99,7 +100,7 @@ public class WorkerController {
         javafx.application.Platform.runLater(() -> {
             // Drugie runLater żeby dać czas na initialize() CustomersController
             javafx.application.Platform.runLater(() -> {
-                CustomersController customersController = parkflow.deskoptworker.Navigation.NavigationManager.getInstance().getCustomersController();
+                CustomersController customersController = NavigationManager.getInstance().getCustomersController();
                 if (customersController != null) {
                     customersController.showParkingReservations(parking);
                 } else {
@@ -128,7 +129,7 @@ public class WorkerController {
         javafx.application.Platform.runLater(() -> {
             // Drugie runLater żeby dać czas na initialize() CustomersController
             javafx.application.Platform.runLater(() -> {
-                CustomersController customersController = parkflow.deskoptworker.Navigation.NavigationManager.getInstance().getCustomersController();
+                CustomersController customersController = NavigationManager.getInstance().getCustomersController();
                 if (customersController != null) {
                     customersController.showCustomerReservations(customer);
                 } else {

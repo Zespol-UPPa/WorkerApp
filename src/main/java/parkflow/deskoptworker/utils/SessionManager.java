@@ -1,4 +1,4 @@
-package parkflow.deskoptworker;
+package parkflow.deskoptworker.utils;
 
 import parkflow.deskoptworker.models.User;
 import parkflow.deskoptworker.models.UserRole;

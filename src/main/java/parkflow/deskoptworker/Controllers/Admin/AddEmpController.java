@@ -9,33 +9,23 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import parkflow.deskoptworker.models.User;
 import parkflow.deskoptworker.models.UserRole;
+import parkflow.deskoptworker.utils.FieldValidator;
 
 public class AddEmpController {
 
-    @FXML
-    public Button closeBtn;
-    @FXML
-    public Button saveBtn;
-    @FXML
-    private TextField firstNameField;
-    @FXML
-    private TextField lastNameField;
-    @FXML
-    private TextField peselField;
-    @FXML
-    private TextField emailField;
-    @FXML
-    private TextField phoneField;
-    @FXML
-    private ChoiceBox<UserRole> roleChoiceBox;
-
-    @FXML
-    private Label errorLabel;
+    @FXML public Button closeBtn;
+    @FXML public Button saveBtn;
+    @FXML private TextField firstNameField;
+    @FXML private TextField lastNameField;
+    @FXML private TextField peselField;
+    @FXML private TextField emailField;
+    @FXML private TextField phoneField;
+    @FXML private ChoiceBox<UserRole> roleChoiceBox;
+    @FXML private Label errorLabel;
 
     @Getter
-    private User savedEmployee = null; // Nowy użytkownik
+    private User savedEmployee = null;
     private static int nextId = 10003;
-
 
     @FXML
     public void initialize() {
@@ -45,134 +35,53 @@ public class AddEmpController {
         if (errorLabel != null) {
             errorLabel.setVisible(false);
         }
-        setupValidation();
-    }
-    private void setupValidation() {
-        // Imię - tylko litery (i spacje, myślniki dla dwuczłonowych imion)
-        firstNameField.textProperty().addListener((_, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\\s-]*")) {
-                firstNameField.setText(oldValue);
-            }
-        });
 
-        // Nazwisko - tylko litery (i spacje, myślniki)
-        lastNameField.textProperty().addListener((_, oldValue, newValue) -> {
-            if (!newValue.matches("[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\\s-]*")) {
-                lastNameField.setText(oldValue);
-            }
-        });
-
-        // PESEL - tylko cyfry, max 11
-        peselField.textProperty().addListener((_, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                peselField.setText(oldValue);
-            }
-            if (newValue.length() > 11) {
-                peselField.setText(oldValue);
-            }
-        });
-
-        // Telefon - tylko + i cyfry
-        phoneField.textProperty().addListener((_, oldValue, newValue) -> {
-            if (!newValue.matches("[+\\d]*")) {
-                phoneField.setText(oldValue);
-            }
-        });
-
-        // Email - podstawowa walidacja (znak @ wymagany)
-        // Pełna walidacja przy zapisie
+        setupInputFilters();
     }
 
+    /**
+     * Setup real-time input filters using FieldValidator
+     */
+    private void setupInputFilters() {
+        FieldValidator.addNameFilter(firstNameField);
+        FieldValidator.addNameFilter(lastNameField);
+        FieldValidator.addPeselFilter(peselField);
+        FieldValidator.addPhoneFilter(phoneField);
+    }
+
+    /**
+     * Sprawdza wszystkie fields, zwraca true tylko jesli wszystkie sa poprawne
+     */
     private boolean validateForm() {
-        // Wyczyść poprzednie błędy
-        clearAllErrors();
 
-        boolean isValid = true;
+        FieldValidator.clearErrors(firstNameField, lastNameField, peselField, emailField, phoneField);
 
-        // Sprawdzenie czy pola nie są puste
-        if (firstNameField.getText().trim().isEmpty()) {
-            setFieldError(firstNameField, true);
-            isValid = false;
-        }
+        boolean isValid = FieldValidator.validateName(firstNameField);
 
-        if (lastNameField.getText().trim().isEmpty()) {
-            setFieldError(lastNameField, true);
-            isValid = false;
-        }
-
-        if (peselField.getText().trim().isEmpty()) {
-            setFieldError(peselField, true);
-            isValid = false;
-        }
-
-        if (emailField.getText().trim().isEmpty()) {
-            setFieldError(emailField, true);
-            isValid = false;
-        }
-
-        if (phoneField.getText().trim().isEmpty()) {
-            setFieldError(phoneField, true);
-            isValid = false;
-        }
-
-        // Walidacja PESEL (dokładnie 11 cyfr)
-        if (!peselField.getText().isEmpty() && !peselField.getText().matches("\\d{11}")) {
-            setFieldError(peselField, true); // <-- TUTAJ BYŁ BŁĄD! Było firstNameField
-            isValid = false;
-        }
-
-        // Walidacja email (podstawowa)
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-        if (!emailField.getText().isEmpty() && !emailField.getText().matches(emailRegex)) {
-            setFieldError(emailField, true);
-            isValid = false;
-        }
-
-        // Walidacja telefonu (+ i minimum 9 cyfr)
-        if (!phoneField.getText().isEmpty() && !phoneField.getText().matches("\\+?\\d{9,}")) {
-            setFieldError(phoneField, true);
-            isValid = false;
-        }
+        if (!FieldValidator.validateName(lastNameField)) isValid = false;
+        if (!FieldValidator.validatePesel(peselField)) isValid = false;
+        if (!FieldValidator.validateEmail(emailField)) isValid = false;
+        if (!FieldValidator.validatePhone(phoneField)) isValid = false;
 
         return isValid;
-    }
-
-    private void setFieldError(TextField field, boolean hasError) {
-        if (hasError) {
-            if (!field.getStyleClass().contains("error-field")) {
-                field.getStyleClass().add("error-field");
-            }
-        } else {
-            field.getStyleClass().remove("error-field");
-        }
-    }
-
-    private void clearAllErrors() {
-        setFieldError(firstNameField, false);
-        setFieldError(lastNameField, false);
-        setFieldError(peselField, false);
-        setFieldError(emailField, false);
-        setFieldError(phoneField, false);
     }
 
     @FXML
     private void handleSave() {
         if (validateForm()) {
-            // Stwórz nowego użytkownika
             savedEmployee = new User(
-                    nextId++, // Tymczasowe ID (później z bazy danych)
-                    firstNameField.getText().trim(),
-                    lastNameField.getText().trim(),
-                    phoneField.getText().trim(),
-                    emailField.getText().trim(),
-                    peselField.getText().trim(),
+                    nextId++,
+                    FieldValidator.getTrimmedText(firstNameField),
+                    FieldValidator.getTrimmedText(lastNameField),
+                    FieldValidator.getTrimmedText(phoneField),
+                    FieldValidator.getTrimmedText(emailField),
+                    FieldValidator.getTrimmedText(peselField),
                     roleChoiceBox.getValue(),
-                    true // Domyślnie aktywny
+                    true
             );
 
             System.out.println("Zapisano nowego użytkownika: " + savedEmployee.getFullName());
 
-            // Zamknij okno
             Stage stage = (Stage) saveBtn.getScene().getWindow();
             stage.close();
 

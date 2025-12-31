@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefWidth="1000.0" styleClass="blue" stylesheets="@../styles/mainPanel.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.SettingsController">
+    <ScrollPane fitToHeight="true" fitToWidth="true">
+        <styleClass>
+            <String fx:value="scroll-bar" />
+            <String fx:value="scroll-pane" />
+        </styleClass>
+        <VBox styleClass="main_container">
+            <Label styleClass="main_title" text="Account Settings" />
+            <VBox prefHeight="552.0" prefWidth="966.0" styleClass="section_vbox">
+                <HBox>
+                    <Label styleClass="section_title" text="Personal information" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="editBtn" mnemonicParsing="false" text="Edit">
+                        <styleClass>
+                            <String fx:value="buttons_basic" />
+                            <String fx:value="buttons_basic_add" />
+                        </styleClass>
+                    </Button>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                    <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="text-label" text="ID" />
+                        <TextField fx:id="idTextField" editable="false" styleClass="text-field_disabled" text="11897">
+                            <styleClass>
+                                <String fx:value="text-field_basic" />
+                                <String fx:value="text-field_disabled" />
+                            </styleClass>
+                        </TextField>
+                    </VBox>
+                    <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="text-label" text="PESEL" />
+                        <TextField fx:id="peselTextField" editable="false" promptText="1122200000" styleClass="text-field_disabled" text="92103012345">
+                            <styleClass>
+                                <String fx:value="text-field_basic" />
+                                <String fx:value="text-field_disabled" />
+                            </styleClass>
+                        </TextField>
+                    </VBox>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                    <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="text-label" text="First name" />
+                        <TextField fx:id="firstNameTxtField" promptText="First name" text="Jan" VBox.vgrow="ALWAYS">
+                            <styleClass>
+                                <String fx:value="text-field_basic" />
+                                <String fx:value="text-field_disabled" />
+                            </styleClass>
+                        </TextField>
+                    </VBox>
+                    <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <Label styleClass="text-label" text="Last name" />
+                        <TextField fx:id="lastNameTxtField" promptText="Last name" text="Kowalski">
+                            <styleClass>
+                                <String fx:value="text-field_basic" />
+                                <String fx:value="text-field_disabled" />
+                            </styleClass>
+                        </TextField>
+                    </VBox>
+                </HBox>
+                <VBox>
+                    <Label styleClass="text-label" text="Phone number" />
+                    <TextField fx:id="phoneTxtField" promptText="+48123456789" text="+48123456789" VBox.vgrow="ALWAYS">
+                        <styleClass>
+                            <String fx:value="text-field_basic" />
+                            <String fx:value="text-field_disabled" />
+                        </styleClass>
+                    </TextField>
+                </VBox>
+                <VBox>
+                    <Label styleClass="text-label" text="E-mail" />
+                    <TextField fx:id="emailTxtField" promptText="email@yourmail.com" text="jan.kowalski@gmail.com">
+                        <styleClass>
+                            <String fx:value="text-field_basic" />
+                            <String fx:value="text-field_disabled" />
+                        </styleClass>
+                    </TextField>
+                </VBox>
+                <Label fx:id="infoErrorLabel" managed="false" styleClass="warning_label" text="Error label" visible="false" />
+                <HBox fx:id="saveChangesBtnBox" managed="false" spacing="20.0" visible="false">
+                    <Button fx:id="saveChangesBtn" mnemonicParsing="false" text="Save changes">
+                  <styleClass>
+                     <String fx:value="buttons_basic" />
+                     <String fx:value="buttons_basic_add" />
+                  </styleClass></Button>
+                    <Button fx:id="cancelInfoBtn" mnemonicParsing="false" styleClass="buttons_basic" text="Cancel" />
+                </HBox>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" styleClass="section_vbox">
+                <HBox>
+                    <Label styleClass="section_title" text="Change password" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="changePassEditBtn" mnemonicParsing="false" text="Change password">
+                        <styleClass>
+                            <String fx:value="buttons_basic" />
+                            <String fx:value="buttons_basic_add" />
+                        </styleClass>
+                    </Button>
+                </HBox>
+                <VBox fx:id="passwordHiddenVBox" prefHeight="200.0" prefWidth="100.0">
+                    <Label styleClass="text-label" text="Password" />
+                    <TextField editable="false" text="********">
+                        <styleClass>
+                            <String fx:value="text-field_basic" />
+                            <String fx:value="text-field_disabled" />
+                        </styleClass>
+                    </TextField>
+                </VBox>
+                <VBox fx:id="changePasswordVbox" managed="false" visible="false">
+                    <VBox prefHeight="200.0" prefWidth="100.0">
+                        <Label styleClass="text-label" text="Current password" />
+                        <PasswordField fx:id="currentPassTxtField">
+                     <styleClass>
+                        <String fx:value="text-field_basic" />
+                        <String fx:value="password" />
+                     </styleClass></PasswordField>
+                    </VBox>
+                    <VBox prefHeight="200.0" prefWidth="100.0">
+                        <Label styleClass="text-label" text="New password" />
+                        <PasswordField fx:id="newPassTxtField">
+                     <styleClass>
+                        <String fx:value="text-field_basic" />
+                        <String fx:value="password" />
+                     </styleClass></PasswordField>
+                    </VBox>
+                    <VBox prefHeight="200.0" prefWidth="100.0">
+                        <Label styleClass="text-label" text="Confirm new password" />
+                        <PasswordField fx:id="confirmNewPassTxtField">
+                     <styleClass>
+                        <String fx:value="text-field_basic" />
+                        <String fx:value="password" />
+                     </styleClass></PasswordField>
+                    </VBox>
+                </VBox>
+                <Label fx:id="passwordErrorLabel" managed="false" styleClass="warning_label" text="Error label" visible="false" />
+                <HBox fx:id="changePassBtnBox" managed="false" spacing="20.0" visible="false">
+                    <Button fx:id="changePassBtn" mnemonicParsing="false" text="Change password">
+                  <styleClass>
+                     <String fx:value="buttons_basic" />
+                     <String fx:value="buttons_basic_add" />
+                  </styleClass></Button>
+                    <Button fx:id="cancelPassBtn" mnemonicParsing="false" styleClass="buttons_basic" text="Cancel" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</VBox>

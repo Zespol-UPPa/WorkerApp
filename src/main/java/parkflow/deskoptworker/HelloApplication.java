@@ -1,19 +1,17 @@
 package parkflow.deskoptworker;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import parkflow.deskoptworker.Views.ViewFactory;
 import parkflow.deskoptworker.models.User;
 import parkflow.deskoptworker.models.UserRole;
+import parkflow.deskoptworker.utils.SessionManager;
 
-import java.io.IOException;
 
 public class HelloApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage)  {
         // Ładuj czcionki
         Font.loadFont(getClass().getResourceAsStream("fonts/Inter_18pt-Regular.ttf"), 14);
         Font.loadFont(getClass().getResourceAsStream("fonts/Inter_18pt-Bold.ttf"), 14);
@@ -24,9 +22,9 @@ public class HelloApplication extends Application {
         // Ustaw testowego użytkownika
         User testUser = new User(
                 1,
-                "Jan",
-                "Kowalski",
-                "+48 123 456 789",
+                "Janka",
+                "Kowalska",
+                "+48123456789",
                 "jan.kowalski@parkflow.com",
                 "90010112345",
                 UserRole.WORKER, true
