@@ -3,9 +3,11 @@ package parkflow.deskoptworker.Controllers.Admin;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import parkflow.deskoptworker.models.Parking;
+import parkflow.deskoptworker.utils.AlertHelper;
 
-public class PricingController {
+public class PricingControllerA {
 
     // View Mode Elements
     @FXML private HBox freeMinutesViewHBox;
@@ -27,14 +29,12 @@ public class PricingController {
     @FXML private Button cancelButton;
 
     @FXML private Label pricingTitle;
-
+    @FXML private Button closeBtn;
 
     private Parking parking;
 
     @FXML
     public void initialize() {
-
-
         // Walidacja - tylko liczby
         setupNumericValidation(freeMinutesField, false);
         setupNumericValidation(ratePerMinuteField, true);
@@ -63,6 +63,14 @@ public class PricingController {
         updateViewMode();
     }
 
+    /**
+     * Zamyka okno modalne
+     */
+    @FXML
+    private void handleClose() {
+        Stage stage = (Stage) closeBtn.getScene().getWindow();
+        stage.close();
+    }
 
     @FXML
     private void handleEdit() {
@@ -76,37 +84,12 @@ public class PricingController {
     }
 
     @FXML
-    private void handleSave(){
+    private void handleSave() {
         System.out.println("Saving....");
         /*TODO:
         Obsluga zapisu.
          */
     }
-//
-//    @FXML
-//    private void handleSave() {
-//        // Walidacja
-//        if (!validateInputs()) {
-//            return;
-//        }
-//
-//        // Zapisz nowe wartości
-//        freeMinutes = Integer.parseInt(freeMinutesField.getText());
-//        ratePerMinute = Double.parseDouble(ratePerMinuteField.getText());
-//        reservationFee = Double.parseDouble(reservationFeeField.getText());
-//
-//        // TODO: Zapisz do bazy danych
-//        System.out.println("=== Pricing Updated ===");
-//        System.out.println("Free minutes: " + freeMinutes);
-//        System.out.println("Rate per minute: $" + ratePerMinute);
-//        System.out.println("Reservation fee: $" + reservationFee);
-//
-//        // Wróć do View Mode
-//        updateViewMode();
-//        setEditMode(false);
-//
-//        showAlert("Success", "Pricing updated successfully!");
-//    }
 
     @FXML
     private void handleCancel() {
@@ -136,18 +119,23 @@ public class PricingController {
         saveButton.setManaged(isEdit);
         cancelButton.setVisible(isEdit);
         cancelButton.setManaged(isEdit);
+
+        closeBtn.setVisible(!isEdit);
+        closeBtn.setManaged(!isEdit);
     }
 
     private void updateViewMode() {
         if (parking != null) {
+            pricingTitle.setText("Pricing - " + parking.getName());
             freeMinutesLabel.setText(parking.getFreeMinutes() + " min");
             ratePerMinuteLabel.setText(String.format("%.2f $", parking.getRatePerMinute()));
             reservationFeeLabel.setText(String.format("%.2f $", parking.getReservationFee()));
         }
     }
+
     private boolean validateInputs() {
         if (freeMinutesField.getText().isEmpty()) {
-            showAlert("Validation Error", "Please enter free minutes!");
+            AlertHelper.showWarning("Validation Error", "Please enter free minutes!");
             return false;
         }
 
@@ -204,8 +192,6 @@ public class PricingController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
-
 
     // Metoda do ustawienia nazwy parkingu (opcjonalnie)
     public void setParkingName(String name) {

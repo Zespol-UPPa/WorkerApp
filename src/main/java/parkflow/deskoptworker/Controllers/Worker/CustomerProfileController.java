@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import lombok.Setter;
 import parkflow.deskoptworker.models.Customer;
 import parkflow.deskoptworker.models.Vehicle;
 
@@ -41,6 +42,7 @@ public class CustomerProfileController {
     @FXML private VBox recentActivityContainer;
 
     private Customer currentCustomer;
+    @Setter
     private CustomerProfileListener listener;
 
     @FXML
@@ -56,10 +58,6 @@ public class CustomerProfileController {
         updateView();
     }
 
-
-    public void setListener(CustomerProfileListener listener) {
-        this.listener = listener;
-    }
 
     /**
      * Aktualizuje widok na podstawie danych klienta

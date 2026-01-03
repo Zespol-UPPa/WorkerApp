@@ -14,6 +14,8 @@ import parkflow.deskoptworker.models.UserRole;
 
 import java.util.Objects;
 
+import static javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY;
+
 public class PersonnelController {
 
     @FXML
@@ -44,7 +46,7 @@ public class PersonnelController {
 
     @FXML
     public void initialize() {
-        employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        employeeTable.setColumnResizePolicy(CONSTRAINED_RESIZE_POLICY);
         setupTableColumns();
         loadEmployees();
         setupSearch();
@@ -102,9 +104,9 @@ public class PersonnelController {
 
         // ===== KOLUMNA ACTIONS - z przyciskami =====
         actionsColumn.setCellFactory(column -> new TableCell<User, Void>() {
-            private Button viewButton;
-            private Button toggleStatusButton;
-            private javafx.scene.layout.HBox buttonsContainer;
+            private final Button viewButton;
+            private final Button toggleStatusButton;
+            private final javafx.scene.layout.HBox buttonsContainer;
 
             {
                 viewButton = new Button();
@@ -166,8 +168,8 @@ public class PersonnelController {
                     }
 
                     // Ustaw handlery
-                    viewButton.setOnAction(event -> handleViewEmployee(user));
-                    toggleStatusButton.setOnAction(event -> handleToggleStatus(user));
+                    viewButton.setOnAction(_ -> handleViewEmployee(user));
+                    toggleStatusButton.setOnAction(_ -> handleToggleStatus(user));
 
                     setGraphic(buttonsContainer);
                 }
@@ -190,7 +192,7 @@ public class PersonnelController {
     }
 
     private void setupSearch() {
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> filterEmployees(newValue));
+        searchField.textProperty().addListener((_, _, newValue) -> filterEmployees(newValue));
     }
 
     private void filterEmployees(String searchText) {
@@ -248,12 +250,12 @@ public class PersonnelController {
                 System.out.println("Dezaktywowano: " + user.getFullName());
             }
         } else {
-            boolean confirmed = viewFactory.showActivateEmployeeModal(user);
-            if (confirmed) {
-                user.setActive(true);
-                employeeTable.refresh();
-                System.out.println("Aktywowano: " + user.getFullName());
-            }
+//            boolean confirmed = viewFactory.showActivateEmployeeModal(user);
+//            if (confirmed) {
+//                user.setActive(true);
+//                employeeTable.refresh();
+//                System.out.println("Aktywowano: " + user.getFullName());
+//            }
         }
     }
 }

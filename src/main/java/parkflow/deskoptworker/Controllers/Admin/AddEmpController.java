@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import lombok.Getter;
 import parkflow.deskoptworker.models.User;
 import parkflow.deskoptworker.models.UserRole;
+import parkflow.deskoptworker.utils.AlertHelper;
 import parkflow.deskoptworker.utils.FieldValidator;
 
 public class AddEmpController {
@@ -84,6 +85,7 @@ public class AddEmpController {
 
             Stage stage = (Stage) saveBtn.getScene().getWindow();
             stage.close();
+            AlertHelper.showSuccess("Success", "Employee added successfully!");
 
         } else {
             if (errorLabel != null) {

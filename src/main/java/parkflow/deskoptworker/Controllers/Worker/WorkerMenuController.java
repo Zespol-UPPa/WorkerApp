@@ -23,12 +23,12 @@ public class WorkerMenuController {
         setActiveButton(dashboardBtn);
 
         // Przypisz akcje do przycisków
-        dashboardBtn.setOnAction(e -> handleMenuClick(dashboardBtn, "Dashboard"));
-        parkingBtn.setOnAction(e -> handleMenuClick(parkingBtn, "Parkings"));
-        reportsBtn.setOnAction(e -> handleMenuClick(reportsBtn, "Reports"));
-        customersBtn.setOnAction(e -> handleMenuClick(customersBtn, "Customers"));
-        settingsBtn.setOnAction(e -> handleMenuClick(settingsBtn, "Settings"));
-        logoutBtn.setOnAction(e -> handleLogout());
+        dashboardBtn.setOnAction(_ -> handleMenuClick(dashboardBtn, "Dashboard"));
+        parkingBtn.setOnAction(_ -> handleMenuClick(parkingBtn, "Parkings"));
+        reportsBtn.setOnAction(_ -> handleMenuClick(reportsBtn, "Reports"));
+        customersBtn.setOnAction(_ -> handleMenuClick(customersBtn, "Customers"));
+        settingsBtn.setOnAction(_ -> handleMenuClick(settingsBtn, "Settings"));
+        logoutBtn.setOnAction(_ -> handleLogout());
     }
 
     /**

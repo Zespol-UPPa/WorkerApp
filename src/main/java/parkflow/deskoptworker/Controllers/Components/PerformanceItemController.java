@@ -3,9 +3,11 @@ package parkflow.deskoptworker.Controllers.Components;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import lombok.Getter;
 
 public class PerformanceItemController {
 
+    @Getter
     @FXML private VBox root;
     @FXML private Label parkingNameLabel;
     @FXML private Label parkingAddressLabel;
@@ -41,10 +43,6 @@ public class PerformanceItemController {
         } else {
             root.getStyleClass().add("occupancy-low"); // Green
         }
-    }
-
-    public VBox getRoot() {
-        return root;
     }
 
     // Helper class for data

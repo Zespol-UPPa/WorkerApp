@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import lombok.Setter;
 import parkflow.deskoptworker.models.User;
 import parkflow.deskoptworker.models.UserRole;
 
@@ -27,11 +28,8 @@ public class EmpDetController {
     @FXML
     public Button closeBtn;
 
+    @Setter
     User employee;
-
-    public void setEmployee(User employee) {
-        this.employee = employee;
-    }
 
     public void updateView(){
         if(employee != null){

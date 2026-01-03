@@ -27,13 +27,10 @@
     -fx-font-size: 14px;
 }
 
-.table-view .column-header:first-child {
+.table-view .column-header {
     -fx-background-radius: 12px 0 0 0;
 }
 
-.table-view .column-header:last-child {
-    -fx-background-radius: 0 12px 0 0;
-}
 
 .table-view .column-header-background {
     -fx-background-color: #EDEEFD;
@@ -64,10 +61,6 @@
     -fx-alignment: CENTER_LEFT;
 }
 
-/* Remove bottom border from last row */
-.table-view .table-row-cell:last-child {
-    -fx-border-width: 0;
-}
 
 /* Hover effect on rows */
 .table-view .table-row-cell:hover {
@@ -175,4 +168,74 @@
 .table-view .corner {
     -fx-background-color: #EDEEFD;
     -fx-background-radius: 0 12px 0 0;
+}
+
+/* ===== CUSTOMER COLUMN STYLES ===== */
+
+.customer-name-label {
+    -fx-font-family: "Inter 18pt SemiBold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+}
+
+.customer-email-label {
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 14px;
+    -fx-text-fill: #8E8E93;
+}
+
+/* ===== VEHICLE BADGES ===== */
+
+.vehicle-badge {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1976D2;
+    -fx-padding: 4px 12px;
+    -fx-background-radius: 12px;
+    -fx-font-family: "Inter 18pt Medium";
+    -fx-font-size: 14px;
+}
+
+.vehicle-more-badge {
+    -fx-background-color: #F5F5F7;
+    -fx-text-fill: #666666;
+    -fx-padding: 4px 8px;
+    -fx-background-radius: 12px;
+    -fx-font-family: "Inter 18pt Medium";
+    -fx-font-size: 14px;
+}
+
+/* ===== WALLET BALANCE STYLES ===== */
+
+.wallet-balance-label {
+    -fx-font-family: "Inter 18pt SemiBold";
+    -fx-font-size: 16px;
+}
+
+.wallet-balance-low {
+    -fx-text-fill: #DC3545;
+}
+
+.wallet-balance-ok {
+    -fx-text-fill: #28A745;
+}
+
+/* ===== TOTAL SPENT ===== */
+
+.total-spent-label {
+    -fx-font-family: "Inter 18pt Regular";
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+}
+
+/* ===== ACTION BUTTON ===== */
+
+.action-arrow-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 8px;
+}
+
+.action-arrow-button:hover {
+    -fx-background-color: #F5F5F7;
+    -fx-background-radius: 8px;
 }

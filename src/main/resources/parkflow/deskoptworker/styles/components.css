@@ -193,6 +193,7 @@
 
 .modal-wrapper {
     -fx-background-color: transparent;
+    -fx-padding: 30 30;
 }
 
 .choice-box{

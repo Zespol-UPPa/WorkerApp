@@ -6,11 +6,11 @@
     -fx-font-family: "Inter 18pt Regular";
     -fx-font-size: 18px;
     -fx-text-fill: #333333;
-    -fx-padding: 20 10;
+    -fx-padding: 20 30;
 }
 
 .pricing_title{
-    -fx-font-family:"Inter 18pt Bold";
+    -fx-font-family:"Inter 18pt Semi Bold";
     -fx-font-size: 30;
 }
 
@@ -93,5 +93,9 @@
 
 .pricing_unit_label{
     -fx-font-family: "Inter 18pt Bold";
+}
+
+.close-button{
+    -fx-background-color: transparent;
 }
 

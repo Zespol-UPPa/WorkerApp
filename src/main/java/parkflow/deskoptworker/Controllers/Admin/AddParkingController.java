@@ -4,8 +4,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import lombok.Getter;
 import parkflow.deskoptworker.Controllers.Components.SectionController;
+import parkflow.deskoptworker.models.Parking;
+import parkflow.deskoptworker.utils.AlertHelper;
+import parkflow.deskoptworker.utils.ModalHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +31,9 @@ public class AddParkingController {
             "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
     };
 
+    @Getter
+    private Parking savedParking = null;
+
     @FXML
     public void initialize() {
         // Walidacja - tylko liczby dla pięter
@@ -40,82 +46,70 @@ public class AddParkingController {
 
     @FXML
     private void handleAddSection() {
-        // Sprawdź czy podano liczbę pięter
         if (numberOfFloorsField.getText().isEmpty()) {
-            showAlert("Error", "Please enter the number of floors first!");
+            AlertHelper.showError("Error", "Please enter the number of floors first!");
             return;
         }
 
         int maxFloors = Integer.parseInt(numberOfFloorsField.getText());
         if (maxFloors <= 0) {
-            showAlert("Error", "Number of floors must be greater than 0!");
+            AlertHelper.showError("Error", "Number of floors must be greater than 0!");
             return;
         }
 
         if (sectionCounter >= SECTION_LETTERS.length) {
-            showAlert("Error", "Maximum number of sections reached!");
+            AlertHelper.showWarning("Limit Reached", "Maximum number of sections reached!");
             return;
         }
 
         try {
-            // Ukryj empty state przy pierwszej sekcji
             if (emptyVBox.isVisible()) {
                 emptyVBox.setVisible(false);
                 emptyVBox.setManaged(false);
             }
 
-            // Załaduj komponent sekcji
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/parkflow/deskoptworker/components/SectionItem.fxml"));
             VBox sectionItem = loader.load();
             SectionController controller = loader.getController();
 
-            // Ustaw dane sekcji
             String sectionLetter = SECTION_LETTERS[sectionCounter];
             controller.setSectionData(sectionLetter, maxFloors);
-
-            // Ustaw callback usuwania
             controller.setOnDelete(() -> removeSection(controller));
 
-            // Dodaj do kontenera
             sectionsContainer.getChildren().add(sectionItem);
             sectionControllers.add(controller);
             sectionCounter++;
 
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Error", "Failed to load section component!");
+            AlertHelper.showError("Error", "Failed to load section component!");
         }
     }
 
     private void removeSection(SectionController controller) {
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Remove Section");
-        confirmation.setHeaderText("Remove Section " + controller.getSectionLetter() + "?");
-        confirmation.setContentText("This action cannot be undone.");
+        boolean confirmed = AlertHelper.showConfirm(
+                "Remove Section",
+                "Remove Section " + controller.getSectionLetter() + "? This action cannot be undone."
+        );
 
-        confirmation.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                sectionsContainer.getChildren().remove(controller.getRootContainer());
-                sectionControllers.remove(controller);
+        if (confirmed) {
+            sectionsContainer.getChildren().remove(controller.getRootContainer());
+            sectionControllers.remove(controller);
 
-                // Pokaż empty state jeśli usunięto wszystkie sekcje
-                if (sectionControllers.isEmpty()) {
-                    emptyVBox.setVisible(true);
-                    emptyVBox.setManaged(true);
-                    sectionCounter = 0;
-                }
+            if (sectionControllers.isEmpty()) {
+                emptyVBox.setVisible(true);
+                emptyVBox.setManaged(true);
+                sectionCounter = 0;
             }
-        });
+        }
     }
 
     @FXML
     private void handleAddParking() {
-        // Walidacja
         if (!validateInputs()) {
             return;
         }
 
-        // Zbierz dane
         String parkingName = parkingNameField.getText();
         String address = addressField.getText();
         int numberOfFloors = Integer.parseInt(numberOfFloorsField.getText());
@@ -134,33 +128,34 @@ public class AddParkingController {
         }
 
         // TODO: Zapisz do bazy danych
-        showAlert("Success", "Parking added successfully!");
+        AlertHelper.showSuccess("Success", "Parking added successfully!");
+        ModalHelper.closeModal(cancelButton);
     }
 
     private boolean validateInputs() {
         if (parkingNameField.getText().isEmpty()) {
-            showAlert("Validation Error", "Please enter parking name!");
+            AlertHelper.showWarning("Validation Error", "Please enter parking name!");
             return false;
         }
 
         if (addressField.getText().isEmpty()) {
-            showAlert("Validation Error", "Please enter address!");
+            AlertHelper.showWarning("Validation Error", "Please enter address!");
             return false;
         }
 
         if (numberOfFloorsField.getText().isEmpty()) {
-            showAlert("Validation Error", "Please enter number of floors!");
+            AlertHelper.showWarning("Validation Error", "Please enter number of floors!");
             return false;
         }
 
         if (sectionControllers.isEmpty()) {
-            showAlert("Validation Error", "Please add at least one section!");
+            AlertHelper.showWarning("Validation Error", "Please add at least one section!");
             return false;
         }
 
         for (SectionController section : sectionControllers) {
             if (!section.isValid()) {
-                showAlert("Validation Error",
+                AlertHelper.showWarning("Validation Error",
                         "Please fill all fields for Section " + section.getSectionLetter());
                 return false;
             }
@@ -171,25 +166,13 @@ public class AddParkingController {
 
     @FXML
     private void handleCancel() {
-        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmation.setTitle("Cancel");
-        confirmation.setHeaderText("Discard changes?");
-        confirmation.setContentText("All entered data will be lost.");
+        boolean confirmed = AlertHelper.showConfirm(
+                "Discard Changes",
+                "All entered data will be lost. Are you sure?"
+        );
 
-        confirmation.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                Stage stage = (Stage) cancelButton.getScene().getWindow();
-                stage.close();
-                System.out.println("Cancelled");
-            }
-        });
-    }
-
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        if (confirmed) {
+            ModalHelper.closeModal(cancelButton);
+        }
     }
 }

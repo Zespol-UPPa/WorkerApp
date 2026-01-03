@@ -1,0 +1,99 @@
+.alert-container {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-min-width: 400;
+    -fx-max-width: 450;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 20, 0, 0, 5);
+}
+
+/* ============ ICON CONTAINER ============ */
+
+.alert-icon-container {
+    -fx-padding: 15;
+    -fx-background-radius: 50;
+    -fx-pref-width: 80;
+    -fx-pref-height: 80;
+    -fx-alignment: center;
+}
+
+
+
+/* ============ TYPOGRAPHY ============ */
+
+.alert-title {
+    -fx-font-family: 'Inter 18pt Bold', 'Inter', sans-serif;
+    -fx-font-size: 28px;
+    -fx-text-fill: #1a1a1a;
+}
+
+.alert-message {
+    -fx-font-family: 'Inter 18pt Regular', 'Inter', sans-serif;
+    -fx-font-size: 18px;
+    -fx-text-fill: #666666;
+    -fx-text-alignment: center;
+}
+
+/* ============ BUTTONS ============ */
+
+.alert-btn-primary {
+    -fx-background-color: #4F46E5;
+    -fx-text-fill: white;
+    -fx-font-family: 'Inter 18pt SemiBold', 'Inter', sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 12 24;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.alert-btn-primary:hover {
+    -fx-background-color: #4338CA;
+}
+
+.alert-btn-secondary {
+    -fx-background-color: #F3F4F6;
+    -fx-text-fill: #374151;
+    -fx-font-family: 'Inter 18pt SemiBold', 'Inter', sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 12 24;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+.alert-btn-secondary:hover {
+    -fx-background-color: #E5E7EB;
+}
+
+/* ============ TYPE-SPECIFIC STYLES ============ */
+
+/* Success - zielony przycisk */
+.alert-success .alert-btn-primary {
+    -fx-background-color: #10B981;
+}
+.alert-success .alert-btn-primary:hover {
+    -fx-background-color: #059669;
+}
+
+/* Warning - pomarańczowy przycisk */
+.alert-warning .alert-btn-primary {
+    -fx-background-color: #F59E0B;
+}
+.alert-warning .alert-btn-primary:hover {
+    -fx-background-color: #D97706;
+}
+
+/* Error - czerwony przycisk */
+.alert-error .alert-btn-primary {
+    -fx-background-color: #EF4444;
+}
+.alert-error .alert-btn-primary:hover {
+    -fx-background-color: #DC2626;
+}
+
+/* Confirm - fioletowy przycisk */
+.alert-confirm .alert-btn-primary {
+    -fx-background-color: #8B5CF6;
+}
+.alert-confirm .alert-btn-primary:hover {
+    -fx-background-color: #7C3AED;
+}
+
