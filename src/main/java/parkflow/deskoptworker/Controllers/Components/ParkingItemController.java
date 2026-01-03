@@ -1,19 +1,13 @@
 package parkflow.deskoptworker.Controllers.Components;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import parkflow.deskoptworker.Controllers.Admin.PricingController;
-import parkflow.deskoptworker.Controllers.Worker.PricingWController;
+import lombok.Setter;
+import parkflow.deskoptworker.Views.ViewFactory;
 import parkflow.deskoptworker.models.Parking;
 import parkflow.deskoptworker.models.UserRole;
 import parkflow.deskoptworker.utils.NavigationManager;
-
-import java.io.IOException;
 
 public class ParkingItemController {
 
@@ -28,6 +22,8 @@ public class ParkingItemController {
 
     private Parking parking;
     private UserRole userRole;
+    @Setter
+    private ViewFactory viewFactory;
 
 
     /**
@@ -93,60 +89,12 @@ public class ParkingItemController {
     }
 
     /**
-     * Obsługuje kliknięcie w "View pricing" - przechodzi do odpowiedniego widoku
+     * Obsługuje kliknięcie w "View pricing" - otwiera modal przez ViewFactory
      */
     @FXML
     private void handleViewPricing() {
-        try {
-            FXMLLoader loader;
-            Parent root;
-
-            if (userRole == UserRole.ADMIN) {
-                // Dla admina - PricingController
-                loader = new FXMLLoader(getClass().getResource("/parkflow/deskoptworker/admin/pricingDetailsA.fxml"));
-                root = loader.load();
-
-                PricingController controller = loader.getController();
-                controller.setParkingData(parking);
-
-            } else {
-                // Dla workera - PricingWController
-                loader = new FXMLLoader(getClass().getResource("/parkflow/deskoptworker/worker/pricingDetailsE.fxml"));
-                root = loader.load();
-
-                PricingWController controller = loader.getController();
-                controller.setParkingData(parking);
-            }
-
-            // Utwórz nowe modalne okno
-            Stage pricingStage = new Stage();
-            pricingStage.setTitle("View Pricing - " + parking.getName());
-            pricingStage.setScene(new Scene(root));
-
-            // Ustaw rozmiar okna
-            pricingStage.setWidth(580);
-            pricingStage.setHeight(420);
-
-
-            // Zablokuj zmianę rozmiaru
-            pricingStage.setResizable(false);
-
-            // Ustaw jako modalne (blokuje główne okno)
-            pricingStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-
-            // Ustaw właściciela (parent window)
-            pricingStage.initOwner(viewPricingBtn.getScene().getWindow());
-
-            // Wyśrodkuj okno
-            pricingStage.centerOnScreen();
-
-            // Pokaż okno i czekaj aż się zamknie
-            pricingStage.showAndWait();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error loading pricing details: " + e.getMessage());
-        }
+        if(viewFactory!= null){
+        viewFactory.showPricingModal(parking, userRole);}
     }
 
 

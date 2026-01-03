@@ -55,7 +55,6 @@ public class FilterBarController {
     }
 
     private void setupListeners() {
-        // Auto-apply on selection change
         timePeriodCombo.setOnAction(_ -> notifyFilterChange());
         parkingCombo.setOnAction(_ -> notifyFilterChange());
     }

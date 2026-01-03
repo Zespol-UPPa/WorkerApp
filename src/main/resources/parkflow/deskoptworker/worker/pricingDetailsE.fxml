@@ -1,48 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="580.0" styleClass="pricing_main_container" stylesheets="@../styles/pricing.css"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="parkflow.deskoptworker.Controllers.Worker.PricingWController">
-    <Label fx:id="pricingTitle" styleClass="pricing_title" text="Pricing - Downtown Plaza"/>
-
-    <!-- Standard Parking Section -->
-    <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-        <Label styleClass="pricing_section_title" text="Standard Parking"/>
+<StackPane styleClass="modal-wrapper" stylesheets="@../styles/pricing.css, @../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Worker.PricingWController">
 
 
-        <HBox fx:id="freeMinutesViewHBox"  maxHeight="40.0" styleClass="pricing_information_hbox">
-            <Label text="Free minutes"/>
-            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-            <Label fx:id="freeMinutesLabel" styleClass="pricing_info_value" text="15 min"/>
+    <VBox prefWidth="580.0" styleClass="confirm_container">
+
+        <!-- Header z tytułem i przyciskiem X -->
+        <HBox alignment="CENTER_LEFT">
+            <Label fx:id="pricingTitle" styleClass="pricing_title" text="Pricing - Downtown Plaza" HBox.hgrow="ALWAYS" />
         </HBox>
 
+        <!-- Standard Parking Section -->
+        <VBox spacing="20.0">
+            <Label styleClass="pricing_section_title" text="Standard Parking" />
 
-        <HBox fx:id="ratePerMinuteViewHBox" maxHeight="40.0" styleClass="pricing_information_hbox"
-        >
-            <Label text="Rate per minute"/>
-            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-            <Label fx:id="ratePerMinLabel" styleClass="pricing_info_value" text="0.10 $"/>
-        </HBox>
+            <HBox fx:id="freeMinutesViewHBox" maxHeight="40.0" styleClass="pricing_information_hbox">
+                <Label text="Free minutes" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="freeMinutesLabel" styleClass="pricing_info_value" text="15 min" />
+            </HBox>
 
+            <HBox fx:id="ratePerMinuteViewHBox" maxHeight="40.0" styleClass="pricing_information_hbox">
+                <Label text="Rate per minute" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="ratePerMinLabel" styleClass="pricing_info_value" text="0.10 $" />
+            </HBox>
+        </VBox>
+
+        <VBox spacing="20.0">
+            <Label styleClass="pricing_section_title" text="Reservation" />
+
+            <HBox fx:id="reservationFeeViewHBox" maxHeight="40.0" styleClass="pricing_information_hbox">
+                <Label text="Reservation fee" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="reservationFeeLabel" styleClass="pricing_info_value" text="5 $" />
+            </HBox>
+        </VBox>
+      <HBox alignment="TOP_RIGHT">
+         <children>
+            <Button fx:id="closeBtn" mnemonicParsing="false" styleClass="buttons_basic" text="Close" />
+         </children>
+      </HBox>
 
     </VBox>
-
-
-    <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-        <Label styleClass="pricing_section_title" text="Reservation"/>
-
-        <!-- Reservation fee - VIEW MODE -->
-        <HBox fx:id="reservationFeeViewHBox" maxHeight="40.0" styleClass="pricing_information_hbox">
-            <Label text="Reservation fee"/>
-            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-            <Label fx:id="reservationFeeLabel" styleClass="pricing_info_value" text="5 $"/>
-        </HBox>
-
-
-    </VBox>
-
-</VBox>
+</StackPane>

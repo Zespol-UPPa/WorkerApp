@@ -11,32 +11,26 @@ import parkflow.deskoptworker.utils.NavigationManager;
 
 public class WorkerController {
 
-    @FXML
-    private BorderPane contentArea;
-
-    // WAŻNE: Nazwa musi być: fx:id + "Controller"
-    // fx:id="workerMenu" → pole workerMenuController
-    @FXML
-    private WorkerMenuController workerMenuController;
+    @FXML private BorderPane contentArea;
+    @FXML private WorkerMenuController workerMenuController;
 
     private final ViewFactory viewFactory;
     private final StringProperty selectedMenuItem;
 
-    public WorkerController() {
-        this.viewFactory = new ViewFactory();
+    // Konstruktor z ViewFactory (Dependency Injection)
+    public WorkerController(ViewFactory viewFactory) {
+        this.viewFactory = viewFactory;
         this.selectedMenuItem = new SimpleStringProperty("");
     }
 
     @FXML
     public void initialize() {
         System.out.println("WorkerController initialized");
-        System.out.println("workerMenuController: " + workerMenuController);
 
         NavigationManager.getInstance().registerWorkerController(this);
 
-
         // Listener na zmianę wybranego menu
-        selectedMenuItem.addListener((observable, oldValue, newValue) -> {
+        selectedMenuItem.addListener((_, _, newValue) -> {
             switch (newValue) {
                 case "Dashboard":
                     contentArea.setCenter(viewFactory.getDashboardView());
@@ -74,66 +68,45 @@ public class WorkerController {
         selectedMenuItem.set(menuItem);
     }
 
-    /*
-    =========DODATKOWE NAWIGACJE================
-     */
-    /**
-     * Nawiguje do Customers → Reservations z filtrem na parking.
-     * Wywoływane z NavigationManager.
-     */
-    /**
-     * Nawiguje do Customers → Reservations z filtrem na parking.
-     * Wywoływane z NavigationManager.
-     */
+    // =========== DODATKOWE NAWIGACJE ===========
+
     public void navigateToCustomersReservations(Parking parking) {
         System.out.println("WorkerController: Navigating to Customers/Reservations for parking: " + parking.getName());
 
-        // Podświetl "Customers" w menu
         if (workerMenuController != null) {
             workerMenuController.setActiveMenuItem("Customers");
         }
 
-        // Przełącz na widok Customers (to załaduje CustomersController jeśli jeszcze nie był)
         selectedMenuItem.set("Customers");
 
-        // Poczekaj na załadowanie widoku i przekaż filtr
         javafx.application.Platform.runLater(() -> {
-            // Drugie runLater żeby dać czas na initialize() CustomersController
             javafx.application.Platform.runLater(() -> {
                 CustomersController customersController = NavigationManager.getInstance().getCustomersController();
                 if (customersController != null) {
                     customersController.showParkingReservations(parking);
                 } else {
-                    System.err.println("WorkerController: CustomersController not registered in NavigationManager!");
+                    System.err.println("WorkerController: CustomersController not registered!");
                 }
             });
         });
     }
 
-    /**
-     * Nawiguje do Customers → Reservations z filtrem na klienta.
-     * Wywoływane z NavigationManager.
-     */
     public void navigateToCustomersReservations(Customer customer) {
         System.out.println("WorkerController: Navigating to Customers/Reservations for customer: " + customer.getFullName());
 
-        // Podświetl "Customers" w menu
         if (workerMenuController != null) {
             workerMenuController.setActiveMenuItem("Customers");
         }
 
-        // Przełącz na widok Customers (to załaduje CustomersController jeśli jeszcze nie był)
         selectedMenuItem.set("Customers");
 
-        // Poczekaj na załadowanie widoku i przekaż filtr
         javafx.application.Platform.runLater(() -> {
-            // Drugie runLater żeby dać czas na initialize() CustomersController
             javafx.application.Platform.runLater(() -> {
                 CustomersController customersController = NavigationManager.getInstance().getCustomersController();
                 if (customersController != null) {
                     customersController.showCustomerReservations(customer);
                 } else {
-                    System.err.println("WorkerController: CustomersController not registered in NavigationManager!");
+                    System.err.println("WorkerController: CustomersController not registered!");
                 }
             });
         });

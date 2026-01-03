@@ -105,7 +105,7 @@ public class DashboardController {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy");
 
         clockTimeline = new Timeline(
-                new KeyFrame(Duration.ZERO, event -> {
+                new KeyFrame(Duration.ZERO, _ -> {
                     LocalDateTime now = LocalDateTime.now();
                     currentTimeLabel.setText(now.format(timeFormatter));
                     currentDateLabel.setText(now.format(dateFormatter));

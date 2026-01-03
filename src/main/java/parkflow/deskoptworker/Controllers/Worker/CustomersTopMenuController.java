@@ -35,9 +35,9 @@ public class CustomersTopMenuController {
     public void initialize() {
         setActiveBox(customersBox);
 
-        customersButton.setOnAction(e -> handleMenuClick(customersBox, "Customers"));
-        paymentsButton.setOnAction(e -> handleMenuClick(paymentsBox, "Payments"));
-        reservationsButton.setOnAction(e -> handleMenuClick(reservationsBox, "Reservations"));
+        customersButton.setOnAction(_ -> handleMenuClick(customersBox, "Customers"));
+        paymentsButton.setOnAction(_ -> handleMenuClick(paymentsBox, "Payments"));
+        reservationsButton.setOnAction(_ -> handleMenuClick(reservationsBox, "Reservations"));
 
         hideAllFilterLabels();
     }

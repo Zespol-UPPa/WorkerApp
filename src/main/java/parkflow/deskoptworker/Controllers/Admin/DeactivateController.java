@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import lombok.Getter;
 import parkflow.deskoptworker.Views.ViewFactory;
 import parkflow.deskoptworker.models.User;
 
@@ -13,6 +14,7 @@ public class DeactivateController {
     public Text employeeNameText;
 
     private User employee;
+    @Getter
     private boolean confirmed = false;
 
     private ViewFactory viewFactory;
@@ -22,10 +24,6 @@ public class DeactivateController {
         if (employeeNameText != null) {
             employeeNameText.setText(employee.getFullName());
         }
-    }
-
-    public boolean isConfirmed() {
-        return confirmed;
     }
 
     @FXML
