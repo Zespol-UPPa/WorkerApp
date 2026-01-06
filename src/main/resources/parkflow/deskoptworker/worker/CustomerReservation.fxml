@@ -22,7 +22,7 @@
       <padding>
          <Insets bottom="12"/>
       </padding>
-      <Button fx:id="clearFilterBtn" styleClass="clear-filter-btn" onAction="#onClearFilter">
+      <Button  styleClass="clear-filter-btn" onAction="#onClearFilter">
          <graphic>
             <HBox alignment="CENTER_LEFT" spacing="6">
                <Label text="✕" styleClass="clear-filter-x"/>
@@ -42,8 +42,8 @@
    <fx:include source="../components/filterBarReservations.fxml" fx:id="filterBar"/>
 
    <!-- Reservations List Container -->
-   <ScrollPane fitToWidth="true"
-               styleClass="reservations-scroll-pane"
+   <ScrollPane fitToWidth="true" fitToHeight="true"
+               styleClass="scroll-pane"
                hbarPolicy="NEVER"
                VBox.vgrow="ALWAYS">
       <VBox fx:id="reservationsContainer" styleClass="reservations-list" spacing="16">

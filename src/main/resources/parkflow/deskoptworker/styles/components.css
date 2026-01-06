@@ -534,3 +534,111 @@
 .simple-metric-card.metric-pink .metric-value {
     -fx-text-fill: #be185d;
 }
+
+/* Type badges */
+.badge-parking {
+    -fx-background-color: #E3F2FD;
+    -fx-background-radius: 12;
+    -fx-padding: 6 12;
+}
+
+.badge-parking-text {
+    -fx-text-fill: #1976D2;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.badge-reservation {
+    -fx-background-color: #F3E5F5;
+    -fx-background-radius: 12;
+    -fx-padding: 6 12;
+}
+
+.badge-reservation-text {
+    -fx-text-fill: #7B1FA2;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Status badges */
+.status-badge {
+    -fx-padding: 6 14;
+    -fx-background-radius: 12;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-color: #EBEBEB;
+    -fx-text-fill: #666666;
+}
+
+.status-completed {
+    -fx-background-color: #E8F5E9;
+    -fx-text-fill: #2E7D32;
+}
+
+.status-pending {
+    -fx-background-color: #FFF3E0;
+    -fx-text-fill: #F57C00;
+}
+
+.status-failed {
+    -fx-background-color: #FFEBEE;
+    -fx-text-fill: #C62828;
+}
+
+.status-refunded {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #1565C0;
+}
+
+/* Table placeholder */
+.table-placeholder-title {
+    -fx-font-size: 18px;
+    -fx-text-fill: #999999;
+}
+
+.table-placeholder-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #cccccc;
+}
+
+/* =====================================================
+   FILTER BAR STYLES
+   ===================================================== */
+
+.filter-bar {
+    -fx-background-color: #ffffff;
+    -fx-padding: 8 16 8 16;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.filter-combo {
+    -fx-background-color: #EDEEFD;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12 6 12;
+    -fx-font-size: 14px;
+    -fx-pref-height: 36px;
+}
+
+.filter-combo .list-cell {
+    -fx-padding: 8 10;
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+}
+
+.filter-combo .list-cell:hover {
+    -fx-background-color: #f3f4f6;
+}
+
+.filter-combo:focused {
+    -fx-background-color: #E0E1FC;
+}
+
+.filter-combo .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.filter-combo .arrow {
+    -fx-background-color: #666666;
+}

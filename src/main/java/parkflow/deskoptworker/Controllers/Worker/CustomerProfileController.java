@@ -1,23 +1,22 @@
 package parkflow.deskoptworker.Controllers.Worker;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lombok.Setter;
 import parkflow.deskoptworker.models.Customer;
+import parkflow.deskoptworker.models.Transaction;
 import parkflow.deskoptworker.models.Vehicle;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerProfileController {
 
     // Header
-    @FXML private Button clearFilterButton;
     @FXML private Label customerNameLabel;
     @FXML private Label customerEmailLabel;
     @FXML private Label walletBalanceLabel;
@@ -30,20 +29,17 @@ public class CustomerProfileController {
     // Vehicles
     @FXML private VBox vehiclesContainer;
 
-    // Active Reservation
-    @FXML private VBox activeReservationContainer;
-    @FXML private Label reservationParkingName;
-    @FXML private Label reservationVehicle;
-    @FXML private Label reservationDate;
-    @FXML private Label reservationSpot;
-    @FXML private Label reservationCost;
 
     // Recent Activity
     @FXML private VBox recentActivityContainer;
 
     private Customer currentCustomer;
+
     @Setter
     private CustomerProfileListener listener;
+
+    // Mock data dla przykładu - w rzeczywistości to by było z API
+    private List<Transaction> customerTransactions = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -55,9 +51,9 @@ public class CustomerProfileController {
      */
     public void setCustomer(Customer customer) {
         this.currentCustomer = customer;
+        loadMockTransactions(); // TODO: zastąpić prawdziwym API call
         updateView();
     }
-
 
     /**
      * Aktualizuje widok na podstawie danych klienta
@@ -72,26 +68,23 @@ public class CustomerProfileController {
         // Update wallet - kolor zależny od salda
         double balance = currentCustomer.getWalletBalance();
         walletBalanceLabel.setText(String.format("%.2f $", balance));
-        String balanceColor = balance < 10 ? "#DC3545" : "#28A745";
-        walletBalanceLabel.setStyle(
-                "-fx-font-family: 'Inter 18pt Bold'; " +
-                        "-fx-font-size: 20px; " +
-                        "-fx-text-fill: " + balanceColor + ";"
-        );
+
+        // Wyczyść poprzednie klasy koloru
+        walletBalanceLabel.getStyleClass().removeAll("low", "ok");
+
+        // Dodaj odpowiednią klasę koloru
+        if (balance < 10) {
+            walletBalanceLabel.getStyleClass().add("low");
+        } else {
+            walletBalanceLabel.getStyleClass().add("ok");
+        }
 
         totalSpentLabel.setText(String.format("%.2f $", currentCustomer.getTotalSpent()));
 
+        // Load sections
         loadVehicles();
-
+        checkAndShowPendingPayments();
         loadRecentActivity();
-
-        // Pending payments - na razie ukryte
-        pendingPaymentsAlert.setVisible(false);
-        pendingPaymentsAlert.setManaged(false);
-
-        // Active reservation - na razie ukryte
-        activeReservationContainer.setVisible(false);
-        activeReservationContainer.setManaged(false);
     }
 
     /**
@@ -102,123 +95,89 @@ public class CustomerProfileController {
 
         if (currentCustomer.getVehicles().isEmpty()) {
             Label noVehicles = new Label("No vehicles registered");
-            noVehicles.setStyle("-fx-font-family: 'Inter 18pt Regular'; -fx-font-size: 14px; -fx-text-fill: #8E8E93;");
+            noVehicles.getStyleClass().add("customer-email-label"); // Używamy istniejącej klasy dla szarego tekstu
             vehiclesContainer.getChildren().add(noVehicles);
             return;
         }
 
         for (Vehicle vehicle : currentCustomer.getVehicles()) {
-            VBox vehicleCard = createVehicleCard(vehicle);
+            Label vehicleCard = createVehicleCard(vehicle);
             vehiclesContainer.getChildren().add(vehicleCard);
         }
     }
 
     /**
-     * Tworzy kartę pojazdu
+     * Tworzy kartę pojazdu - UPROSZCZONE: tylko Label z CSS
      */
-    private VBox createVehicleCard(Vehicle vehicle) {
-        VBox card = new VBox();
-        card.setAlignment(Pos.CENTER);
-        card.setStyle(
-                "-fx-background-color: #E3F2FD; " +
-                        "-fx-background-radius: 12px; " +
-                        "-fx-padding: 20;"
-        );
-
-        Label registrationLabel = new Label(vehicle.getRegistrationNumber());
-        registrationLabel.setStyle(
-                "-fx-font-family: 'Inter 18pt Bold'; " +
-                        "-fx-font-size: 18px; " +
-                        "-fx-text-fill: #1976D2;"
-        );
-
-        card.getChildren().add(registrationLabel);
-        return card;
+    private Label createVehicleCard(Vehicle vehicle) {
+        Label vehicleLabel = new Label(vehicle.getRegistrationNumber());
+        vehicleLabel.getStyleClass().add("vehicle_label");
+        vehicleLabel.setMaxWidth(Double.MAX_VALUE); // Zajmuje całą szerokość
+        return vehicleLabel;
     }
 
     /**
-     * Ładuje ostatnią aktywność (przykładowe dane)
+     * Sprawdza czy klient ma pending payments i pokazuje alert
+     */
+    private void checkAndShowPendingPayments() {
+        List<Transaction> pending = customerTransactions.stream()
+                .filter(t -> t.getStatus() == Transaction.TransactionStatus.PENDING)
+                .toList();
+
+        if (!pending.isEmpty()) {
+            double totalAmount = pending.stream()
+                    .mapToDouble(Transaction::getAmount)
+                    .sum();
+
+            showPendingPayments(pending.size(), totalAmount);
+        } else {
+            pendingPaymentsAlert.setVisible(false);
+            pendingPaymentsAlert.setManaged(false);
+        }
+    }
+
+
+
+    /**
+     * Ładuje ostatnią aktywność (tylko zakończone/aktywne postoje)
      */
     private void loadRecentActivity() {
         recentActivityContainer.getChildren().clear();
 
-        // Przykładowe aktywności
-        recentActivityContainer.getChildren().addAll(
-                createActivityItem("parking", "Parking at Downtown Plaza", "2025-11-20", "-8.50 $", false),
-                createActivityItem("wallet", "Wallet top-up", "2025-11-20", "+50.00 $", true)
-        );
-    }
+        // Filtruj tylko PARKING_SESSION (nie WALLET DEPOSITS, nie RESERVATION_FEE)
+        List<Transaction> parkingSessions = customerTransactions.stream()
+                .filter(t -> t.getType() == Transaction.TransactionType.PARKING_SESSION)
+                .filter(t -> t.getStatus() == Transaction.TransactionStatus.COMPLETED ||
+                        t.getStatus() == Transaction.TransactionStatus.PENDING)
+                .sorted((t1, t2) -> t2.getTransactionDate().compareTo(t1.getTransactionDate())) // Najnowsze pierwsze
+                .limit(5)
+                .toList();
 
-    /**
-     * Tworzy element aktywności
-     */
-    private HBox createActivityItem(String iconType, String description, String date, String amount, boolean isPositive) {
-        HBox item = new HBox(16);
-        item.setAlignment(Pos.CENTER_LEFT);
-        item.setStyle(
-                "-fx-background-color: white; " +
-                        "-fx-background-radius: 12px; " +
-                        "-fx-padding: 16;"
-        );
-
-        // Icon
-        ImageView icon = new ImageView();
-        icon.setFitWidth(32);
-        icon.setFitHeight(32);
-        icon.setPreserveRatio(true);
-
-        try {
-            String iconPath = iconType.equals("parking") ?
-                    "/parkflow/deskoptworker/images/car.png" :
-                    "/parkflow/deskoptworker/images/wallet.png";
-            icon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(iconPath))));
-        } catch (Exception e) {
-            System.err.println("Failed to load activity icon");
+        if (parkingSessions.isEmpty()) {
+            Label noActivity = new Label("No recent parking activity");
+            noActivity.getStyleClass().add("customer-email-label");
+            recentActivityContainer.getChildren().add(noActivity);
+            return;
         }
 
-        // Circle background for icon
-        VBox iconContainer = new VBox();
-        iconContainer.setAlignment(Pos.CENTER);
-        iconContainer.setStyle(
-                "-fx-background-color: " + (iconType.equals("parking") ? "#E3F2FD" : "#E8F5E9") + "; " +
-                        "-fx-background-radius: 50%; " +
-                        "-fx-pref-width: 48; " +
-                        "-fx-pref-height: 48;"
-        );
-        iconContainer.getChildren().add(icon);
+        for (Transaction transaction : parkingSessions) {
+            try {
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                        getClass().getResource("/parkflow/deskoptworker/components/ActivityItem.fxml")
+                );
+                HBox activityItem = loader.load();
 
-        // Description and date
-        VBox textContainer = new VBox(4);
-        textContainer.setAlignment(Pos.CENTER_LEFT);
-        HBox.setHgrow(textContainer, javafx.scene.layout.Priority.ALWAYS);
+                parkflow.deskoptworker.Controllers.Components.ActivityItemController controller =
+                        loader.getController();
+                controller.setTransaction(transaction);
 
-        Label descLabel = new Label(description);
-        descLabel.setStyle(
-                "-fx-font-family: 'Inter 18pt SemiBold'; " +
-                        "-fx-font-size: 16px; " +
-                        "-fx-text-fill: #333333;"
-        );
+                recentActivityContainer.getChildren().add(activityItem);
 
-        Label dateLabel = new Label(date);
-        dateLabel.setStyle(
-                "-fx-font-family: 'Inter 18pt Regular'; " +
-                        "-fx-font-size: 14px; " +
-                        "-fx-text-fill: #8E8E93;"
-        );
-
-        textContainer.getChildren().addAll(descLabel, dateLabel);
-
-        // Amount
-        Label amountLabel = new Label(amount);
-        String amountColor = isPositive ? "#10B981" : "#333333";
-        amountLabel.setStyle(
-                "-fx-font-family: 'Inter 18pt Bold'; " +
-                        "-fx-font-size: 16px; " +
-                        "-fx-text-fill: " + amountColor + ";"
-        );
-
-        item.getChildren().addAll(iconContainer, textContainer, amountLabel);
-        return item;
+            } catch (java.io.IOException e) {
+                e.printStackTrace();
+                System.err.println("Failed to load ActivityItem.fxml");
+            }
+        }
     }
 
     /**
@@ -233,19 +192,7 @@ public class CustomerProfileController {
         pendingPaymentsAlert.setManaged(true);
     }
 
-    /**
-     * Pokazuje aktywną rezerwację
-     */
-    public void showActiveReservation(String parkingName, String vehicle, String date, String spot, double cost) {
-        reservationParkingName.setText(parkingName);
-        reservationVehicle.setText(vehicle);
-        reservationDate.setText(date);
-        reservationSpot.setText(spot);
-        reservationCost.setText(String.format("%.2f $", cost));
 
-        activeReservationContainer.setVisible(true);
-        activeReservationContainer.setManaged(true);
-    }
 
     // ===== EVENT HANDLERS =====
 
@@ -277,6 +224,72 @@ public class CustomerProfileController {
         }
     }
 
+    @FXML
+    private void onViewAllActivity() {
+        if (listener != null) {
+            listener.onViewAllActivity(currentCustomer, customerTransactions);
+        }
+    }
+
+    // ===== MOCK DATA =====
+
+    /**
+     * Ładuje przykładowe transakcje dla klienta
+     * TODO: Zastąpić prawdziwym API call
+     */
+    private void loadMockTransactions() {
+        customerTransactions.clear();
+
+        if (currentCustomer == null) return;
+
+        // Tylko dla Jana Kowalskiego (id=1) przykładowe dane
+        if (currentCustomer.getCustomerId() == 1) {
+            customerTransactions.add(new Transaction(
+                    1,
+                    LocalDateTime.of(2025, 1, 3, 14, 30),
+                    Transaction.TransactionType.PARKING_SESSION,
+                    Transaction.TransactionStatus.COMPLETED,
+                    12.00,
+                    "Parking session (2h 15min)",
+                    1, "Jan Kowalski", "KR 12345",
+                    98, "Galeria Krakowska"
+            ));
+
+            customerTransactions.add(new Transaction(
+                    2,
+                    LocalDateTime.of(2025, 1, 2, 10, 15),
+                    Transaction.TransactionType.PARKING_SESSION,
+                    Transaction.TransactionStatus.PENDING,
+                    8.50,
+                    "Parking session (1h 30min)",
+                    1, "Jan Kowalski", "KR 12345",
+                    98, "Galeria Krakowska"
+            ));
+
+            customerTransactions.add(new Transaction(
+                    3,
+                    LocalDateTime.of(2024, 12, 28, 16, 45),
+                    Transaction.TransactionType.PARKING_SESSION,
+                    Transaction.TransactionStatus.COMPLETED,
+                    15.00,
+                    "Parking session (3h)",
+                    1, "Jan Kowalski", "KR 12345",
+                    99, "Downtown Plaza"
+            ));
+
+            customerTransactions.add(new Transaction(
+                    4,
+                    LocalDateTime.of(2024, 12, 20, 9, 30),
+                    Transaction.TransactionType.PARKING_SESSION,
+                    Transaction.TransactionStatus.COMPLETED,
+                    6.50,
+                    "Parking session (1h 5min)",
+                    1, "Jan Kowalski", "KR 12345",
+                    99, "Downtown Plaza"
+            ));
+        }
+    }
+
     // ===== LISTENER INTERFACE =====
 
     public interface CustomerProfileListener {
@@ -284,5 +297,6 @@ public class CustomerProfileController {
         void onViewPendingPayments(Customer customer);
         void onViewAllReservations(Customer customer);
         void onViewAllPayments(Customer customer);
+        void onViewAllActivity(Customer customer, List<Transaction> transactions);
     }
 }

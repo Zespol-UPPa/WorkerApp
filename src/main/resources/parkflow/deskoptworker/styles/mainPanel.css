@@ -10,13 +10,13 @@
 .main_title {
     -fx-font-family: "Inter 18pt SemiBold";
     -fx-text-fill: #333333 !important;
-    -fx-font-size: 40px;
+    -fx-font-size: 32px;
 }
 
 .main_subtitle {
     -fx-font-family: "Inter 18pt Medium";
-    -fx-text-fill: #333333 !important;
-    -fx-font-size: 20px;
+    -fx-text-fill: #8E8E93;
+    -fx-font-size: 16px;
 }
 
 .section_title{
@@ -103,6 +103,7 @@
     -fx-border-radius: 5px !important;
 }
 
+/* Search container */
 .search-container {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 25;
@@ -127,6 +128,7 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+
 
 .text-field_basic{
     -fx-background-color: #ffffff;

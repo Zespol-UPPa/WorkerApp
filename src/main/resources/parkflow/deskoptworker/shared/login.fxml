@@ -14,46 +14,39 @@
     <padding>
         <Insets bottom="20.0" left="60.0" right="60.0" top="20.0" />
     </padding>
-   <ImageView fitHeight="67.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@../images/logo.png" />
-      </image>
-   </ImageView>
+    <ImageView fitHeight="67.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/logo.png"/>
+    </ImageView>
 
     <Label fx:id="welcomeText" styleClass="login_bold_text" text="Welcome back! Sign in and start!" />
     <StackPane>
         <TextField fx:id="idTextField" promptText="ID" styleClass="text-field-with-icon" />
-        <ImageView fitHeight="18" fitWidth="18" mouseTransparent="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-            <image>
-                <Image url="@../images/user.png" />
-            </image>
-         <StackPane.margin>
-            <Insets left="8.2" />
-         </StackPane.margin>
+        <ImageView fitHeight="18" fitWidth="18" mouseTransparent="true" preserveRatio="true"
+                   StackPane.alignment="CENTER_LEFT">
+            <StackPane.margin>
+                <Insets left="8.2"/>
+            </StackPane.margin>
+            <Image url="@../images/user.png"/>
         </ImageView>
     </StackPane>
-   <StackPane>
-      <children>
-         <TextField fx:id="passwordTextField" />
-         <PasswordField fx:id="passwordField" promptText="Password" styleClass="password-field" />
-         <ImageView fitHeight="18" fitWidth="18" mouseTransparent="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-            <image>
-               <Image url="@../images/lock.png" />
-            </image>
+    <StackPane>
+        <TextField fx:id="passwordTextField"/>
+        <PasswordField fx:id="passwordField" promptText="Password" styleClass="password-field"/>
+        <ImageView fitHeight="18" fitWidth="18" mouseTransparent="true" preserveRatio="true"
+                   StackPane.alignment="CENTER_LEFT">
             <StackPane.margin>
-               <Insets left="8.2" />
+                <Insets left="8.2"/>
             </StackPane.margin>
-         </ImageView>
-         <ImageView fx:id="passIcon" fitHeight="18" fitWidth="18" mouseTransparent="false" onMouseClicked="#togglePasswordVisibility" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
-            <image>
-               <Image url="@../images/see.png" />
-            </image>
+            <Image url="@../images/lock.png"/>
+        </ImageView>
+        <ImageView fx:id="passIcon" fitHeight="18" fitWidth="18" mouseTransparent="false"
+                   onMouseClicked="#togglePasswordVisibility" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
             <StackPane.margin>
-               <Insets right="8.2" />
+                <Insets right="8.2"/>
             </StackPane.margin>
-         </ImageView>
-      </children>
-   </StackPane>
+            <Image url="@../images/see.png"/>
+        </ImageView>
+    </StackPane>
    <Label fx:id="errorLabel" styleClass="warning_label" text="Something went wrong" />
    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleLogin" styleClass="button_sign_in" text="Sign In" />
    <Label fx:id="activationLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#handleActivation" styleClass="login_regular_underscore" text="First time use (activation code)" />
