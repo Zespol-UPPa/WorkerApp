@@ -17,14 +17,14 @@
         <Label style="-fx-font-family: 'Inter 18pt Bold'; -fx-font-size: 32px; -fx-text-fill: #333333;" styleClass="page-title" text="Customers" />
 
         <!-- Search Bar -->
-        <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-background-color: white; -fx-background-radius: 12px; -fx-padding: 12 16;">
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="search-container">
             <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
                 <image>
                     <Image url="@../images/search.png" />
                 </image>
             </ImageView>
 
-            <TextField fx:id="searchField" promptText="Search by name, email, ID or PESELE..." style="-fx-background-color: transparent; -fx-border-color: transparent;                               -fx-font-family: 'Inter 18pt Regular'; -fx-font-size: 16px; -fx-text-fill: #333333;" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="searchField" promptText="Search by name, email, ID or PESELE..." styleClass="search-field" HBox.hgrow="ALWAYS" />
         </HBox>
     </VBox>
 
@@ -33,19 +33,19 @@
 
         <columns>
             <!-- Customer Column (Name + Email) -->
-            <TableColumn fx:id="customerColumn" prefWidth="300" sortable="true" styleClass="table-column" text="CUSTOMER" />
+            <TableColumn fx:id="customerColumn" prefWidth="300"  text="CUSTOMER" />
 
             <!-- Vehicles Column -->
-            <TableColumn fx:id="vehiclesColumn" prefWidth="250" sortable="false" styleClass="table-column" text="VEHICLES" />
+            <TableColumn fx:id="vehiclesColumn" prefWidth="250" sortable="false"  text="VEHICLES" />
 
             <!-- Wallet Column -->
-            <TableColumn fx:id="walletColumn" prefWidth="150" sortable="true" styleClass="table-column" text="WALLET" />
+            <TableColumn fx:id="walletColumn" prefWidth="150"  text="WALLET" />
 
             <!-- Total Spent Column -->
-            <TableColumn fx:id="totalSpentColumn" prefWidth="150" sortable="true" styleClass="table-column" text="TOTAL SPENT" />
+            <TableColumn fx:id="totalSpentColumn" prefWidth="150"  text="TOTAL SPENT" />
 
             <!-- Action Column (Arrow Button) -->
-            <TableColumn fx:id="actionColumn" prefWidth="80" sortable="false" style="-fx-alignment: CENTER;" styleClass="table-column" text="" />
+            <TableColumn fx:id="actionColumn" sortable="false" style="-fx-alignment: CENTER;"  text="" />
         </columns>
 
         <columnResizePolicy>

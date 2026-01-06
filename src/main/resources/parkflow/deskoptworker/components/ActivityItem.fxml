@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="parkflow.deskoptworker.Controllers.Components.ActivityItemController"
+      alignment="CENTER_LEFT" spacing="16"
+      style="-fx-background-color: white; -fx-background-radius: 12px; -fx-padding: 16; -fx-border-color: #E5E5EA; -fx-border-width: 1; -fx-border-radius: 12px;">
+
+    <!-- Icon Container -->
+    <HBox alignment="CENTER" style="-fx-background-color: #E3F2FD; -fx-background-radius: 50%; -fx-pref-width: 48; -fx-pref-height: 48;">
+        <ImageView fx:id="activityIcon" fitWidth="28" fitHeight="28" preserveRatio="true"/>
+    </HBox>
+
+    <!-- Text Container -->
+    <VBox spacing="4" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+        <Label fx:id="parkingNameLabel" styleClass="transaction-customer-name" text="Galeria Krakowska"/>
+        <Label fx:id="dateLabel" styleClass="customer-email-label" text="2025-01-03 14:30"/>
+    </VBox>
+
+    <!-- Status Badge -->
+    <Label fx:id="statusBadge" styleClass="transaction-status-badge" text="Completed"/>
+
+    <!-- Amount -->
+    <Label fx:id="amountLabel" style="-fx-font-family: 'Inter 18pt Bold'; -fx-font-size: 16px; -fx-text-fill: #333333;" text="-12.00 $"/>
+
+</HBox>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20" styleClass="main_container" stylesheets="@../styles/mainPanel.css, @../styles/customers.css, @../styles/table.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="parkflow.deskoptworker.Controllers.Worker.AllActivityController">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="16">
+        <Button onAction="#onClose" style="-fx-background-color: transparent; -fx-text-fill: #2E3593; -fx-cursor: hand; -fx-font-size: 24px; -fx-padding: 0;" text="←" />
+        <VBox spacing="4" HBox.hgrow="ALWAYS">
+            <Label fx:id="titleLabel" styleClass="main_title" text="All Activity" />
+            <Label fx:id="subtitleLabel" styleClass="main_subtitle" text="Complete parking history" />
+        </VBox>
+    </HBox>
+
+    <!-- Activity List in ScrollPane -->
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+        <VBox fx:id="activityContainer" spacing="12" style="-fx-padding: 4;" />
+    </ScrollPane>
+
+</VBox>

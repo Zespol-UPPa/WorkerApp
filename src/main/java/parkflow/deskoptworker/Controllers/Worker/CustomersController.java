@@ -68,15 +68,17 @@ public class CustomersController {
         selectedMenuItem.set("Customers");
     }
 
+    // ==================== NAVIGATION METHODS ====================
+    // CustomersController DECYDUJE co pokazać
+    // CustomersViewFactory TWORZY widoki
+
     public void showCustomerProfile(Customer customer) {
         System.out.println("Showing profile for: " + customer.getFullName());
 
         contentArea.getChildren().clear();
         VBox profileView = customersViewFactory.getCustomerProfileView(customer);
 
-        // Setup listener w profile controller przez Factory
-        customersViewFactory.setupProfileListener(this, customer);
-
+        // Listener jest już skonfigurowany wewnątrz Factory
         contentArea.getChildren().add(profileView);
         VBox.setVgrow(profileView, javafx.scene.layout.Priority.ALWAYS);
 
@@ -92,13 +94,11 @@ public class CustomersController {
     public void showCustomerPayments(Customer customer) {
         System.out.println("Show payments for: " + customer.getFullName());
 
-        // Załaduj widok Payments
+        // Załaduj widok Payments z filtrem klienta
         contentArea.getChildren().clear();
-        VBox paymentsView = customersViewFactory.getPaymentsView();
+        VBox paymentsView = customersViewFactory.getPaymentsViewForCustomer(customer);
         contentArea.getChildren().add(paymentsView);
-
-        // TODO: Ustaw filtr na klienta w PaymentsController
-        // customersViewFactory.getPaymentsViewController().setCustomerFilter(customer);
+        VBox.setVgrow(paymentsView, javafx.scene.layout.Priority.ALWAYS);
 
         // Ustaw menu na Payments i pokaż filtered
         if (topMenuController != null) {
@@ -117,6 +117,7 @@ public class CustomersController {
         contentArea.getChildren().clear();
         VBox reservationsView = customersViewFactory.getReservationsViewForCustomer(customer);
         contentArea.getChildren().add(reservationsView);
+        VBox.setVgrow(reservationsView, javafx.scene.layout.Priority.ALWAYS);
 
         // Ustaw menu na Reservations i pokaż filtered
         if (topMenuController != null) {
@@ -138,6 +139,7 @@ public class CustomersController {
         contentArea.getChildren().clear();
         VBox reservationsView = customersViewFactory.getReservationsViewForParking(parking);
         contentArea.getChildren().add(reservationsView);
+        VBox.setVgrow(reservationsView, javafx.scene.layout.Priority.ALWAYS);
 
         // Ustaw menu na Reservations i pokaż filtered
         if (topMenuController != null) {
@@ -184,6 +186,26 @@ public class CustomersController {
         }
     }
 
+    /**
+     * Wraca do wszystkich płatności (bez filtra)
+     */
+    public void showAllPayments() {
+        System.out.println("Showing all payments (no filter)");
+
+        // Wyczyść filtr w kontrolerze płatności
+        customersViewFactory.clearPaymentsFilter();
+
+        // Załaduj widok płatności
+        contentArea.getChildren().clear();
+        contentArea.getChildren().add(customersViewFactory.getPaymentsView());
+
+        // Ukryj filtered label ale zostaw na zakładce Payments
+        if (topMenuController != null) {
+            topMenuController.setActiveTab("Payments");
+            topMenuController.hidePaymentsFilter();
+        }
+    }
+
     public void onMenuItemSelected(String menuItem) {
         // Przy ręcznym wyborze z menu - wyczyść filtry
         if (menuItem.equals("Reservations")) {
@@ -192,6 +214,22 @@ public class CustomersController {
                 topMenuController.hideReservationsFilter();
             }
         }
+        if (menuItem.equals("Payments")) {
+            customersViewFactory.clearPaymentsFilter();
+            if (topMenuController != null) {
+                topMenuController.hidePaymentsFilter();
+            }
+        }
         selectedMenuItem.set(menuItem);
+    }
+
+    /**
+     * Pokazuje dowolny custom view w content area
+     * Używane np. dla AllActivityView
+     */
+    public void showCustomView(VBox view) {
+        contentArea.getChildren().clear();
+        contentArea.getChildren().add(view);
+        VBox.setVgrow(view, javafx.scene.layout.Priority.ALWAYS);
     }
 }

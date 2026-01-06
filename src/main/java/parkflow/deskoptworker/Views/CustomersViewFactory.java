@@ -2,27 +2,30 @@ package parkflow.deskoptworker.Views;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
+import parkflow.deskoptworker.Controllers.Worker.AllActivityController;
 import parkflow.deskoptworker.Controllers.Worker.CustomerProfileController;
 import parkflow.deskoptworker.Controllers.Worker.CustomerReservationsController;
 import parkflow.deskoptworker.Controllers.Worker.CustomersController;
 import parkflow.deskoptworker.Controllers.Worker.CustomersViewController;
+import parkflow.deskoptworker.Controllers.Worker.PaymentsViewController;
 
 import parkflow.deskoptworker.models.Customer;
 import parkflow.deskoptworker.models.Parking;
+import parkflow.deskoptworker.models.Transaction;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CustomersViewFactory {
     // Cache widoków
     private VBox customersView;
     private CustomersViewController customersViewController;
     private VBox paymentsView;
+    private PaymentsViewController paymentsViewController;
     private VBox reservationsView;
     private CustomerReservationsController reservationsViewController;
-    private VBox customerProfileView;
 
     private CustomerProfileController currentProfileController;
-    private Customer currentProfileCustomer;
     private CustomersController parentController;
 
     public CustomersViewFactory() {}
@@ -34,6 +37,8 @@ public class CustomersViewFactory {
         this.parentController = controller;
         System.out.println("Factory: Parent controller set!");
     }
+
+    // ==================== CUSTOMERS VIEW ====================
 
     public VBox getCustomersView() {
         if (customersView == null) {
@@ -60,12 +65,22 @@ public class CustomersViewFactory {
         return customersView;
     }
 
+    // ==================== PAYMENTS VIEW ====================
+
     public VBox getPaymentsView() {
         if (paymentsView == null) {
             try {
-                paymentsView = new FXMLLoader(
+                FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("/parkflow/deskoptworker/worker/PaymentsView.fxml")
-                ).load();
+                );
+                paymentsView = loader.load();
+                paymentsViewController = loader.getController();
+
+                if (parentController != null) {
+                    paymentsViewController.setParentController(parentController);
+                    System.out.println("Factory: Parent controller passed to PaymentsViewController!");
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
                 System.err.println("Failed to load PaymentsView.fxml");
@@ -73,6 +88,37 @@ public class CustomersViewFactory {
             }
         }
         return paymentsView;
+    }
+
+    /**
+     * Gets payments view with customer filter applied
+     */
+    public VBox getPaymentsViewForCustomer(Customer customer) {
+        VBox view = getPaymentsView();
+
+        if (paymentsViewController != null && customer != null) {
+            paymentsViewController.setCustomerFilter(customer);
+            System.out.println("Factory: Customer filter set for payments: " + customer.getFullName());
+        }
+
+        return view;
+    }
+
+    /**
+     * Clears customer filter on payments view
+     */
+    public void clearPaymentsFilter() {
+        if (paymentsViewController != null) {
+            paymentsViewController.clearCustomerFilter();
+        }
+    }
+
+    /**
+     * Gets the payments view controller for direct manipulation
+     */
+    public PaymentsViewController getPaymentsViewController() {
+        getPaymentsView(); // Ensure view is loaded
+        return paymentsViewController;
     }
 
     // ==================== RESERVATIONS VIEW ====================
@@ -141,7 +187,6 @@ public class CustomersViewFactory {
      * Gets the reservations view controller for direct manipulation
      */
     public CustomerReservationsController getReservationsViewController() {
-        // Ensure view is loaded
         getReservationsView();
         return reservationsViewController;
     }
@@ -149,7 +194,7 @@ public class CustomersViewFactory {
     // ==================== CUSTOMER PROFILE ====================
 
     /**
-     * Tworzy widok profilu klienta
+     * Tworzy widok profilu klienta z już skonfigurowanym listenerem
      */
     public VBox getCustomerProfileView(Customer customer) {
         try {
@@ -157,11 +202,13 @@ public class CustomersViewFactory {
                     getClass().getResource("/parkflow/deskoptworker/worker/CustomerProfile.fxml")
             );
 
-            customerProfileView = loader.load();
+            VBox customerProfileView = loader.load();
             currentProfileController = loader.getController();
             currentProfileController.setCustomer(customer);
 
-            currentProfileCustomer = customer;
+            // Setup listener BEZPOŚREDNIO tutaj
+            setupProfileListener(customer);
+
             return customerProfileView;
 
         } catch (IOException e) {
@@ -171,12 +218,11 @@ public class CustomersViewFactory {
     }
 
     /**
-     * Ustawia listener dla profilu klienta
-     * Musi być wywołane ZARAZ PO getCustomerProfileView()
+     * PRIVATE - Setup listener wewnętrznie
      */
-    public void setupProfileListener(CustomersController parentController, Customer customer) {
-        if (currentProfileController == null) {
-            System.err.println("Profile controller is null! Call getCustomerProfileView() first.");
+    private void setupProfileListener(Customer customer) {
+        if (currentProfileController == null || parentController == null) {
+            System.err.println("Cannot setup listener - controller or parent is null");
             return;
         }
 
@@ -200,9 +246,48 @@ public class CustomersViewFactory {
             public void onViewAllPayments(Customer customer) {
                 parentController.showCustomerPayments(customer);
             }
+
+            @Override
+            public void onViewAllActivity(Customer customer, List<Transaction> transactions) {
+                // TERAZ Factory tylko TWORZY widok i zwraca go do CustomersController
+                // CustomersController sam zdecyduje co z nim zrobić
+                VBox allActivityView = createAllActivityView(customer, transactions);
+                if (allActivityView != null) {
+                    parentController.showCustomView(allActivityView);
+                }
+            }
         });
     }
 
+    /**
+     * Tworzy widok wszystkich aktywności (bez samodzielnego wyświetlania)
+     * @return VBox z AllActivityView lub null jeśli błąd
+     */
+    private VBox createAllActivityView(Customer customer, List<Transaction> transactions) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/worker/AllActivityView.fxml")
+            );
+            VBox allActivityView = loader.load();
+
+            AllActivityController controller = loader.getController();
+            controller.setCustomer(customer, transactions);
+
+            // Setup listener do powrotu
+            controller.setListener(() -> {
+                if (parentController != null) {
+                    parentController.showCustomerProfile(customer);
+                }
+            });
+
+            return allActivityView;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to load AllActivityView.fxml");
+            return null;
+        }
+    }
 
     /**
      * Resets all cached views (useful for refresh)
@@ -211,11 +296,10 @@ public class CustomersViewFactory {
         customersView = null;
         customersViewController = null;
         paymentsView = null;
+        paymentsViewController = null;
         reservationsView = null;
         reservationsViewController = null;
-        customerProfileView = null;
         currentProfileController = null;
-        currentProfileCustomer = null;
     }
 
     private VBox createPlaceholder(String text) {

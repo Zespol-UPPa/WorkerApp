@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="parkflow.deskoptworker.Controllers.Components.FilterBarPaymentsController"
+      styleClass="filter-bar"
+      stylesheets="@../styles/reports.css"
+      spacing="12"
+      alignment="CENTER_LEFT">
+
+
+    <padding>
+        <Insets top="16" bottom="16" left="0" right="0"/>
+    </padding>
+
+    <!-- Filter icon -->
+    <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+        <image>
+            <Image url="@../images/funnel.png"/>
+        </image>
+    </ImageView>
+
+    <!-- Transaction type filter -->
+    <ComboBox fx:id="typeCombo"
+              styleClass="filter-combo"
+              promptText="Transaction type"/>
+
+    <!-- Status filter -->
+    <ComboBox fx:id="statusCombo"
+              styleClass="filter-combo"
+              promptText="Status"/>
+
+</HBox>
