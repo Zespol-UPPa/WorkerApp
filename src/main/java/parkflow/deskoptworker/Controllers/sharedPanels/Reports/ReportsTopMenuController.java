@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import lombok.Setter;
 
 import java.util.Objects;
 
@@ -11,9 +12,7 @@ public class ReportsTopMenuController {
     @FXML private Button overviewButton;
     @FXML private Button financialButton;
     @FXML private Button occupancyButton;
-    @FXML private Button sessionButton;
     @FXML private Button customersButton;
-    @FXML private Button reservationButton;
 
     @FXML private ImageView overviewIcon;
     @FXML private ImageView financialIcon;
@@ -23,6 +22,7 @@ public class ReportsTopMenuController {
     @FXML private ImageView reservationIcon;
 
     private Button activeButton;
+    @Setter
     private ReportsController parentController;
 
     @FXML
@@ -32,13 +32,7 @@ public class ReportsTopMenuController {
         overviewButton.setOnAction(e -> handleMenuClick(overviewButton, "Overview"));
         financialButton.setOnAction(e -> handleMenuClick(financialButton, "Financial"));
         occupancyButton.setOnAction(e -> handleMenuClick(occupancyButton, "Occupancy"));
-        sessionButton.setOnAction(e -> handleMenuClick(sessionButton, "Session"));
         customersButton.setOnAction(e -> handleMenuClick(customersButton, "Customers"));
-        reservationButton.setOnAction(e -> handleMenuClick(reservationButton, "Reservations"));
-    }
-
-    public void setParentController(ReportsController controller) {
-        this.parentController = controller;
     }
 
     private void handleMenuClick(Button clickedButton, String viewName) {
@@ -77,12 +71,9 @@ public class ReportsTopMenuController {
             iconPath = isActive ? "dollarWhite.png" : "dollarBlack.png";
         } else if (button == occupancyButton) {
             iconPath = isActive ? "columnWhite.png" : "columnBlack.png";
-        } else if (button == sessionButton) {
-            iconPath = isActive ? "clockWhite.png" : "clockBlack.png";
         } else if (button == customersButton) {
             iconPath = isActive ? "customersWhite.png" : "customersBlack.png";
-        }  else if (button == reservationButton) {
-            iconPath = isActive ? "calendarWhite.png" : "calendarBlack.png";}
+        }
 
         String fullPath = null;
         try {

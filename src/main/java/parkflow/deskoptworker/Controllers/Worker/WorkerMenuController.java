@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 public class WorkerMenuController {
 
     @FXML private Button dashboardBtn;
-    @FXML private Button parkingBtn;
     @FXML private Button reportsBtn;
     @FXML private Button customersBtn;  // ✓ POPRAWIONE - było personnelBtn
     @FXML private Button settingsBtn;
@@ -24,7 +23,6 @@ public class WorkerMenuController {
 
         // Przypisz akcje do przycisków
         dashboardBtn.setOnAction(_ -> handleMenuClick(dashboardBtn, "Dashboard"));
-        parkingBtn.setOnAction(_ -> handleMenuClick(parkingBtn, "Parkings"));
         reportsBtn.setOnAction(_ -> handleMenuClick(reportsBtn, "Reports"));
         customersBtn.setOnAction(_ -> handleMenuClick(customersBtn, "Customers"));
         settingsBtn.setOnAction(_ -> handleMenuClick(settingsBtn, "Settings"));
@@ -91,7 +89,6 @@ public class WorkerMenuController {
     public void setActiveMenuItem(String menuItem) {
         Button targetButton = switch (menuItem) {
             case "Dashboard" -> dashboardBtn;
-            case "Parkings" -> parkingBtn;
             case "Reports" -> reportsBtn;
             case "Customers" -> customersBtn;
             case "Settings" -> settingsBtn;

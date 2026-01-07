@@ -9,12 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
 import parkflow.deskoptworker.Controllers.Components.FilterBarController;
 import parkflow.deskoptworker.Controllers.Components.MetricCardController;
 import parkflow.deskoptworker.Controllers.Components.SimpleMetricBoxController;
@@ -25,7 +19,6 @@ public class ReportCustomersController {
     @FXML private MetricCardController totalCustomersCardController;
     @FXML private MetricCardController activeCardController;
     @FXML private MetricCardController newCardController;
-    @FXML private MetricCardController retentionCardController;
 
     // === FILTER BAR ===
     @FXML private FilterBarController filterBarController;
@@ -38,21 +31,16 @@ public class ReportCustomersController {
     @FXML private TableColumn<CustomerData, String> totalSpentColumn;
     @FXML private TableColumn<CustomerData, String> avgDurationColumn;
 
-    // === BEHAVIOR METRICS (SimpleMetricBox) ===
-    @FXML private SimpleMetricBoxController avgSessionsCardController;
-    @FXML private SimpleMetricBoxController retentionRateCardController;
-    @FXML private SimpleMetricBoxController churnRateCardController;
-
-    // === GROWTH METRICS (SimpleMetricBox) ===
+    // === GROWTH METRICS (SimpleMetricBox) - 3 cards ===
     @FXML private SimpleMetricBoxController newCustomersCardController;
     @FXML private SimpleMetricBoxController activeCustomersCardController;
+    @FXML private SimpleMetricBoxController avgSessionsCardController;
 
     @FXML
     public void initialize() {
         System.out.println("ReportCustomersController initialized");
         setupTopMetricCards();
         setupCustomersTable();
-        setupBehaviorMetrics();
         setupGrowthMetrics();
     }
 
@@ -87,14 +75,7 @@ public class ReportCustomersController {
                 "card-blue"
         );
 
-        // Retention Rate - Orange
-        retentionCardController.setData(
-                "Retention Rate",
-                "78.5 %",
-                null,
-                "/parkflow/deskoptworker/images/targetWhite.png",
-                "card-orange"
-        );
+
     }
 
     /**
@@ -166,24 +147,6 @@ public class ReportCustomersController {
     }
 
     /**
-     * Tworzy wycentrowaną komórkę
-     */
-    private TableCell<CustomerData, String> createCenteredCell() {
-        return new TableCell<CustomerData, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item);
-                    setAlignment(Pos.CENTER);
-                }
-            }
-        };
-    }
-
-    /**
      * Ładuje przykładowe dane klientów
      */
     private void loadSampleCustomerData() {
@@ -200,24 +163,7 @@ public class ReportCustomersController {
     }
 
     /**
-     * Setup Behavior Metrics (SimpleMetricBox)
-     */
-    private void setupBehaviorMetrics() {
-        // Avg Sessions per Customer - Purple
-        avgSessionsCardController.setData("Avg Sessions per Customer", "2.8");
-        avgSessionsCardController.setCardType("purple");
-
-        // Retention Rate - Green
-        retentionRateCardController.setData("Retention Rate", "78.5%");
-        retentionRateCardController.setCardType("green");
-
-        // Churn Rate - Red
-        churnRateCardController.setData("Churn Rate", "5.2%");
-        churnRateCardController.setCardType("red");
-    }
-
-    /**
-     * Setup Growth Metrics (SimpleMetricBox)
+     * Setup Growth Metrics (SimpleMetricBox) - 3 cards
      */
     private void setupGrowthMetrics() {
         // New Customers - Pink
@@ -227,6 +173,10 @@ public class ReportCustomersController {
         // Active Customers - Purple
         activeCustomersCardController.setData("Active Customers", "3102", "66.6% of total");
         activeCustomersCardController.setCardType("purple");
+
+        // Avg Sessions per Customer - Blue
+        avgSessionsCardController.setData("Avg Sessions per Customer", "2.8", "Per customer");
+        avgSessionsCardController.setCardType("blue");
     }
 
     // ==================== PUBLIC UPDATE METHODS ====================
@@ -236,7 +186,6 @@ public class ReportCustomersController {
      */
     public void updateAllData(CustomerMetricsData data) {
         updateTopMetrics(data);
-        updateBehaviorMetrics(data);
         updateGrowthMetrics(data);
         updateCustomersTable(data.topCustomers);
     }
@@ -248,16 +197,6 @@ public class ReportCustomersController {
         totalCustomersCardController.setValue(String.valueOf(data.totalCustomers));
         activeCardController.setValue(String.valueOf(data.activeThisMonth));
         newCardController.setValue(String.valueOf(data.newThisMonth));
-        retentionCardController.setValue(String.format("%.1f %%", data.retentionRate));
-    }
-
-    /**
-     * Aktualizuje Behavior Metrics
-     */
-    public void updateBehaviorMetrics(CustomerMetricsData data) {
-        avgSessionsCardController.setValue(String.format("%.1f", data.avgSessionsPerCustomer));
-        retentionRateCardController.setValue(String.format("%.1f%%", data.retentionRate));
-        churnRateCardController.setValue(String.format("%.1f%%", data.churnRate));
     }
 
     /**
@@ -267,6 +206,7 @@ public class ReportCustomersController {
         newCustomersCardController.setValue(String.valueOf(data.newThisMonth));
         activeCustomersCardController.setValue(String.valueOf(data.activeThisMonth));
         activeCustomersCardController.setSubtitle(String.format("%.1f%% of total", data.activePercent));
+        avgSessionsCardController.setValue(String.format("%.1f", data.avgSessionsPerCustomer));
     }
 
     /**
@@ -298,11 +238,8 @@ public class ReportCustomersController {
         public int newThisMonth;
         public double retentionRate;
 
-        // Behavior metrics
-        public double avgSessionsPerCustomer;
-        public double churnRate;
-
         // Growth metrics
+        public double avgSessionsPerCustomer;
         public double activePercent;
 
         // Table data

@@ -13,10 +13,11 @@ import java.util.stream.Collectors;
 
 public class ReportFinancialController {
 
-    // Top 3 STATUS CARDS (z ikonkami)
+    // Top 4 STATUS CARDS (z ikonkami)
     @FXML private StatusCardController totalRevenueCardController;
     @FXML private StatusCardController parkingUsageCardController;
     @FXML private StatusCardController pendingPaymentsCardController;
+    @FXML private StatusCardController reservationFeesStatusCardController;
 
     // Charts
     @FXML private BarChart<String, Number> revenueUsageChart;
@@ -37,7 +38,7 @@ public class ReportFinancialController {
     }
 
     /**
-     * Ustawia górne 3 karty statusu z ikonkami
+     * Ustawia górne 4 karty statusu z ikonkami
      */
     private void setupTopStatusCards() {
 
@@ -66,6 +67,15 @@ public class ReportFinancialController {
                 "To be collected",
                 "/parkflow/deskoptworker/images/dollarOrange.png",
                 "#FFF3E0"
+        );
+
+        reservationFeesStatusCardController.setData(
+                "Reservation Fees",
+                "(From reservations)",
+                "6235.00 $",
+                "Revenue from fees",
+                "/parkflow/deskoptworker/images/calendarPurple.png",
+                "#F3E5F5"  // Light purple background
         );
     }
 

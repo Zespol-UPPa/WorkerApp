@@ -10,10 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="1110.0" spacing="8" stylesheets="@../../styles/reports.css, @../../styles/mainPanel.css"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportOccupancyController"
-      style="-fx-background-color: transparent;">
+<VBox prefWidth="1110.0" spacing="8" style="-fx-background-color: transparent;" stylesheets="@../../styles/reports.css, @../../styles/mainPanel.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportOccupancyController">
 
     <VBox spacing="12" style="-fx-background-color: transparent;">
 
@@ -23,77 +20,58 @@
             <Label styleClass="main_subtitle" text="Real-time analytics and performance metrics" />
         </VBox>
 
-        <!-- Filter Bar -->
-        <fx:include source="../../components/filterBar.fxml" fx:id="filterBar"/>
 
-        <!-- Top Metric Cards Grid - 4 cards -->
-        <GridPane fx:id="metricsGrid" hgap="16" vgap="16">
+        <!-- Top 3 Metric Cards (white cards, no icons) -->
+        <GridPane hgap="16" vgap="16">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
             </columnConstraints>
+
+            <!-- Metric Card 1: Current Occupancy -->
+            <fx:include source="../../components/MetricCard.fxml" fx:id="currentOccupancyCard" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+
+            <!-- Metric Card 2: Peak Today -->
+            <fx:include source="../../components/MetricCard.fxml" fx:id="peakTodayCard" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <!-- Metric Card 3: Low Today -->
+            <fx:include source="../../components/MetricCard.fxml" fx:id="lowTodayCard" GridPane.columnIndex="2" GridPane.rowIndex="0" />
         </GridPane>
 
         <!-- Charts Row - Hourly Pattern & Weekly Trend -->
         <HBox spacing="20.0" VBox.vgrow="ALWAYS">
             <!-- Hourly Occupancy Pattern - Area Chart -->
             <VBox styleClass="section_vbox" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                <Label styleClass="section_title" text="Hourly Occupancy Pattern"/>
-                <AreaChart fx:id="hourlyOccupancyChart"
-                           legendVisible="false"
-                           minHeight="300"
-                           prefHeight="300"
-                           VBox.vgrow="ALWAYS">
+                <Label styleClass="section_title" text="Hourly Occupancy Pattern" />
+                <AreaChart fx:id="hourlyOccupancyChart" legendVisible="false" minHeight="300" prefHeight="300" VBox.vgrow="ALWAYS">
                     <xAxis>
-                        <CategoryAxis side="BOTTOM"/>
+                        <CategoryAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis side="LEFT" label="Occupancy %"/>
+                        <NumberAxis label="Occupancy %" side="LEFT" />
                     </yAxis>
                 </AreaChart>
             </VBox>
 
             <!-- Weekly Occupancy Trend - Bar Chart -->
             <VBox styleClass="section_vbox" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                <children>
-                    <Label styleClass="section_title" text="Weekly Occupancy Trend"/>
-                    <BarChart fx:id="weeklyOccupancyChart"
-                              legendVisible="false"
-                              minHeight="300"
-                              prefHeight="300"
-                              VBox.vgrow="ALWAYS">
-                        <xAxis>
-                            <CategoryAxis side="BOTTOM"/>
-                        </xAxis>
-                        <yAxis>
-                            <NumberAxis side="LEFT" label="Occupancy %"/>
-                        </yAxis>
-                    </BarChart>
-                </children>
+                <Label styleClass="section_title" text="Weekly Occupancy Trend" />
+                <BarChart fx:id="weeklyOccupancyChart" legendVisible="false" minHeight="300" prefHeight="300" VBox.vgrow="ALWAYS">
+                    <xAxis>
+                        <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Occupancy %" side="LEFT" />
+                    </yAxis>
+                </BarChart>
             </VBox>
         </HBox>
 
-        <!-- Peak Hours Analysis Section -->
-        <VBox spacing="16" styleClass="section_vbox">
-            <Label styleClass="section_title" text="Peak Hours Analysis"/>
-
-            <!-- Grid for 3 peak period cards -->
-            <GridPane fx:id="peakHoursGrid" hgap="16" vgap="16">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33"/>
-                </columnConstraints>
-            </GridPane>
-        </VBox>
-
         <!-- Individual Parking Analysis Section -->
         <VBox spacing="16" styleClass="section_vbox">
-            <Label styleClass="section_title" text="Individual Parking Analysis"/>
-            <VBox fx:id="parkingPerformanceContainer" spacing="12"/>
-
+            <Label styleClass="section_title" text="Individual Parking Analysis" />
+            <VBox fx:id="parkingPerformanceContainer" spacing="12" />
         </VBox>
 
     </VBox>

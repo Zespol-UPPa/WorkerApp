@@ -24,7 +24,7 @@
                 </image>
             </ImageView>
 
-            <TextField fx:id="searchField" promptText="Search by name, email, ID or PESELE..." styleClass="search-field" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="searchField" promptText="Search by name, email, ID..." styleClass="search-field" HBox.hgrow="ALWAYS" />
         </HBox>
     </VBox>
 

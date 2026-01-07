@@ -1,109 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Insets?>
 
-<VBox fx:id="workerMenu"
-      minWidth="260" prefWidth="220" maxWidth="280"
-      minHeight="0" maxHeight="Infinity"
-      styleClass="menu_container"
-      stylesheets="@../styles/menu.css"
-      xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="parkflow.deskoptworker.Controllers.Worker.WorkerMenuController">
+<VBox fx:id="workerMenu" maxHeight="Infinity" maxWidth="280" minHeight="0" minWidth="260" prefWidth="220" styleClass="menu_container" stylesheets="@../styles/menu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Worker.WorkerMenuController">
    <!-- Logo Section -->
-   <VBox alignment="CENTER" minHeight="100" prefHeight="120" maxHeight="150">
+   <VBox alignment="CENTER" maxHeight="150" minHeight="100" prefHeight="120">
       <padding>
-         <Insets top="10" bottom="10"/>
+         <Insets bottom="10" top="10" />
       </padding>
-      <ImageView fitHeight="80.0" fitWidth="180.0"
-                 pickOnBounds="true" preserveRatio="true">
-         <Image url="@../images/logoWhite.png"/>
+      <ImageView fitHeight="80.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../images/logoWhite.png" />
       </ImageView>
    </VBox>
 
    <!-- Menu Options Container -->
-   <VBox prefHeight="100.0" minHeight="0" VBox.vgrow="ALWAYS" styleClass="menu_options">
+   <VBox minHeight="0" prefHeight="100.0" styleClass="menu_options" VBox.vgrow="ALWAYS">
       <!-- Main Menu Items -->
-      <VBox styleClass="menu_specific" spacing="5">
-         <Button fx:id="dashboardBtn"
-                 minHeight="50" prefHeight="55" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 styleClass="menu_button"
-                 text="Dashboard">
+      <VBox spacing="5" styleClass="menu_specific">
+         <Button fx:id="dashboardBtn" maxWidth="Infinity" minHeight="50" mnemonicParsing="false" prefHeight="55" styleClass="menu_button" text="Dashboard">
             <graphic>
                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../images/home.png"/>
+                  <Image url="@../images/home.png" />
                </ImageView>
             </graphic>
          </Button>
 
-         <Button fx:id="parkingBtn"
-                 minHeight="50" prefHeight="55" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 styleClass="menu_button"
-                 text="Parkings">
+         <Button fx:id="reportsBtn" maxWidth="Infinity" minHeight="50" mnemonicParsing="false" prefHeight="55" styleClass="menu_button" text="Reports">
             <graphic>
                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../images/parking.png"/>
+                  <Image url="@../images/graph.png" />
                </ImageView>
             </graphic>
          </Button>
 
-         <Button fx:id="reportsBtn"
-                 minHeight="50" prefHeight="55" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 styleClass="menu_button"
-                 text="Reports">
+         <Button fx:id="customersBtn" maxWidth="Infinity" minHeight="50" mnemonicParsing="false" prefHeight="55" styleClass="menu_button" text="Customers">
             <graphic>
                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../images/graph.png"/>
-               </ImageView>
-            </graphic>
-         </Button>
-
-         <Button fx:id="customersBtn"
-                 minHeight="50" prefHeight="55" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 styleClass="menu_button"
-                 text="Customers">
-            <graphic>
-               <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../images/customers.png"/>
+                  <Image url="@../images/customers.png" />
                </ImageView>
             </graphic>
          </Button>
       </VBox>
 
       <!-- Spacer to push bottom buttons down -->
-      <Region VBox.vgrow="ALWAYS" minHeight="0"/>
+      <Region minHeight="0" VBox.vgrow="ALWAYS" />
 
       <!-- Bottom Menu Items -->
       <VBox styleClass="menu_specific">
-         <Button fx:id="settingsBtn"
-                 minHeight="50" prefHeight="55" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 styleClass="menu_button"
-                 text="Settings">
+         <Button fx:id="settingsBtn" maxWidth="Infinity" minHeight="50" mnemonicParsing="false" prefHeight="55" styleClass="menu_button" text="Settings">
             <graphic>
                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../images/settings.png"/>
+                  <Image url="@../images/settings.png" />
                </ImageView>
             </graphic>
          </Button>
 
-         <Button fx:id="logoutBtn"
-                 minHeight="50" prefHeight="55" maxWidth="Infinity"
-                 mnemonicParsing="false"
-                 styleClass="menu_button"
-                 text="Logout">
+         <Button fx:id="logoutBtn" maxWidth="Infinity" minHeight="50" mnemonicParsing="false" prefHeight="55" styleClass="menu_button" text="Logout">
             <graphic>
                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <Image url="@../images/logout.png"/>
+                  <Image url="@../images/logout.png" />
                </ImageView>
             </graphic>
          </Button>

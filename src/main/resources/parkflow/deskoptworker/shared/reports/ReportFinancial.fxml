@@ -24,12 +24,13 @@
             <Label styleClass="main_subtitle" text="Real-time analytics and performance metrics" />
         </VBox>
 
-        <!-- Top 3 STATUS CARDS (z ikonkami) -->
+        <!-- Top 4 STATUS CARDS (z ikonkami) -->
         <GridPane hgap="20" vgap="20">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
             </columnConstraints>
 
             <!-- Status Card 1: Total Revenue -->
@@ -40,6 +41,9 @@
 
             <!-- Status Card 3: Pending Payments -->
             <fx:include source="../../components/statusCard.fxml" fx:id="pendingPaymentsCard" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
+            <!-- Status Card 4: Reservation Fees -->
+            <fx:include source="../../components/statusCard.fxml" fx:id="reservationFeesStatusCard" GridPane.columnIndex="3" GridPane.rowIndex="0" />
         </GridPane>
 
         <!-- Charts row - Bar Chart and Pie Chart -->
