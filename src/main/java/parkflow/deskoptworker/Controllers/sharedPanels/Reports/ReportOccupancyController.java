@@ -5,8 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import parkflow.deskoptworker.Controllers.Components.FilterBarController;
 import parkflow.deskoptworker.Controllers.Components.MetricCardController;
@@ -19,12 +17,19 @@ import java.util.List;
 
 public class ReportOccupancyController {
 
-    @FXML private GridPane metricsGrid;
+    // Top 3 Metric Cards (white cards, no icons)
+    @FXML private MetricCardController currentOccupancyCardController;
+    @FXML private MetricCardController peakTodayCardController;
+    @FXML private MetricCardController lowTodayCardController;
+
+
+
+    // Charts
     @FXML private AreaChart<String, Number> hourlyOccupancyChart;
     @FXML private BarChart<String, Number> weeklyOccupancyChart;
-    @FXML private GridPane peakHoursGrid;
+
+    // Parking Performance Container
     @FXML private VBox parkingPerformanceContainer;
-    @FXML private FilterBarController filterBarController;
 
     @FXML
     public void initialize() {
@@ -32,61 +37,41 @@ public class ReportOccupancyController {
         setupTopMetrics();
         setupHourlyOccupancyChart();
         setupWeeklyOccupancyChart();
-        setupPeakHoursCards();
         setupParkingPerformanceItems();
     }
 
     /**
-     * Setup top 4 metric cards using MetricCard with colored gradients, NO ICONS
+     * Setup top 3 metric cards (white cards, no icons)
      */
     private void setupTopMetrics() {
-
-        MetricCardController currentCard = loadMetricCard(
+        // Current Occupancy
+        currentOccupancyCardController.setData(
                 "Current Occupancy",
                 "87 %",
                 "3088/3550 spots",
                 null,  // NO ICON
                 "card-white"
         );
-        if (currentCard != null) {
-            metricsGrid.add(currentCard.getRoot(), 0, 0);
-        }
 
-        MetricCardController avgCard = loadMetricCard(
-                "Daily Average",
-                "72 %",
-                "Consistent usage",
-                null,  // NO ICON
-                "card-white"
-        );
-        if (avgCard != null) {
-            avgCard.setValueColor("value-green");
-            metricsGrid.add(avgCard.getRoot(), 1, 0);
-        }
-
-        MetricCardController peakCard = loadMetricCard(
+        // Peak Today
+        peakTodayCardController.setData(
                 "Peak Today",
                 "95 %",
                 "At 14:00",
                 null,  // NO ICON
                 "card-white"
         );
-        if (peakCard != null) {
-            peakCard.setValueColor("value-red");
-            metricsGrid.add(peakCard.getRoot(), 2, 0);
-        }
+        peakTodayCardController.setValueColor("value-red");
 
-        MetricCardController lowCard = loadMetricCard(
+        // Low Today
+        lowTodayCardController.setData(
                 "Low Today",
                 "45 %",
                 "At 04:00",
                 null,  // NO ICON
                 "card-white"
         );
-        if (lowCard != null) {
-            lowCard.setValueColor("value-blue");
-            metricsGrid.add(lowCard.getRoot(), 3, 0);
-        }
+        lowTodayCardController.setValueColor("value-blue");
     }
 
     /**
@@ -125,59 +110,6 @@ public class ReportOccupancyController {
 
         weeklyOccupancyChart.getData().add(series);
         weeklyOccupancyChart.setAnimated(true);
-    }
-
-    /**
-     * Setup 3 peak hours analysis cards
-     */
-    private void setupPeakHoursCards() {
-        // Peak Period 1
-        VBox peak1 = createPeakHourCard("#1 Peak Period", "14:00-15:00", "201 active sessions");
-        peakHoursGrid.add(peak1, 0, 0);
-
-        // Peak Period 2
-        VBox peak2 = createPeakHourCard("#2 Peak Period", "15:00-16:00", "201 active sessions");
-        peakHoursGrid.add(peak2, 1, 0);
-
-        // Peak Period 3
-        VBox peak3 = createPeakHourCard("#3 Peak Period", "16:00-17:00", "201 active sessions");
-        peakHoursGrid.add(peak3, 2, 0);
-    }
-
-    /**
-     * Create a single peak hour card with pink/salmon background
-     */
-    private VBox createPeakHourCard(String title, String timeRange, String sessions) {
-        VBox card = new VBox(8);
-        card.setStyle(
-                "-fx-background-color: #fce4ec;" +
-                        "-fx-background-radius: 12;" +
-                        "-fx-padding: 20;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);"
-        );
-
-        Label titleLabel = new Label(title);
-        titleLabel.setStyle(
-                "-fx-font-size: 14px;" +
-                        "-fx-font-weight: 600;" +
-                        "-fx-text-fill: #880e4f;"
-        );
-
-        Label timeLabel = new Label(timeRange);
-        timeLabel.setStyle(
-                "-fx-font-size: 20px;" +
-                        "-fx-font-weight: 700;" +
-                        "-fx-text-fill: #ad1457;"
-        );
-
-        Label sessionsLabel = new Label(sessions);
-        sessionsLabel.setStyle(
-                "-fx-font-size: 14px;" +
-                        "-fx-text-fill: #c2185b;"
-        );
-
-        card.getChildren().addAll(titleLabel, timeLabel, sessionsLabel);
-        return card;
     }
 
     /**
@@ -241,25 +173,10 @@ public class ReportOccupancyController {
     }
 
     /**
-     * Load a metric card component WITHOUT ICON
+     * Refresh data based on filter selection
      */
-    private MetricCardController loadMetricCard(String title, String value, String subtitle,
-                                                String iconPath, String colorClass) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/parkflow/deskoptworker/components/MetricCard.fxml")
-            );
-            VBox card = loader.load();
-            MetricCardController controller = loader.getController();
-
-            // Use the setData method - iconPath is null (NO ICONS)
-            controller.setData(title, value, subtitle, iconPath, colorClass);
-
-            return controller;
-        } catch (IOException e) {
-            System.err.println("Error loading MetricCard: " + e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
+    public void refreshData(String timePeriod, String parking) {
+        System.out.println("Refreshing occupancy data for: " + timePeriod + " | " + parking);
+        // TODO: Fetch data from API and update charts/metrics
     }
 }

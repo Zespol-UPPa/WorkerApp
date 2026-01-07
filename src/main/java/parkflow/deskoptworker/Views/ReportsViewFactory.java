@@ -10,9 +10,7 @@ public class ReportsViewFactory {
     private VBox overviewView;
     private VBox financialView;
     private VBox occupancyView;
-    private VBox sessionView;
     private VBox customersView;
-    private VBox reservationsView;
 
     public ReportsViewFactory() {}
 
@@ -63,25 +61,7 @@ public class ReportsViewFactory {
         return occupancyView;
     }
 
-    public VBox getSessionView() {
-        if (sessionView == null) {
-            try {
-                System.out.println("Loading ReportSession" +
-                        ".fxml...");
-                sessionView = new FXMLLoader(
-                        getClass().getResource("/parkflow/deskoptworker/shared/reports/ReportSession.fxml")
-                ).load();
-                System.out.println("ReportOverview.fxml loaded successfully");
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.err.println("Failed to load ReportSession.fxml");
-                sessionView = createPlaceholder("Session View");
-            }
-        }
-        return sessionView;
-    }
 
-    // Worker-only views
     public VBox getCustomersView() {
         if (customersView == null) {
             try {
@@ -97,21 +77,6 @@ public class ReportsViewFactory {
     }
 
 
-    public VBox getReservationsView() {
-        if (reservationsView == null) {
-            try {
-                System.out.println("Loading Reservations report view...");
-                reservationsView = new FXMLLoader(
-                        getClass().getResource("/parkflow/deskoptworker/shared/reports/ReportReservations.fxml")
-                ).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-                reservationsView = createPlaceholder("Reservation View");
-            }
-        }
-        return reservationsView;
-    }
-
     private VBox createPlaceholder(String text) {
         VBox placeholder = new VBox();
         placeholder.setStyle("-fx-alignment: center; -fx-padding: 50; -fx-background-color: white;");
@@ -126,7 +91,6 @@ public class ReportsViewFactory {
         overviewView = null;
         financialView = null;
         occupancyView = null;
-        sessionView = null;
         customersView = null;
     }
 }

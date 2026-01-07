@@ -328,7 +328,7 @@ public class PaymentsViewController {
 
         return tx.getCustomerName().toLowerCase().contains(lowerSearch) ||
                 tx.getParkingName().toLowerCase().contains(lowerSearch) ||
-                tx.getLicensePlate().toLowerCase().contains(lowerSearch) ||
+                tx.getLicensePlate().trim().toLowerCase().contains(lowerSearch)||
                 tx.getDescription().toLowerCase().contains(lowerSearch);
     }
 

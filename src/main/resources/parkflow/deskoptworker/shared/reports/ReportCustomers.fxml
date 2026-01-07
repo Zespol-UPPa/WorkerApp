@@ -5,7 +5,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefWidth="1110.0" spacing="8" stylesheets="@../../styles/reports.css, @../../styles/mainPanel.css"
@@ -21,19 +20,17 @@
             <Label styleClass="main_subtitle" text="Real-time analytics and performance metrics" />
         </VBox>
 
-        <!-- Top 4 Metric Cards (kolorowe z ikonkami) -->
+        <!-- Top 3 Metric Cards (kolorowe z ikonkami) -->
         <GridPane hgap="16" vgap="16">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
-                <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
             </columnConstraints>
 
             <fx:include source="../../components/MetricCard.fxml" fx:id="totalCustomersCard" GridPane.columnIndex="0" />
             <fx:include source="../../components/MetricCard.fxml" fx:id="activeCard" GridPane.columnIndex="1" />
             <fx:include source="../../components/MetricCard.fxml" fx:id="newCard" GridPane.columnIndex="2" />
-            <fx:include source="../../components/MetricCard.fxml" fx:id="retentionCard" GridPane.columnIndex="3" />
         </GridPane>
 
         <!-- Filter Bar -->
@@ -60,29 +57,22 @@
             </TableView>
         </VBox>
 
-        <!-- Bottom Row: Customer Behavior & Growth Metrics -->
-        <HBox spacing="20">
-            <!-- Customer Behavior Box -->
-            <VBox spacing="16" styleClass="section_vbox" HBox.hgrow="ALWAYS">
-                <Label styleClass="section_title" text="Customer Behavior" />
+        <!-- Growth Metrics - 3 cards -->
+        <VBox spacing="16" styleClass="section_vbox">
+            <Label styleClass="section_title" text="Key Metrics" />
 
-                <VBox spacing="12">
-                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="avgSessionsCard" />
-                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="retentionRateCard" />
-                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="churnRateCard" />
-                </VBox>
-            </VBox>
+            <GridPane hgap="16" vgap="16">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="33.33" />
+                </columnConstraints>
 
-            <!-- Growth Metrics Box -->
-            <VBox spacing="16" styleClass="section_vbox" HBox.hgrow="ALWAYS">
-                <Label styleClass="section_title" text="Growth Metrics" />
-
-                <VBox spacing="12">
-                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="newCustomersCard" />
-                    <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="activeCustomersCard" />
-                </VBox>
-            </VBox>
-        </HBox>
+                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="newCustomersCard" GridPane.columnIndex="0" />
+                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="activeCustomersCard" GridPane.columnIndex="1" />
+                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="avgSessionsCard" GridPane.columnIndex="2" />
+            </GridPane>
+        </VBox>
 
     </VBox>
 

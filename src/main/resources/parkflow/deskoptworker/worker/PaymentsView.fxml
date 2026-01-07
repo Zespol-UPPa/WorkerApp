@@ -48,7 +48,7 @@
         <!-- Filter Bar -->
         <fx:include fx:id="filterBar" source="../components/filterBarPayments.fxml" />
     </HBox>
-      <TableView fx:id="transactionsTable">
+      <TableView fx:id="transactionsTable" VBox.vgrow="ALWAYS">
           <columns>
               <TableColumn fx:id="dateColumn" minWidth="140" prefWidth="160.0" text="DATE" />
               <TableColumn fx:id="customerColumn" minWidth="180.0" prefWidth="220.0" text="CUSTOMER" />

@@ -38,17 +38,9 @@ public class ReportsController {
                     contentArea.getChildren().clear();
                     contentArea.getChildren().add(reportsViewFactory.getOccupancyView());
                     break;
-                case "Session":
-                    contentArea.getChildren().clear();
-                    contentArea.getChildren().add(reportsViewFactory.getSessionView());
-                    break;
                 case "Customers":
                     contentArea.getChildren().clear();
                     contentArea.getChildren().add(reportsViewFactory.getCustomersView());
-                    break;
-                case "Reservations":
-                    contentArea.getChildren().clear();
-                    contentArea.getChildren().add(reportsViewFactory.getReservationsView());
                     break;
                 default:
                     System.err.println("Unknown report menu item: " + newValue);

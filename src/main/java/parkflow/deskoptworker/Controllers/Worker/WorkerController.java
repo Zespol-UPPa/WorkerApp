@@ -35,9 +35,6 @@ public class WorkerController {
                 case "Dashboard":
                     contentArea.setCenter(viewFactory.getDashboardView());
                     break;
-                case "Parkings":
-                    contentArea.setCenter(viewFactory.getParkingsView());
-                    break;
                 case "Reports":
                     contentArea.setCenter(viewFactory.getReportsView());
                     break;
