@@ -34,4 +34,10 @@ public class Parking {
         this(id, name, address, totalSpaces, availableSpaces, 15, 0.10, 5.0); // domyślne wartości
     }
 
+    //do mock data
+    public Parking(int id, String name)
+    {
+        this(id, name, "", 0, 0, 15, 0.10, 5.0);
+    }
+
 }

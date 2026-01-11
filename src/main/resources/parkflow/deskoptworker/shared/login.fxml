@@ -48,6 +48,6 @@
         </ImageView>
     </StackPane>
    <Label fx:id="errorLabel" styleClass="warning_label" text="Something went wrong" />
-   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleLogin" styleClass="button_sign_in" text="Sign In" />
+   <Button fx:id="loginButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#handleLogin" styleClass="button_sign_in" text="Sign In" />
    <Label fx:id="activationLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" onMouseClicked="#handleActivation" styleClass="login_regular_underscore" text="First time use (activation code)" />
 </VBox>

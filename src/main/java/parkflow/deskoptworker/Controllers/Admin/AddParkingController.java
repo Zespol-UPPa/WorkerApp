@@ -2,19 +2,24 @@ package parkflow.deskoptworker.Controllers.Admin;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import lombok.Getter;
+import javafx.stage.Stage;
 import parkflow.deskoptworker.Controllers.Components.SectionController;
-import parkflow.deskoptworker.models.Parking;
-import parkflow.deskoptworker.utils.AlertHelper;
-import parkflow.deskoptworker.utils.ModalHelper;
+import parkflow.deskoptworker.Views.ViewFactory;
+import parkflow.deskoptworker.api.ApiClient;
+import parkflow.deskoptworker.models.Section;
+import parkflow.deskoptworker.utils.FieldValidator;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AddParkingController {
+
     @FXML private TextField parkingNameField;
     @FXML private TextField addressField;
     @FXML private TextField numberOfFloorsField;
@@ -24,155 +29,258 @@ public class AddParkingController {
     @FXML private Button cancelButton;
     @FXML private Button addParkingButton;
 
-    private List<SectionController> sectionControllers = new ArrayList<>();
-    private int sectionCounter = 0;
-    private static final String[] SECTION_LETTERS = {
-            "A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
-            "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"
-    };
+    private final ApiClient api = new ApiClient();
 
-    @Getter
-    private Parking savedParking = null;
+    private int sectionCounter = 0;  // Track how many sections added
 
     @FXML
     public void initialize() {
-        // Walidacja - tylko liczby dla pięter
-        numberOfFloorsField.textProperty().addListener((_, oldVal, newVal) -> {
-            if (!newVal.matches("\\d*")) {
-                numberOfFloorsField.setText(oldVal);
-            }
-        });
+        System.out.println("AddParkingController initialized");
+
+        // Add validators
+        setupFieldValidators();
     }
 
+    /**
+     * Setup field validators
+     */
+    private void setupFieldValidators() {
+        // Number of floors: digits only, max 1 character (0-5 will be validated on submit)
+        FieldValidator.addDigitsOnlyFilter(numberOfFloorsField, 1);
+    }
+
+    /**
+     * Handle adding a new section
+     */
     @FXML
     private void handleAddSection() {
-        if (numberOfFloorsField.getText().isEmpty()) {
-            AlertHelper.showError("Error", "Please enter the number of floors first!");
-            return;
-        }
-
-        int maxFloors = Integer.parseInt(numberOfFloorsField.getText());
-        if (maxFloors <= 0) {
-            AlertHelper.showError("Error", "Number of floors must be greater than 0!");
-            return;
-        }
-
-        if (sectionCounter >= SECTION_LETTERS.length) {
-            AlertHelper.showWarning("Limit Reached", "Maximum number of sections reached!");
-            return;
-        }
-
         try {
+            // Load section item FXML
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/components/sectionItem.fxml")
+            );
+            VBox sectionItem = loader.load();
+            SectionController controller = loader.getController();
+            try {
+                int numberOfFloors = Integer.parseInt(numberOfFloorsField.getText());
+
+                if (numberOfFloors <= 0) {
+                    throw new NumberFormatException("Liczba pięter musi być > 0");
+                }
+
+                controller.setNumberOfFloors(numberOfFloors);
+
+            } catch (NumberFormatException e) {
+                System.out.println("Nieprawidłowa liczba pięter");
+                showAlert(
+                        "Validation Error",
+                        "Please enter a valid number of floors before adding sections."
+                );
+
+                return;
+            }
+
+            // Calculate section prefix (A, B, C, D, ...)
+            char prefixChar = (char) ('A' + sectionCounter);
+            String prefix = String.valueOf(prefixChar);
+            controller.setSectionPrefix(prefix);
+
+            // Hide empty state
             if (emptyVBox.isVisible()) {
                 emptyVBox.setVisible(false);
                 emptyVBox.setManaged(false);
             }
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/parkflow/deskoptworker/components/SectionItem.fxml"));
-            VBox sectionItem = loader.load();
-            SectionController controller = loader.getController();
+            // Set remove callback
+            controller.setOnRemove(() -> {
+                sectionsContainer.getChildren().remove(sectionItem);
 
-            String sectionLetter = SECTION_LETTERS[sectionCounter];
-            controller.setSectionData(sectionLetter, maxFloors);
-            controller.setOnDelete(() -> removeSection(controller));
+                // Show empty state if no sections left (except emptyVBox itself)
+                long actualSections = sectionsContainer.getChildren().stream()
+                        .filter(node -> node != emptyVBox)
+                        .count();
 
+                if (actualSections == 0) {
+                    emptyVBox.setVisible(true);
+                    emptyVBox.setManaged(true);
+                }
+            });
+
+            // Store controller reference in node's UserData
+            sectionItem.setUserData(controller);
+
+            // Add to container
             sectionsContainer.getChildren().add(sectionItem);
-            sectionControllers.add(controller);
             sectionCounter++;
 
+            System.out.println("Section " + prefix + " added to UI");
+
         } catch (IOException e) {
+            System.err.println("Failed to load section item: " + e.getMessage());
             e.printStackTrace();
-            AlertHelper.showError("Error", "Failed to load section component!");
+            showAlert("Error", "Failed to add section: " + e.getMessage());
         }
     }
 
-    private void removeSection(SectionController controller) {
-        boolean confirmed = AlertHelper.showConfirm(
-                "Remove Section",
-                "Remove Section " + controller.getSectionLetter() + "? This action cannot be undone."
-        );
-
-        if (confirmed) {
-            sectionsContainer.getChildren().remove(controller.getRootContainer());
-            sectionControllers.remove(controller);
-
-            if (sectionControllers.isEmpty()) {
-                emptyVBox.setVisible(true);
-                emptyVBox.setManaged(true);
-                sectionCounter = 0;
-            }
-        }
-    }
-
+    /**
+     * Handle adding parking
+     */
     @FXML
     private void handleAddParking() {
-        if (!validateInputs()) {
+        // Validate inputs
+        String name = parkingNameField.getText().trim();
+        String address = addressField.getText().trim();
+        String floorsText = numberOfFloorsField.getText().trim();
+
+        if (name.isEmpty()) {
+            showAlert("Validation Error", "Please enter parking name");
             return;
         }
 
-        String parkingName = parkingNameField.getText();
-        String address = addressField.getText();
-        int numberOfFloors = Integer.parseInt(numberOfFloorsField.getText());
-
-        System.out.println("=== Parking Data ===");
-        System.out.println("Name: " + parkingName);
-        System.out.println("Address: " + address);
-        System.out.println("Floors: " + numberOfFloors);
-        System.out.println("\n=== Sections ===");
-
-        for (SectionController section : sectionControllers) {
-            System.out.println("Section " + section.getSectionLetter() + ":");
-            System.out.println("  - Spaces: " + section.getNumberOfSpaces());
-            System.out.println("  - Floor: " + section.getFloor());
-            System.out.println("  - Reservable: " + section.isReservable());
+        if (address.isEmpty()) {
+            showAlert("Validation Error", "Please enter address");
+            return;
         }
 
-        // TODO: Zapisz do bazy danych
-        AlertHelper.showSuccess("Success", "Parking added successfully!");
-        ModalHelper.closeModal(cancelButton);
-    }
-
-    private boolean validateInputs() {
-        if (parkingNameField.getText().isEmpty()) {
-            AlertHelper.showWarning("Validation Error", "Please enter parking name!");
-            return false;
+        if (floorsText.isEmpty()) {
+            showAlert("Validation Error", "Please enter number of floors");
+            return;
         }
 
-        if (addressField.getText().isEmpty()) {
-            AlertHelper.showWarning("Validation Error", "Please enter address!");
-            return false;
+        // Parse number of floors (for validation only)
+        int numberOfFloors;
+        try {
+            numberOfFloors = Integer.parseInt(floorsText);
+            if (numberOfFloors < 0 || numberOfFloors > 5) {
+                showAlert("Validation Error", "Number of floors must be between 0 and 5");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            showAlert("Validation Error", "Invalid number of floors");
+            return;
         }
 
-        if (numberOfFloorsField.getText().isEmpty()) {
-            AlertHelper.showWarning("Validation Error", "Please enter number of floors!");
-            return false;
-        }
+        // Collect sections from UI
+        List<Map<String, Object>> sectionsList = new ArrayList<>();
+        List<SectionController> controllers = new ArrayList<>();
 
-        if (sectionControllers.isEmpty()) {
-            AlertHelper.showWarning("Validation Error", "Please add at least one section!");
-            return false;
-        }
+        for (Node node : sectionsContainer.getChildren()) {
+            // Skip emptyVBox
+            if (node == emptyVBox) continue;
 
-        for (SectionController section : sectionControllers) {
-            if (!section.isValid()) {
-                AlertHelper.showWarning("Validation Error",
-                        "Please fill all fields for Section " + section.getSectionLetter());
-                return false;
+            // Get controller from UserData
+            Object userData = node.getUserData();
+            if (userData instanceof SectionController) {
+                controllers.add((SectionController) userData);
             }
         }
 
-        return true;
+        for (SectionController controller : controllers) {
+            Section section = controller.getSection();
+
+            if (section != null) {
+                // Validate floor level doesn't exceed number of floors
+                if (section.getFloorLevel() >= numberOfFloors) {
+                    showAlert("Validation Error",
+                            "Section " + section.getPrefix() + " floor level (" +
+                                    section.getFloorLevel() + ") cannot be >= number of floors (" +
+                                    numberOfFloors + ")");
+                    return;
+                }
+
+                Map<String, Object> sectionMap = new HashMap<>();
+                sectionMap.put("prefix", section.getPrefix());
+                sectionMap.put("numberOfSpots", section.getNumberOfSpots());
+                sectionMap.put("floorLevel", section.getFloorLevel());
+                sectionMap.put("reservable", section.isReservable());
+                sectionsList.add(sectionMap);
+            } else {
+                showAlert("Validation Error", "Invalid section data");
+                return;
+            }
+        }
+
+        if (sectionsList.isEmpty()) {
+            showAlert("Validation Error", "Please add at least one section");
+            return;
+        }
+
+        // Build request
+        Map<String, Object> request = new HashMap<>();
+        request.put("name", name);
+        request.put("address", address);
+        request.put("sections", sectionsList);
+
+        // Send to backend
+        try {
+            addParkingButton.setDisable(true);
+            addParkingButton.setText("Creating...");
+
+
+            Map<String, Object> response = api.post(
+                    "/admin/parkings",
+                    request,
+                    true,
+                    Map.class
+            );
+
+            System.out.println("Parking created successfully: " + response);
+
+            // Show success alert with reminder
+            showSuccessAlert(
+                    "Parking Created!",
+                    "Parking has been created successfully.\n\n" +
+                            "IMPORTANT: Don't forget to set the pricing in the Parkings tab!"
+            );
+
+            // Close modal
+            closeModal();
+
+        } catch (Exception e) {
+            System.err.println("Failed to create parking: " + e.getMessage());
+            e.printStackTrace();
+            showAlert("Error", "Failed to create parking: " + e.getMessage());
+
+            addParkingButton.setDisable(false);
+            addParkingButton.setText("Add Parking");
+        }
     }
 
+    /**
+     * Handle cancel
+     */
     @FXML
     private void handleCancel() {
-        boolean confirmed = AlertHelper.showConfirm(
-                "Discard Changes",
-                "All entered data will be lost. Are you sure?"
-        );
+        closeModal();
+    }
 
-        if (confirmed) {
-            ModalHelper.closeModal(cancelButton);
-        }
+    /**
+     * Close modal
+     */
+    private void closeModal() {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+    }
+
+    /**
+     * Show error alert
+     */
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    /**
+     * Show success alert with reminder
+     */
+    private void showSuccessAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

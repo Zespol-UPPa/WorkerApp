@@ -2,17 +2,19 @@ package parkflow.deskoptworker.Controllers.Worker;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import parkflow.deskoptworker.Views.ViewFactory;
 
 public class WorkerMenuController {
 
     @FXML private Button dashboardBtn;
     @FXML private Button reportsBtn;
-    @FXML private Button customersBtn;  // ✓ POPRAWIONE - było personnelBtn
+    @FXML private Button customersBtn;
     @FXML private Button settingsBtn;
     @FXML private Button logoutBtn;
 
     private Button currentButton;
-    private WorkerController parentController;  // ✓ DODANE - referencja do parent controllera
+    private WorkerController parentController;
+    private ViewFactory viewFactory;
 
     @FXML
     public void initialize() {
@@ -27,6 +29,8 @@ public class WorkerMenuController {
         customersBtn.setOnAction(_ -> handleMenuClick(customersBtn, "Customers"));
         settingsBtn.setOnAction(_ -> handleMenuClick(settingsBtn, "Settings"));
         logoutBtn.setOnAction(_ -> handleLogout());
+
+        this.viewFactory = new ViewFactory();
     }
 
     /**
@@ -57,11 +61,20 @@ public class WorkerMenuController {
     /**
      * Obsługuje wylogowanie
      */
+    @FXML
     private void handleLogout() {
-        System.out.println("Logging out...");
-        // TODO: Implement logout logic
-        // viewFactory.showLoginWindow();
-        // closeCurrentWindow();
+
+        if (viewFactory != null) {
+            boolean confirmed = viewFactory.showLogoutModal();
+
+            if (confirmed && parentController != null) {
+                parentController.handleLogout();
+            } else {
+                System.out.println("Logout cancelled by user");
+            }
+        } else {
+            System.err.println("ViewFactory is null!");
+        }
     }
 
     /**

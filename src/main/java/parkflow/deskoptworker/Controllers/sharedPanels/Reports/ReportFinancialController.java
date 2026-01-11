@@ -1,93 +1,172 @@
 package parkflow.deskoptworker.Controllers.sharedPanels.Reports;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.layout.VBox;
 import parkflow.deskoptworker.Controllers.Components.SimpleMetricBoxController;
 import parkflow.deskoptworker.Controllers.Components.StatusCardController;
-
+import parkflow.deskoptworker.api.PaymentService;
+import parkflow.deskoptworker.models.UserRole;
+import parkflow.deskoptworker.utils.SessionManager;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Financial Report Controller - LAST 6 MONTHS
+ * Shows company-wide financial data for the last 6 months
+ * No filters - fixed period and all parkings
+ */
 public class ReportFinancialController {
 
-    // Top 4 STATUS CARDS (z ikonkami)
     @FXML private StatusCardController totalRevenueCardController;
     @FXML private StatusCardController parkingUsageCardController;
     @FXML private StatusCardController pendingPaymentsCardController;
     @FXML private StatusCardController reservationFeesStatusCardController;
 
-    // Charts
     @FXML private BarChart<String, Number> revenueUsageChart;
     @FXML private PieChart revenueDistributionChart;
+    @FXML private VBox pieChartContainer;
 
-    // Key Metrics - 4 SIMPLE METRIC CARDS
     @FXML private SimpleMetricBoxController avgTransactionCardController;
     @FXML private SimpleMetricBoxController totalTransactionsCardController;
     @FXML private SimpleMetricBoxController reservationFeesCardController;
     @FXML private SimpleMetricBoxController revenueGrowthCardController;
 
+    private final PaymentService paymentService = new PaymentService();
+    private UserRole currentUserRole;
+
+    // FIXED: Last 6 months, all parkings
+    private static final String BACKEND_PERIOD = "semester";
+    private static final String ALL_PARKINGS = null;
+
     @FXML
     public void initialize() {
-        setupTopStatusCards();
-        setupRevenueUsageChart();
-        setupRevenueDistributionChart();
-        setupKeyMetrics();
+        currentUserRole = SessionManager.getInstance().getCurrentUser().getRole();
+        setupUIForRole();
+        loadInitialData();
     }
 
-    /**
-     * Ustawia górne 4 karty statusu z ikonkami
-     */
-    private void setupTopStatusCards() {
+    private void setupUIForRole() {
+        if (currentUserRole == UserRole.WORKER && pieChartContainer != null) {
+            pieChartContainer.setVisible(false);
+            pieChartContainer.setManaged(false);
+        }
+    }
+
+    private void loadInitialData() {
+        System.out.println("Loading financial data: Last 6 Months | All Parkings");
+        refreshData();
+    }
+
+    public void refreshData() {
+        try {
+            Map<String, Object> summary = paymentService.getFinancialSummary(BACKEND_PERIOD, ALL_PARKINGS);
+
+            setupTopStatusCards(summary);
+            setupRevenueUsageChart();
+
+            if (currentUserRole == UserRole.ADMIN) {
+                setupRevenueDistributionChart();
+            }
+
+            setupKeyMetrics(summary);
+            System.out.println("Financial data loaded successfully");
+
+        } catch (Exception e) {
+            System.err.println("Error loading financial data: " + e.getMessage());
+            e.printStackTrace();
+            setupTopStatusCards(new HashMap<>());
+            setupRevenueUsageChart();
+            if (currentUserRole == UserRole.ADMIN) {
+                setupRevenueDistributionChart();
+            }
+            setupKeyMetrics(new HashMap<>());
+        }
+    }
+
+    private void setupTopStatusCards(Map<String, Object> summary) {
+        double totalRevenue = PaymentService.getDoubleValue(summary, "totalRevenue");
+        double parkingUsage = PaymentService.getDoubleValue(summary, "parkingUsage");
+        double pendingPayments = PaymentService.getDoubleValue(summary, "pendingPayments");
+        double reservationFees = PaymentService.getDoubleValue(summary, "reservationFees");
+        double revenueGrowth = PaymentService.getDoubleValue(summary, "revenueGrowth");
+        int totalTransactions = PaymentService.getIntValue(summary, "totalTransactions");
 
         totalRevenueCardController.setData(
-                "Total Revenue",
-                "(All payments)",
-                "45780.50 $",
-                "+12.5% from last month",
-                "/parkflow/deskoptworker/images/dollarGreen.png",
-                "#E8F5E9"  // Light green background
+                "Total Revenue", "(Last 6 months)",
+                String.format("%.2f PLN", totalRevenue),
+                String.format("%+.1f%% vs previous", revenueGrowth),
+                "/parkflow/deskoptworker/images/dollarGreen.png", "#E8F5E9"
         );
 
         parkingUsageCardController.setData(
-                "Parking Usage",
-                "(Finalized)",
-                "28920.00 $",
-                "1247 transactions",
-                "/parkflow/deskoptworker/images/clockBlue.png",
-                "#E3F2FD"
+                "Parking Usage", "(Finalized)",
+                String.format("%.2f PLN", parkingUsage),
+                totalTransactions + " transactions",
+                "/parkflow/deskoptworker/images/clockBlue.png", "#E3F2FD"
         );
 
         pendingPaymentsCardController.setData(
-                "Pending Payments",
-                "(Awaiting Customer)",
-                "2340.00 $",
+                "Pending Payments", "(Awaiting)",
+                String.format("%.2f PLN", pendingPayments),
                 "To be collected",
-                "/parkflow/deskoptworker/images/dollarOrange.png",
-                "#FFF3E0"
+                "/parkflow/deskoptworker/images/dollarOrange.png", "#FFF3E0"
         );
 
         reservationFeesStatusCardController.setData(
-                "Reservation Fees",
-                "(From reservations)",
-                "6235.00 $",
+                "Reservation Fees", "(From reservations)",
+                String.format("%.2f PLN", reservationFees),
                 "Revenue from fees",
-                "/parkflow/deskoptworker/images/calendarPurple.png",
-                "#F3E5F5"  // Light purple background
+                "/parkflow/deskoptworker/images/calendarPurple.png", "#F3E5F5"
         );
     }
 
     private void setupRevenueUsageChart() {
-        // Sample data - Revenue (Deposits) vs Usage (Expenses)
+        try {
+            List<Map<String, Object>> revenueData = paymentService.getRevenueOverTime(BACKEND_PERIOD, ALL_PARKINGS);
+
+            if (revenueData == null || revenueData.isEmpty()) {
+                System.out.println("No revenue data - using mock");
+                setupMockRevenueChart();
+                return;
+            }
+
+            XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
+            revenueSeries.setName("Total Revenue");
+
+            XYChart.Series<String, Number> usageSeries = new XYChart.Series<>();
+            usageSeries.setName("Parking Usage");
+
+            for (Map<String, Object> dataPoint : revenueData) {
+                String period = PaymentService.getStringValue(dataPoint, "period");
+                double revenue = PaymentService.getDoubleValue(dataPoint, "totalRevenue");
+                double usage = PaymentService.getDoubleValue(dataPoint, "parkingUsage");
+
+                revenueSeries.getData().add(new XYChart.Data<>(period, revenue));
+                usageSeries.getData().add(new XYChart.Data<>(period, usage));
+            }
+
+            revenueUsageChart.getData().clear();
+            revenueUsageChart.getData().addAll(revenueSeries, usageSeries);
+            revenueUsageChart.setLegendVisible(true);
+
+        } catch (Exception e) {
+            System.err.println("Error setting up revenue chart: " + e.getMessage());
+            setupMockRevenueChart();
+        }
+    }
+
+    private void setupMockRevenueChart() {
         XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
-        revenueSeries.setName("Revenue");
-
+        revenueSeries.setName("Total Revenue");
         XYChart.Series<String, Number> usageSeries = new XYChart.Series<>();
-        usageSeries.setName("Finalized payments");
+        usageSeries.setName("Parking Usage");
 
-        String[] months = {"Jun", "Jul", "Aug", "Sep", "Oct", "Nov"};
+        String[] months = {"Aug", "Sep", "Oct", "Nov", "Dec", "Jan"};
         double[] revenues = {35000, 42000, 40000, 43000, 45000, 47000};
         double[] usages = {31000, 35000, 32000, 36000, 38000, 40000};
 
@@ -102,115 +181,121 @@ public class ReportFinancialController {
     }
 
     private void setupRevenueDistributionChart() {
-        // Sample parking revenue data (sorted by revenue descending)
-        Map<String, Double> parkingRevenues = new LinkedHashMap<>();
-        parkingRevenues.put("Galeria Krakowska", 18900.00);
-        parkingRevenues.put("CH Bonarka", 13480.50);
-        parkingRevenues.put("Podwawelski", 10200.00);
-        parkingRevenues.put("Downtown Plaza", 3200.00);
+        try {
+            List<Map<String, Object>> distribution = paymentService.getRevenueDistribution(BACKEND_PERIOD);
 
-        // Smart PieChart: max 4 kategorie + "Other"
+            if (distribution == null || distribution.isEmpty()) {
+                System.out.println("No distribution data - using mock");
+                setupMockPieChart();
+                return;
+            }
+
+            Map<String, Double> parkingRevenues = new LinkedHashMap<>();
+
+            for (Map<String, Object> item : distribution) {
+                String parkingName = PaymentService.getStringValue(item, "parkingName");
+                double revenue = PaymentService.getDoubleValue(item, "revenue");
+
+                if (!parkingName.isEmpty() && revenue > 0) {
+                    parkingRevenues.put(parkingName, revenue);
+                }
+            }
+
+            if (parkingRevenues.isEmpty()) {
+                setupMockPieChart();
+                return;
+            }
+
+            createSmartPieChart(parkingRevenues);
+
+        } catch (Exception e) {
+            System.err.println("Error setting up pie chart: " + e.getMessage());
+            setupMockPieChart();
+        }
+    }
+
+    private void setupMockPieChart() {
+        Map<String, Double> parkingRevenues = new LinkedHashMap<>();
+        parkingRevenues.put("Parking A", 95000.0);
+        parkingRevenues.put("Parking B", 78000.0);
+        parkingRevenues.put("Parking C", 65000.0);
+        parkingRevenues.put("Parking D", 34000.0);
+
         createSmartPieChart(parkingRevenues);
     }
 
-    /**
-     * Tworzy PieChart z max 4 kategoriami + "Other" jeśli jest więcej parkingów
-     */
     private void createSmartPieChart(Map<String, Double> data) {
-        // Sortuj po wartości malejąco
         List<Map.Entry<String, Double>> sortedEntries = data.entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
                 .collect(Collectors.toList());
 
-        // Oblicz total
-        double total = sortedEntries.stream()
-                .mapToDouble(Map.Entry::getValue)
-                .sum();
+        double total = sortedEntries.stream().mapToDouble(Map.Entry::getValue).sum();
 
-        // Jeśli 4 lub mniej - pokaż wszystkie
+        revenueDistributionChart.getData().clear();
+
         if (sortedEntries.size() <= 4) {
             for (Map.Entry<String, Double> entry : sortedEntries) {
                 double percentage = (entry.getValue() / total) * 100;
                 String label = String.format("%s: %.1f%%", entry.getKey(), percentage);
-                revenueDistributionChart.getData().add(
-                        new PieChart.Data(label, entry.getValue())
-                );
+                revenueDistributionChart.getData().add(new PieChart.Data(label, entry.getValue()));
             }
         } else {
-            // Więcej niż 4 - weź top 3 + "Other"
             double otherTotal = 0;
-
             for (int i = 0; i < sortedEntries.size(); i++) {
                 Map.Entry<String, Double> entry = sortedEntries.get(i);
-
                 if (i < 3) {
-                    // Top 3 - pokaż indywidualnie
                     double percentage = (entry.getValue() / total) * 100;
                     String label = String.format("%s: %.1f%%", entry.getKey(), percentage);
-                    revenueDistributionChart.getData().add(
-                            new PieChart.Data(label, entry.getValue())
-                    );
+                    revenueDistributionChart.getData().add(new PieChart.Data(label, entry.getValue()));
                 } else {
-                    // Reszta idzie do "Other"
                     otherTotal += entry.getValue();
                 }
             }
-
-            // Dodaj "Other" jeśli jest coś
             if (otherTotal > 0) {
                 double otherPercentage = (otherTotal / total) * 100;
-                String otherLabel = String.format("Other: %.1f%%", otherPercentage);
                 revenueDistributionChart.getData().add(
-                        new PieChart.Data(otherLabel, otherTotal)
+                        new PieChart.Data(String.format("Other: %.1f%%", otherPercentage), otherTotal)
                 );
             }
         }
 
-        // Ustaw kolory dla segmentów
         styleChartSegments();
     }
 
     private void styleChartSegments() {
-        // Kolory dla segmentów (blue, purple, pink, orange)
-        String[] colors = {
-                "#4D49E5", // blue
-                "#A34DE9", // purple
-                "#D5297E", // pink
-                "#FA7017"  // orange (dla "Other")
-        };
+        Platform.runLater(() -> {
+            String[] colors = {"#4D49E5", "#A34DE9", "#D5297E", "#FA7017"};
+            int i = 0;
 
-        int i = 0;
-        for (PieChart.Data data : revenueDistributionChart.getData()) {
-            String color = colors[Math.min(i, colors.length - 1)];
-            data.getNode().setStyle("-fx-pie-color: " + color + ";");
-            i++;
-        }
+            for (PieChart.Data data : revenueDistributionChart.getData()) {
+                if (data.getNode() != null) {
+                    String color = colors[Math.min(i, colors.length - 1)];
+
+                    data.getNode().setStyle("-fx-pie-color: " + color);
+
+                    i++;
+                }
+            }
+        });
     }
 
-    /**
-     * Ustawia dolne 4 karty metryk (Simple Metric Cards)
-     */
-    private void setupKeyMetrics() {
-        // Avg Transaction Value - zielony
-        avgTransactionCardController.setData("Avg Transaction Value", "36.70 $");
+    private void setupKeyMetrics(Map<String, Object> summary) {
+        double avgTransaction = PaymentService.getDoubleValue(summary, "avgTransactionValue");
+        int totalTransactions = PaymentService.getIntValue(summary, "totalTransactions");
+        double reservationFees = PaymentService.getDoubleValue(summary, "reservationFees");
+        double revenueGrowth = PaymentService.getDoubleValue(summary, "revenueGrowth");
+
+        avgTransactionCardController.setData("Avg Transaction", String.format("%.2f PLN", avgTransaction));
         avgTransactionCardController.setCardType("green");
 
-        // Total Transactions - niebieski
-        totalTransactionsCardController.setData("Total Transactions", "1247");
+        totalTransactionsCardController.setData("Total Transactions", String.valueOf(totalTransactions));
         totalTransactionsCardController.setCardType("blue");
 
-        // Reservation Fees - fioletowy
-        reservationFeesCardController.setData("Reservation Fees", "6235.00 $");
+        reservationFeesCardController.setData("Reservation Fees", String.format("%.2f PLN", reservationFees));
         reservationFeesCardController.setCardType("purple");
 
-        // Revenue Growth - pomarańczowy (pozytywny wzrost)
-        revenueGrowthCardController.setData("Revenue Growth", "+12.5 %");
+        revenueGrowthCardController.setData("Revenue Growth", String.format("%+.1f %%", revenueGrowth));
         revenueGrowthCardController.setCardType("orange");
-    }
-
-    public void refreshData(String timePeriod, String parking) {
-        System.out.println("Refreshing financial data for: " + timePeriod + " | " + parking);
-        // Tutaj pobierz dane z bazy i wywołaj setup metody ponownie
     }
 }

@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import parkflow.deskoptworker.Views.ViewFactory;
+import parkflow.deskoptworker.api.AuthService;
+import parkflow.deskoptworker.utils.SessionManager;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -33,8 +36,13 @@ public class LoginController {
 
     private boolean passwordVisible = false;
 
+
+    ViewFactory viewFactory;
+    private final AuthService authService = new AuthService();
+
     @FXML
     public void initialize() {
+        viewFactory = new ViewFactory();
         errorLabel.setVisible(false);
         errorLabel.setManaged(false);
 
@@ -56,21 +64,50 @@ public class LoginController {
 
     @FXML
     private void handleLogin() {
-        System.out.println("Sprawdzanie logowania...");
+
+        hideError();
 
         String id = idTextField.getText().trim();
-        String password = passwordVisible ? passwordTextField.getText() : passwordField.getText();
+        String password = passwordVisible
+                ? passwordTextField.getText()
+                : passwordField.getText();
 
-        // Walidacja
         if (id.isEmpty() || password.isEmpty()) {
             showError("Please fill all fields");
             return;
         }
 
+        try {
+            boolean success = authService.login(id, password);
 
-        /*TODO: logika logowania sie odpalenie odpowiedniego fxml*/
-        System.out.println("ID: " + id);
-        System.out.println("Password: " + password);
+            if (!success) {
+                showError("Invalid ID or password");
+                return;
+            }
+
+            SessionManager session = SessionManager.getInstance();
+
+
+            if (session.isAdmin()) {
+                viewFactory.showAdminWindow();
+            } else {
+                viewFactory.showWorkerWindow();
+            }
+
+            // zamknij login
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.close();
+
+        } catch (RuntimeException e) {
+
+            if (e.getMessage().contains("Forbidden")) {
+                showError("Account not activated");
+                return;
+            }
+
+            showError("Login failed. Try again.");
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -110,26 +147,12 @@ public class LoginController {
     private void handleActivation() {
         System.out.println("Go to activation...");
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("shared/activation.fxml"));
-            Parent root = loader.load();
+        // Zamknij okno logowania
+        Stage loginStage = (Stage) activationLabel.getScene().getWindow();
+        loginStage.close();
 
-            RegisterController registerController = loader.getController();
-
-            Stage activationStage = new Stage();
-            activationStage.setTitle("Activation");
-            activationStage.setScene(new Scene(root));
-
-            Stage loginStage = (Stage) activationLabel.getScene().getWindow();
-            loginStage.close();
-
-            activationStage.show();
-
-        } catch (IOException e) {
-            System.err.println("Błąd podczas otwierania okna activation: " + e.getMessage());
-            e.printStackTrace();
-            showError("Cannot open activation window");
-        }
+        // Otwórz okno aktywacji przez ViewFactory
+        viewFactory.showActivationWindow();
     }
 
 

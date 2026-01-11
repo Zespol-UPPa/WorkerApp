@@ -1,9 +1,8 @@
-package parkflow.deskoptworker.Controllers.sharedPanels;
+package parkflow.deskoptworker.Controllers.Admin;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,22 +10,21 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import lombok.Setter;
 import parkflow.deskoptworker.Controllers.Components.ParkingItemController;
+import parkflow.deskoptworker.Controllers.Refreshable;
 import parkflow.deskoptworker.Views.ViewFactory;
+import parkflow.deskoptworker.api.ParkingService;
 import parkflow.deskoptworker.utils.SessionManager;
 import parkflow.deskoptworker.models.Parking;
 import parkflow.deskoptworker.models.UserRole;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ParkingsController {
+public class ParkingsController implements Refreshable {
     @FXML private TextField searchField;
     @FXML private Button addParkingBtn;
     @FXML private FlowPane parkingsContainer;
@@ -34,6 +32,7 @@ public class ParkingsController {
     @FXML private HBox dotsContainer;
     @FXML private Button prevButton;
     @FXML private Button nextButton;
+    @FXML private Label loadingLabel; // Optional - dla "Loading..."
 
     private List<Parking> allParkings;
     private List<Parking> filteredParkings;
@@ -43,22 +42,33 @@ public class ParkingsController {
     private static final int MAX_VISIBLE_DOTS = 5;
 
     private UserRole currentUserRole;
+    private final ParkingService parkingService = new ParkingService();
 
     @Setter
     private ViewFactory viewFactory;
 
     @FXML
     public void initialize() {
+
+        if (SessionManager.getInstance().getCurrentUser() == null) {
+            System.out.println("No active session – redirecting to login");
+            new ViewFactory().showLoginWindow();
+            return;
+        }
+
         // Pobierz rolę z sesji użytkownika
-        currentUserRole = SessionManager.getCurrentUser().getRole();
+        currentUserRole = SessionManager
+                .getInstance()
+                .getCurrentUser()
+                .getRole();
 
         // Konfiguruj widok na podstawie roli
         configureViewForRole();
 
-        // Załaduj parkingi
-        loadParkings();
+        // Załaduj parkingi z backendu
+        loadParkingsFromBackend();
 
-        // Listener do wysokości
+        // Listeners
         parkingsContainer.heightProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.doubleValue() > 0) {
                 adjustItemsPerPageBasedOnHeight();
@@ -71,8 +81,9 @@ public class ParkingsController {
             }
         });
 
-        // Search listener
-        searchField.textProperty().addListener((obs, oldVal, newVal) -> filterParkings(newVal));
+        searchField.textProperty().addListener(
+                (obs, oldVal, newVal) -> filterParkings(newVal)
+        );
     }
 
     private void configureViewForRole() {
@@ -90,22 +101,81 @@ public class ParkingsController {
         viewFactory.showAddParkingModal();
     }
 
+    /**
+     * Load parkings from backend in background thread
+     */
+    private void loadParkingsFromBackend() {
+        // Show loading indicator (optional)
+        showLoadingState(true);
+
+        new Thread(() -> {
+            try {
+                // Fetch parkings from backend
+                List<Parking> parkings = parkingService.getCompanyParkings();
+
+                // Update UI on JavaFX thread
+                Platform.runLater(() -> {
+                    if (parkings != null && !parkings.isEmpty()) {
+                        allParkings = parkings;
+                        filteredParkings = new ArrayList<>(allParkings);
+                        totalPages = (int) Math.ceil((double) filteredParkings.size() / itemsPerPage);
+                        showPage(0);
+                        System.out.println("Loaded " + parkings.size() + " parkings from backend");
+                    } else {
+                        allParkings = new ArrayList<>();
+                        filteredParkings = new ArrayList<>();
+                        totalPages = 0;
+                        System.out.println("No parkings found for this company");
+                    }
+                    showLoadingState(false);
+                });
+
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    System.err.println("Failed to load parkings: " + e.getMessage());
+                    e.printStackTrace();
+                    allParkings = new ArrayList<>();
+                    filteredParkings = new ArrayList<>();
+                    totalPages = 0;
+                    showLoadingState(false);
+                });
+            }
+        }).start();
+    }
+
+    /**
+     * Show/hide loading indicator
+     */
+    private void showLoadingState(boolean loading) {
+        if (loadingLabel != null) {
+            loadingLabel.setVisible(loading);
+            loadingLabel.setManaged(loading);
+        }
+        parkingsContainer.setDisable(loading);
+        searchField.setDisable(loading);
+    }
+
     private void adjustItemsPerPageBasedOnHeight() {
         double availableHeight = parkingsContainer.getHeight();
 
         if (availableHeight <= 0) {
-            itemsPerPage = 6;
+            itemsPerPage = 4; // Default: 2x2 layout
             return;
         }
 
-        double cardHeight = 280;
+        double cardHeight = 300; // Card height including spacing
         double vgap = 20;
         double padding = 20;
 
+        // Calculate how many rows fit
         int rows = Math.max(1, (int) ((availableHeight - padding + vgap) / (cardHeight + vgap)));
-        int avgCardsPerRow = 3;
-        itemsPerPage = rows * avgCardsPerRow;
-        itemsPerPage = Math.max(2, Math.min(20, itemsPerPage));
+
+        // 2 cards per row (2x2 layout)
+        int cardsPerRow = 2;
+        itemsPerPage = rows * cardsPerRow;
+
+        // Minimum 4 cards (2x2), maximum 8 cards (4x2)
+        itemsPerPage = Math.max(4, Math.min(8, itemsPerPage));
 
         totalPages = (int) Math.ceil((double) filteredParkings.size() / itemsPerPage);
 
@@ -114,27 +184,6 @@ public class ParkingsController {
         }
 
         showPage(currentPage);
-    }
-
-    private void loadParkings() {
-        allParkings = Arrays.asList(
-                new Parking(98, "Galeria Krakowska", "Kraków", 1500, 100, 15, 0.10, 5.0),
-                new Parking(99, "Parking Centrum", "Warszawa", 800, 750, 20, 0.15, 7.5),
-                new Parking(100, "Mall Gdańsk", "Gdańsk", 50, 10, 10, 0.08, 3.0),
-                new Parking(101, "Plaza Wrocław", "Wrocław", 1200, 900, 15, 0.12, 6.0),
-                new Parking(102, "City Park Poznań", "Poznań", 600, 450, 15, 0.10, 5.0),
-                new Parking(103, "Arkadia", "Warszawa", 2000, 1800, 20, 0.15, 8.0),
-                new Parking(104, "Silesia", "Katowice", 1800, 200, 15, 0.10, 5.5),
-                new Parking(105, "Złote Tarasy", "Warszawa", 900, 800, 15, 0.12, 6.5),
-                new Parking(106, "Manufaktura", "Łódź", 1100, 950, 20, 0.11, 5.0),
-                new Parking(107, "Pasaż Grunwaldzki", "Wrocław", 750, 600, 15, 0.10, 5.0),
-                new Parking(108, "CH Auchan", "Kraków", 500, 50, 10, 0.09, 4.0),
-                new Parking(109, "Westfield Mokotów", "Warszawa", 1300, 1100, 20, 0.14, 7.0)
-        );
-
-        filteredParkings = new ArrayList<>(allParkings);
-        totalPages = (int) Math.ceil((double) filteredParkings.size() / itemsPerPage);
-        showPage(0);
     }
 
     private void filterParkings(String searchText) {
@@ -166,8 +215,10 @@ public class ParkingsController {
 
         double containerWidth = parkingsContainer.getWidth();
         double gap = 20;
-        double cardWidth = (containerWidth - (gap * 2)) / 3.0;
-        cardWidth = cardWidth - 5;
+        // 2 cards per row (2x2 layout for 4 cards total)
+        // Wider cards - minimum 480px for better text display
+        double cardWidth = Math.max(480.0, (containerWidth - gap) / 2.0);
+        cardWidth = cardWidth - 10; // Small margin adjustment
 
         for (int i = start; i < end; i++) {
             try {
@@ -176,7 +227,7 @@ public class ParkingsController {
 
                 ParkingItemController controller = loader.getController();
                 controller.setData(filteredParkings.get(i), currentUserRole);
-                controller.setViewFactory(viewFactory);  // <-- PRZEKAZANIE ViewFactory!
+                controller.setViewFactory(viewFactory);
 
                 card.setMinWidth(cardWidth);
                 card.setPrefWidth(cardWidth);
@@ -293,5 +344,22 @@ public class ParkingsController {
         Label ellipsis = new Label("...");
         ellipsis.getStyleClass().add("pagination-ellipsis");
         return ellipsis;
+    }
+
+    /**
+     * Refresh parkings list (can be called after adding/editing parkings)
+     */
+    public void refreshParkings() {
+        loadParkingsFromBackend();
+    }
+
+    /**
+     * Implementation of Refreshable interface
+     * Called automatically when view becomes visible
+     */
+    @Override
+    public void refresh() {
+        System.out.println("ParkingsController: Refreshing data from backend...");
+        refreshParkings();
     }
 }
