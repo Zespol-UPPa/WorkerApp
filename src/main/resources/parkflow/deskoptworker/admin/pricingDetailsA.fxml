@@ -21,7 +21,7 @@
             <!-- Header z tytułem i przyciskiem X -->
             <HBox alignment="CENTER_LEFT">
                 <children>
-                    <Label fx:id="pricingTitle" styleClass="pricing_title" text="Pricing - Downtown Plaza" HBox.hgrow="ALWAYS" />
+                    <Label fx:id="pricingTitle" styleClass="pricing_title" text="Pricing - Downtown Plaza" wrapText="true" maxWidth="520" HBox.hgrow="ALWAYS" />
                     <Region HBox.hgrow="ALWAYS" />
                 </children>
             </HBox>
@@ -95,7 +95,7 @@
 
             <!-- Buttons -->
             <HBox styleClass="buttons_hbox">
-                 <Button fx:id="closeBtn" onAction="#handleClose" styleClass="buttons_basic" text="Close" />
+                <Button fx:id="closeBtn" onAction="#handleClose" styleClass="buttons_basic" text="Close" />
                 <!-- VIEW MODE Button -->
                 <Button fx:id="editButton" managed="true" onAction="#handleEdit" text="Edit Pricing" visible="true">
                     <styleClass>

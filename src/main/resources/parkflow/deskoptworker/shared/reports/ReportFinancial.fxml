@@ -20,8 +20,8 @@
 
         <!-- Title section -->
         <VBox spacing="4">
-            <Label styleClass="main_title" text="Financial Reports" />
-            <Label styleClass="main_subtitle" text="Real-time analytics and performance metrics" />
+            <Label styleClass="main_title" text="Financial Reports - Last 6 months" />
+            <Label styleClass="main_subtitle" text="Analytics and performance metrics" />
         </VBox>
 
         <!-- Top 4 STATUS CARDS (z ikonkami) -->

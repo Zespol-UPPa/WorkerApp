@@ -3,6 +3,8 @@ package parkflow.deskoptworker.models;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class User {
@@ -15,6 +17,9 @@ public class User {
     private String pesel;
     private UserRole role;
     private boolean active;
+    private Long companyId;
+    private List<Long> parkingIds;
+    private String companyName;
 
     // Konstruktor z wszystkimi polami
     public User(int id, String firstName, String lastName, String phoneNumber,
@@ -54,16 +59,23 @@ public class User {
         return role == UserRole.WORKER;
     }
 
+    public Long getParkingId() {
+        if (isWorker() && !parkingIds.isEmpty()) {
+            return parkingIds.get(0);
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", pesel='" + pesel + '\'' +
                 ", role=" + role +
+                ", companyName='" + companyName + '\'' +
+                ", parkingIds=" + parkingIds +
                 '}';
     }
 

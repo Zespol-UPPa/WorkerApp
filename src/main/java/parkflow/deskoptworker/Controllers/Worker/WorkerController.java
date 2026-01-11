@@ -4,7 +4,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import parkflow.deskoptworker.Views.ViewFactory;
+import parkflow.deskoptworker.api.ApiClient;
+import parkflow.deskoptworker.api.AuthService;
 import parkflow.deskoptworker.models.Customer;
 import parkflow.deskoptworker.models.Parking;
 import parkflow.deskoptworker.utils.NavigationManager;
@@ -17,8 +20,11 @@ public class WorkerController {
     private final ViewFactory viewFactory;
     private final StringProperty selectedMenuItem;
 
+    private final AuthService authService;
+
     // Konstruktor z ViewFactory (Dependency Injection)
     public WorkerController(ViewFactory viewFactory) {
+        this.authService = new AuthService();
         this.viewFactory = viewFactory;
         this.selectedMenuItem = new SimpleStringProperty("");
     }
@@ -59,10 +65,37 @@ public class WorkerController {
 
         // Załaduj domyślny widok
         selectedMenuItem.set("Dashboard");
+        ApiClient.setSessionExpiredCallback(this::handleSessionExpired);
     }
 
     public void onMenuItemSelected(String menuItem) {
         selectedMenuItem.set(menuItem);
+    }
+
+    @FXML
+    public void handleLogout() {
+        // Manual logout - call backend to clear cookie
+        authService.logout();
+
+        // Close current window
+        Stage stage = (Stage) contentArea.getScene().getWindow();
+        stage.close();
+
+        // Clear cache
+        viewFactory.clearCache();
+
+        // Show login
+        viewFactory.showLoginWindow();
+    }
+
+
+
+    private void handleSessionExpired() {
+        Stage stage = (Stage) contentArea.getScene().getWindow();
+        stage.close();
+
+        viewFactory.clearCache();
+        viewFactory.showLoginWindow();
     }
 
     // =========== DODATKOWE NAWIGACJE ===========

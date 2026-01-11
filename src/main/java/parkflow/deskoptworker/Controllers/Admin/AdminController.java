@@ -4,7 +4,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import parkflow.deskoptworker.Views.ViewFactory;
+import parkflow.deskoptworker.api.ApiClient;
+import parkflow.deskoptworker.api.AuthService;
 
 public class AdminController {
     @FXML private BorderPane contentArea;
@@ -13,8 +16,11 @@ public class AdminController {
     private final ViewFactory viewFactory;
     private final StringProperty selectedMenuItem;
 
+    private final AuthService authService;
+
     // Konstruktor z ViewFactory (Dependency Injection)
     public AdminController(ViewFactory viewFactory) {
+        this.authService = new AuthService();
         this.viewFactory = viewFactory;
         this.selectedMenuItem = new SimpleStringProperty("");
     }
@@ -54,9 +60,32 @@ public class AdminController {
             System.err.println("ERROR: adminMenuController is NULL!");
         }
 
+        ApiClient.setSessionExpiredCallback(this::handleSessionExpired);
+
         // Załaduj domyślny widok
         selectedMenuItem.set("Dashboard");
     }
+    private void handleSessionExpired() {
+
+        Stage stage = (Stage) contentArea.getScene().getWindow();
+        stage.close();
+
+        viewFactory.clearCache();
+        viewFactory.showLoginWindow();
+    }
+
+    public void handleLogout() {
+        authService.logout();
+
+        // Close current window
+        Stage stage = (Stage) contentArea.getScene().getWindow();
+        stage.close();
+
+        viewFactory.clearCache();
+        viewFactory.showLoginWindow();
+    }
+
+
 
     public void onMenuItemSelected(String menuItem) {
         selectedMenuItem.set(menuItem);

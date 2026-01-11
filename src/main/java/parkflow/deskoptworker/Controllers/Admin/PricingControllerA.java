@@ -1,9 +1,11 @@
 package parkflow.deskoptworker.Controllers.Admin;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import parkflow.deskoptworker.api.ParkingService;
 import parkflow.deskoptworker.models.Parking;
 import parkflow.deskoptworker.utils.AlertHelper;
 
@@ -32,6 +34,8 @@ public class PricingControllerA {
     @FXML private Button closeBtn;
 
     private Parking parking;
+    private Long pricingId; // ID rekordu cennika w bazie
+    private final ParkingService parkingService = new ParkingService();
 
     @FXML
     public void initialize() {
@@ -60,7 +64,37 @@ public class PricingControllerA {
      */
     public void setParkingData(Parking parking) {
         this.parking = parking;
+
+        // Fetch pricingId from backend
+        fetchPricingId();
+
         updateViewMode();
+    }
+
+    /**
+     * Fetch pricingId from backend
+     */
+    private void fetchPricingId() {
+        new Thread(() -> {
+            try {
+                // Get pricingId from backend
+                Long fetchedPricingId = parkingService.getPricingIdByParkingId((long) parking.getId());
+
+                Platform.runLater(() -> {
+                    if (fetchedPricingId != null) {
+                        pricingId = fetchedPricingId;
+                        System.out.println("Fetched pricingId: " + pricingId + " for parkingId: " + parking.getId());
+                    } else {
+                        System.err.println("No pricingId found for parking " + parking.getId());
+                    }
+                });
+
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    System.err.println("Failed to fetch pricingId: " + e.getMessage());
+                });
+            }
+        }).start();
     }
 
     /**
@@ -85,10 +119,63 @@ public class PricingControllerA {
 
     @FXML
     private void handleSave() {
-        System.out.println("Saving....");
-        /*TODO:
-        Obsluga zapisu.
-         */
+        if (!validateInputs()) {
+            return;
+        }
+
+        // Check if we have pricingId
+        if (pricingId == null) {
+            AlertHelper.showError("Error", "Pricing ID not found. Please close and reopen this window.");
+            return;
+        }
+
+        // Disable save button during save
+        saveButton.setDisable(true);
+        saveButton.setText("Saving...");
+
+        // Get values from fields
+        int freeMinutes = Integer.parseInt(freeMinutesField.getText());
+        double ratePerMinute = Double.parseDouble(ratePerMinuteField.getText());
+        double reservationFee = Double.parseDouble(reservationFeeField.getText());
+
+        // Save in background thread
+        new Thread(() -> {
+            try {
+                boolean success = parkingService.updatePricing(
+                        pricingId, // Use correct pricingId
+                        freeMinutes,
+                        ratePerMinute,
+                        reservationFee
+                );
+
+                Platform.runLater(() -> {
+                    if (success) {
+                        // Update local parking object
+                        parking.setFreeMinutes(freeMinutes);
+                        parking.setRatePerMinute(ratePerMinute);
+                        parking.setReservationFee(reservationFee);
+
+                        // Update view
+                        updateViewMode();
+                        setEditMode(false);
+
+                        AlertHelper.showInfo("Success", "Pricing updated successfully!");
+                    } else {
+                        AlertHelper.showError("Error", "Failed to update pricing. Please try again.");
+                    }
+
+                    saveButton.setDisable(false);
+                    saveButton.setText("Save Changes");
+                });
+
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    AlertHelper.showError("Error", "An error occurred: " + e.getMessage());
+                    saveButton.setDisable(false);
+                    saveButton.setText("Save Changes");
+                });
+            }
+        }).start();
     }
 
     @FXML
@@ -128,8 +215,8 @@ public class PricingControllerA {
         if (parking != null) {
             pricingTitle.setText("Pricing - " + parking.getName());
             freeMinutesLabel.setText(parking.getFreeMinutes() + " min");
-            ratePerMinuteLabel.setText(String.format("%.2f $", parking.getRatePerMinute()));
-            reservationFeeLabel.setText(String.format("%.2f $", parking.getReservationFee()));
+            ratePerMinuteLabel.setText(String.format("%.2f PLN", parking.getRatePerMinute()));
+            reservationFeeLabel.setText(String.format("%.2f PLN", parking.getReservationFee()));
         }
     }
 
@@ -140,57 +227,49 @@ public class PricingControllerA {
         }
 
         if (ratePerMinuteField.getText().isEmpty()) {
-            showAlert("Validation Error", "Please enter rate per minute!");
+            AlertHelper.showWarning("Validation Error", "Please enter rate per minute!");
             return false;
         }
 
         if (reservationFeeField.getText().isEmpty()) {
-            showAlert("Validation Error", "Please enter reservation fee!");
+            AlertHelper.showWarning("Validation Error", "Please enter reservation fee!");
             return false;
         }
 
         try {
             int mins = Integer.parseInt(freeMinutesField.getText());
             if (mins < 0) {
-                showAlert("Validation Error", "Free minutes cannot be negative!");
+                AlertHelper.showWarning("Validation Error", "Free minutes cannot be negative!");
                 return false;
             }
         } catch (NumberFormatException e) {
-            showAlert("Validation Error", "Invalid free minutes value!");
+            AlertHelper.showWarning("Validation Error", "Invalid free minutes value!");
             return false;
         }
 
         try {
             double rate = Double.parseDouble(ratePerMinuteField.getText());
             if (rate < 0) {
-                showAlert("Validation Error", "Rate per minute cannot be negative!");
+                AlertHelper.showWarning("Validation Error", "Rate per minute cannot be negative!");
                 return false;
             }
         } catch (NumberFormatException e) {
-            showAlert("Validation Error", "Invalid rate per minute value!");
+            AlertHelper.showWarning("Validation Error", "Invalid rate per minute value!");
             return false;
         }
 
         try {
             double fee = Double.parseDouble(reservationFeeField.getText());
             if (fee < 0) {
-                showAlert("Validation Error", "Reservation fee cannot be negative!");
+                AlertHelper.showWarning("Validation Error", "Reservation fee cannot be negative!");
                 return false;
             }
         } catch (NumberFormatException e) {
-            showAlert("Validation Error", "Invalid reservation fee value!");
+            AlertHelper.showWarning("Validation Error", "Invalid reservation fee value!");
             return false;
         }
 
         return true;
-    }
-
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
     // Metoda do ustawienia nazwy parkingu (opcjonalnie)

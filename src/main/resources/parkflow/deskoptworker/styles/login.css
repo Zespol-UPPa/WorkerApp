@@ -21,6 +21,7 @@
     -fx-text-fill: #595B71;
     -fx-underline: true;
     -fx-font-size: 14px;
+    -fx-cursor: hand;
 }
 .warning_label{
     -fx-font-family: "Inter 18pt Regular";

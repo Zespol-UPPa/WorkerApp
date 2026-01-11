@@ -8,15 +8,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="300.0" maxHeight="320" minHeight="280" styleClass="main_cont" stylesheets="@../styles/parkingItem.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.ParkingItemController">
+<VBox prefHeight="300.0" prefWidth="480.0" maxHeight="320" minHeight="280" minWidth="450" styleClass="main_cont" stylesheets="@../styles/parkingItem.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.ParkingItemController">
    <children>
-      <HBox  styleClass="header_hbox">
+      <HBox styleClass="header_hbox">
          <children>
-            <VBox  HBox.hgrow="ALWAYS">
+            <VBox HBox.hgrow="ALWAYS" spacing="2">
                <children>
                   <Label fx:id="idLabel" styleClass="parking_smaller_font" text="#98" />
-                  <Label fx:id="nameLabel" styleClass="parking_title" text="Galeria Krakowska" />
-                  <Label fx:id="addressLabel" styleClass="parking_smaller_font" text="Pawia 5, Kraków" />
+                  <Label fx:id="nameLabel" styleClass="parking_title" text="Galeria Krakowska" wrapText="true" maxWidth="390" />
+                  <Label fx:id="addressLabel" styleClass="parking_smaller_font" text="Pawia 5, Kraków" wrapText="true" maxWidth="390" />
                </children>
             </VBox>
             <Button mnemonicParsing="false" onAction="#handleMapClick" styleClass="icon_button">
@@ -30,7 +30,7 @@
             </Button>
          </children>
       </HBox>
-      <HBox >
+      <HBox>
          <children>
             <VBox HBox.hgrow="ALWAYS">
                <children>
@@ -38,7 +38,7 @@
                   <Label fx:id="spacesValueLabel" styleClass="parking_title" text="1500" />
                </children>
             </VBox>
-            <VBox  HBox.hgrow="ALWAYS">
+            <VBox HBox.hgrow="ALWAYS">
                <children>
                   <Label text="AVAILABITY" />
                   <Label fx:id="availValueLabel" maxWidth="Infinity" text="• Low" VBox.vgrow="ALWAYS">

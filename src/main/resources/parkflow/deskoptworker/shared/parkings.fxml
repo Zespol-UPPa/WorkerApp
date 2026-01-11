@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minWidth="900" prefWidth="1100" spacing="15" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.ParkingsController">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minWidth="900" prefWidth="1100" spacing="15" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Admin.ParkingsController">
     <children>
         <!-- Header -->
         <HBox alignment="CENTER_LEFT" maxHeight="80" minHeight="50" prefHeight="60" styleClass="header-container">

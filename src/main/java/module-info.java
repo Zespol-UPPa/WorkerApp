@@ -7,6 +7,8 @@ module parkflow.deskoptworker {
     requires org.kordamp.ikonli.javafx;
     requires com.almasb.fxgl.all;
     requires static lombok;
+    requires com.fasterxml.jackson.databind;
+    requires java.net.http;
 
     opens parkflow.deskoptworker to javafx.fxml;
     exports parkflow.deskoptworker;
@@ -25,4 +27,9 @@ module parkflow.deskoptworker {
     exports parkflow.deskoptworker.Controllers.sharedPanels.Reports;
     opens parkflow.deskoptworker.Controllers.sharedPanels.Reports to javafx.fxml;
     exports parkflow.deskoptworker.utils;
+
+    exports parkflow.deskoptworker.dto;
+    opens parkflow.deskoptworker.dto to com.fasterxml.jackson.databind;
+
+    opens parkflow.deskoptworker.api to com.fasterxml.jackson.databind;
 }

@@ -2,14 +2,20 @@ package parkflow.deskoptworker.Views;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import parkflow.deskoptworker.Controllers.Admin.*;
+import parkflow.deskoptworker.Controllers.LogoutController;
+import parkflow.deskoptworker.Controllers.Refreshable;
 import parkflow.deskoptworker.Controllers.Worker.PricingWController;
 import parkflow.deskoptworker.Controllers.Worker.WorkerController;
-import parkflow.deskoptworker.Controllers.sharedPanels.ParkingsController;
+import parkflow.deskoptworker.Controllers.Admin.ParkingsController;
 import parkflow.deskoptworker.models.Parking;
 import parkflow.deskoptworker.models.User;
 import parkflow.deskoptworker.models.UserRole;
@@ -17,6 +23,7 @@ import parkflow.deskoptworker.utils.ModalHelper;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 public class ViewFactory {
 
@@ -28,8 +35,108 @@ public class ViewFactory {
     private VBox customersView;
     private VBox settingsView;
 
+    //kontrolery do odswiezania danych
+    private ParkingsController parkingsController;
+    private PersonnelController personnelController;
+
     public ViewFactory() {}
 
+
+    public void showLoginWindow() {
+        System.out.println("Login window opened");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/shared/login.fxml")
+            );
+
+            VBox root = loader.load();
+
+            Scene scene = new Scene(root, 400, 600);
+
+            Stage stage = new Stage();
+            stage.setMinWidth(400);
+            stage.setMinHeight(600);
+            stage.setMaximized(false);
+            stage.setScene(scene);
+            stage.setTitle("ParkFlow - Log in");
+            stage.getIcons().add(
+                    new Image(
+                            Objects.requireNonNull(
+                                    getClass().getResourceAsStream("/parkflow/deskoptworker/images/LogoIcon.png")
+                            )
+                    )
+            );
+            stage.show();
+
+        } catch (Exception e) {
+            System.err.println("Failed to load Login window!");
+            e.printStackTrace();
+        }
+    }
+
+    public void showActivationWindow() {
+        System.out.println("Activation window opened");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/shared/activation.fxml")
+            );
+
+            AnchorPane root = loader.load();
+
+            Scene scene = new Scene(root, 400, 500);
+
+            Stage stage = new Stage();
+            stage.setMinWidth(400);
+            stage.setMinHeight(500);
+            stage.setMaximized(false);
+            stage.setScene(scene);
+            stage.setTitle("ParkFlow - Activation");
+            stage.getIcons().add(
+                    new Image(
+                            Objects.requireNonNull(
+                                    getClass().getResourceAsStream("/parkflow/deskoptworker/images/LogoIcon.png")
+                            )
+                    )
+            );
+            stage.show();
+
+        } catch (Exception e) {
+            System.err.println("Failed to load Activation window!");
+            e.printStackTrace();
+        }
+    }
+
+    public void showRegistrationWindow() {
+        System.out.println("Registration window opened");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/parkflow/deskoptworker/shared/register.fxml")
+            );
+
+            VBox root = loader.load();
+
+            Scene scene = new Scene(root, 500, 700);
+
+            Stage stage = new Stage();
+            stage.setMinWidth(500);
+            stage.setMinHeight(700);
+            stage.setMaximized(false);
+            stage.setScene(scene);
+            stage.setTitle("ParkFlow - Registration");
+            stage.getIcons().add(
+                    new Image(
+                            Objects.requireNonNull(
+                                    getClass().getResourceAsStream("/parkflow/deskoptworker/images/LogoIcon.png")
+                            )
+                    )
+            );
+            stage.show();
+
+        } catch (Exception e) {
+            System.err.println("Failed to load Registration window!");
+            e.printStackTrace();
+        }
+    }
     // ============ SHARED VIEWS ============
 
     public VBox getDashboardView() {
@@ -54,15 +161,20 @@ public class ViewFactory {
                 );
                 parkingsView = loader.load();
 
-                // Przekaż ViewFactory do ParkingsController
-                ParkingsController controller = loader.getController();
-                if (controller != null) {
-                    controller.setViewFactory(this);
+
+                parkingsController = loader.getController();
+                if (parkingsController != null) {
+                    parkingsController.setViewFactory(this);
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
                 System.err.println("Failed to load parkings.fxml");
+            }
+        } else {
+            // View już istnieje - odśwież dane
+            if (parkingsController != null && parkingsController instanceof Refreshable) {
+                ((Refreshable) parkingsController).refresh();
             }
         }
         return parkingsView;
@@ -221,13 +333,13 @@ public class ViewFactory {
 
     // ============ MODAL METHODS ============
 
-    public User showAddEmployeeModal() {
-        AddEmpController controller = ModalHelper.showModal(
-                "/parkflow/deskoptworker/admin/AddNewEmployee.fxml",
-                "Add Employee"
-        );
-        return controller != null ? controller.getSavedEmployee() : null;
-    }
+//    public User showAddEmployeeModal() {
+//        AddEmpController controller = ModalHelper.showModal(
+//                "/parkflow/deskoptworker/admin/AddNewEmployee.fxml",
+//                "Add Employee"
+//        );
+//        return controller != null ? controller.getSavedEmployee() : null;
+//    }
 
     public void showEmployeeDetailsModal(User employee) {
         ModalHelper.showModal(
@@ -247,6 +359,30 @@ public class ViewFactory {
                 (DeactivateController c) -> c.setEmployee(employee)
         );
         return controller != null && controller.isConfirmed();
+    }
+
+    /**
+     * Show confirmation dialog for activating employee
+     * Returns true if user confirmed, false if cancelled
+     */
+    public boolean showActivateEmployeeModal(User user) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Activate Employee");
+        alert.setHeaderText("Activate " + user.getFullName() + "?");
+        alert.setContentText(
+                "Are you sure you want to activate this employee's account?\n\n" +
+                        "Employee: " + user.getFullName() + "\n" +
+                        "Email: " + user.getEmail() + "\n" +
+                        "Role: " + user.getRole()
+        );
+
+        ButtonType buttonYes = new ButtonType("Activate", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonNo = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonYes, buttonNo);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == buttonYes;
     }
 
 
@@ -274,7 +410,13 @@ public class ViewFactory {
         );
     }
 
-
+    public boolean showLogoutModal() {
+        LogoutController controller = ModalHelper.showModal(
+                "/parkflow/deskoptworker/shared/LogoutConfirm.fxml",
+                "Logout Confirmation"
+        );
+        return controller != null && controller.isConfirmed();
+    }
     /**
      * Czyści cache widoków (np. przy wylogowaniu)
      */

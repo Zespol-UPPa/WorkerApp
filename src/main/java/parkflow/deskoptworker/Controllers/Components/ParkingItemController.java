@@ -61,10 +61,10 @@ public class ParkingItemController {
         // Usuń poprzednie style kolorów
         availValueLabel.getStyleClass().removeAll("red", "orange", "green");
 
-        if (percentage > 90) {
+        if (percentage > 80) {
             availValueLabel.setText("• High");
             availValueLabel.getStyleClass().add("green");
-        } else if (percentage > 75) {
+        } else if (percentage > 60) {
             availValueLabel.setText("• Medium");
             availValueLabel.getStyleClass().add("orange");
         } else {

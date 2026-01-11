@@ -1,5 +1,6 @@
 package parkflow.deskoptworker.Controllers.sharedPanels;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -8,6 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import parkflow.deskoptworker.Views.ViewFactory;
+import parkflow.deskoptworker.api.AccountService;
 import parkflow.deskoptworker.models.User;
 import parkflow.deskoptworker.utils.FieldValidator;
 import parkflow.deskoptworker.utils.SessionManager;
@@ -37,19 +40,25 @@ public class SettingsController implements Initializable {
 
     private static final int MIN_PASSWORD_LENGTH = 8;
 
+    // API Service
+    private final AccountService accountService = new AccountService();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Setup input filters FIRST - przed załadowaniem danych
+
+        // 🔒 SESSION GUARD
+        if (SessionManager.getInstance().getCurrentUser() == null) {
+            System.out.println("No active session – redirecting to login");
+            new ViewFactory().showLoginWindow();
+            return;
+        }
+
         setupInputFilters();
+        loadUserDataFromAPI(); // Load fresh data from API
 
-        // Załaduj dane użytkownika
-        loadUserData();
-
-        // Ustaw tryb view na start
         setPersonalInfoEditMode(false);
         setPasswordEditMode(false);
 
-        // Event handlery - Personal Info
         editBtn.setOnAction(_ -> {
             saveOriginalValues();
             setPersonalInfoEditMode(true);
@@ -62,35 +71,69 @@ public class SettingsController implements Initializable {
             setPersonalInfoEditMode(false);
         });
 
-        // Event handlery - Password
         changePassEditBtn.setOnAction(_ -> setPasswordEditMode(true));
         changePassBtn.setOnAction(_ -> handleChangePassword());
         cancelPassBtn.setOnAction(_ -> setPasswordEditMode(false));
 
-        // Listenery do włączania przycisku Save changes gdy coś się zmieni
         addChangeListeners();
-
-        // Listener do włączania przycisku Change password gdy wszystkie pola wypełnione
         addPasswordFieldListeners();
     }
 
-    private void loadUserData() {
-        User user = SessionManager.getCurrentUser();
-        if (user != null) {
-            idTextField.setText(String.valueOf(user.getId()));
-            peselTextField.setText(user.getPesel());
-            firstNameTxtField.setText(user.getFirstName());
-            lastNameTxtField.setText(user.getLastName());
-            phoneTxtField.setText(user.getPhoneNumber());
-            emailTxtField.setText(user.getEmail());
-        }
+    /**
+     * Load user data from API (fresh data)
+     */
+    private void loadUserDataFromAPI() {
+        // Show loading indicator (optional)
+        setFieldsEnabled(false);
+
+        // Load in background thread to avoid blocking UI
+        new Thread(() -> {
+            try {
+                User freshUser = accountService.getCurrentUserProfile();
+
+                // Update UI on JavaFX thread
+                Platform.runLater(() -> {
+                    if (freshUser != null) {
+                        // Update SessionManager with fresh data
+                        SessionManager.getInstance().setCurrentUser(freshUser);
+
+                        // Update UI fields
+                        idTextField.setText(String.valueOf(freshUser.getId()));
+                        peselTextField.setText(freshUser.getPesel());
+                        firstNameTxtField.setText(freshUser.getFirstName());
+                        lastNameTxtField.setText(freshUser.getLastName());
+                        phoneTxtField.setText(freshUser.getPhoneNumber());
+                        emailTxtField.setText(freshUser.getEmail());
+
+                        saveOriginalValues();
+                    } else {
+                        showError(infoErrorLabel, "Failed to load profile data");
+                    }
+                    setFieldsEnabled(true);
+                });
+
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    showError(infoErrorLabel, "Error loading profile: " + e.getMessage());
+                    setFieldsEnabled(true);
+                });
+            }
+        }).start();
+    }
+
+    private void setFieldsEnabled(boolean enabled) {
+        idTextField.setDisable(!enabled);
+        peselTextField.setDisable(!enabled);
+        firstNameTxtField.setDisable(!enabled);
+        lastNameTxtField.setDisable(!enabled);
+        phoneTxtField.setDisable(!enabled);
+        emailTxtField.setDisable(!enabled);
     }
 
     private void setupInputFilters() {
         FieldValidator.addNameFilter(firstNameTxtField);
         FieldValidator.addNameFilter(lastNameTxtField);
         FieldValidator.addPhoneFilter(phoneTxtField);
-
     }
 
     private void saveOriginalValues() {
@@ -112,15 +155,13 @@ public class SettingsController implements Initializable {
             boolean hasChanges =
                     !firstNameTxtField.getText().equals(originalFirstName) ||
                             !lastNameTxtField.getText().equals(originalLastName) ||
-                            !phoneTxtField.getText().equals(originalPhone) ||
-                            !emailTxtField.getText().equals(originalEmail);
+                            !phoneTxtField.getText().equals(originalPhone);
             saveChangesBtn.setDisable(!hasChanges);
         };
 
         firstNameTxtField.textProperty().addListener((_, _, _) -> checkChanges.run());
         lastNameTxtField.textProperty().addListener((_, _, _) -> checkChanges.run());
         phoneTxtField.textProperty().addListener((_, _, _) -> checkChanges.run());
-        emailTxtField.textProperty().addListener((_, _, _) -> checkChanges.run());
     }
 
     private void addPasswordFieldListeners() {
@@ -137,9 +178,11 @@ public class SettingsController implements Initializable {
         confirmNewPassTxtField.textProperty().addListener((_, _, _) -> checkPasswordFields.run());
     }
 
-
+    /**
+     * Handle saving personal info via API
+     */
     private void handleSavePersonalInfo() {
-        FieldValidator.clearErrors(firstNameTxtField, lastNameTxtField, phoneTxtField, emailTxtField);
+        FieldValidator.clearErrors(firstNameTxtField, lastNameTxtField, phoneTxtField);
         hideError(infoErrorLabel);
 
         boolean isValid = true;
@@ -160,31 +203,50 @@ public class SettingsController implements Initializable {
             errorMessage.append("Invalid phone number (min 9 digits). ");
         }
 
-        if (!FieldValidator.validateEmail(emailTxtField)) {
-            isValid = false;
-            errorMessage.append("Invalid email format. ");
-        }
-
         if (isValid) {
-            // Aktualizuj User w SessionManager
-            User user = SessionManager.getCurrentUser();
-            if (user != null) {
-                user.setFirstName(FieldValidator.getTrimmedText(firstNameTxtField));
-                user.setLastName(FieldValidator.getTrimmedText(lastNameTxtField));
-                user.setPhoneNumber(FieldValidator.getTrimmedText(phoneTxtField));
-                user.setEmail(FieldValidator.getTrimmedText(emailTxtField));
-            }
+            // Disable button during save
+            saveChangesBtn.setDisable(true);
+            saveChangesBtn.setText("Saving...");
 
-            // TODO: Save to database/API
+            String firstName = FieldValidator.getTrimmedText(firstNameTxtField);
+            String lastName = FieldValidator.getTrimmedText(lastNameTxtField);
+            String phone = FieldValidator.getTrimmedText(phoneTxtField);
 
-            saveOriginalValues();
-            setPersonalInfoEditMode(false);
+            // Save in background thread
+            new Thread(() -> {
+                boolean success = accountService.updatePersonalInfo(firstName, lastName, phone);
+
+                Platform.runLater(() -> {
+                    if (success) {
+                        // Update SessionManager with new data
+                        User user = SessionManager.getInstance().getCurrentUser();
+                        if (user != null) {
+                            user.setFirstName(firstName);
+                            user.setLastName(lastName);
+                            user.setPhoneNumber(phone);
+                        }
+
+                        saveOriginalValues();
+                        setPersonalInfoEditMode(false);
+
+                        // Optional: Show success message
+                        System.out.println("Profile updated successfully");
+                    } else {
+                        showError(infoErrorLabel, "Failed to save changes. Please try again.");
+                    }
+
+                    saveChangesBtn.setDisable(false);
+                    saveChangesBtn.setText("Save Changes");
+                });
+            }).start();
         } else {
             showError(infoErrorLabel, errorMessage.toString().trim());
         }
     }
 
-
+    /**
+     * Handle changing password via API
+     */
     private void handleChangePassword() {
         // Clear previous errors
         FieldValidator.clearErrors(currentPassTxtField, newPassTxtField, confirmNewPassTxtField);
@@ -205,14 +267,13 @@ public class SettingsController implements Initializable {
             errorMessage.append("Password must be at least ").append(MIN_PASSWORD_LENGTH).append(" characters. ");
         }
 
-
         if (!FieldValidator.passwordsMatch(newPassTxtField, confirmNewPassTxtField)) {
             FieldValidator.setFieldError(confirmNewPassTxtField, true);
             isValid = false;
             errorMessage.append("Passwords do not match. ");
         }
 
-        // Czy nowe haslo sie rozni od starego
+        // Czy nowe hasło się różni od starego
         if (isValid && currentPassTxtField.getText().equals(newPassTxtField.getText())) {
             FieldValidator.setFieldError(newPassTxtField, true);
             isValid = false;
@@ -220,15 +281,32 @@ public class SettingsController implements Initializable {
         }
 
         if (isValid) {
-            // TODO: Verify current password with API and save new password
-            System.out.println("Password change requested");
-            System.out.println("  Current: " + currentPassTxtField.getText());
-            System.out.println("  New: " + newPassTxtField.getText());
+            // Disable button during save
+            changePassBtn.setDisable(true);
+            changePassBtn.setText("Changing...");
 
-            // Exit edit mode
-            setPasswordEditMode(false);
+            String currentPass = currentPassTxtField.getText();
+            String newPass = newPassTxtField.getText();
 
-            // TODO: Show success message
+            // Change password in background thread
+            new Thread(() -> {
+                boolean success = accountService.changePassword(currentPass, newPass);
+
+                Platform.runLater(() -> {
+                    if (success) {
+                        // Exit edit mode and clear fields
+                        setPasswordEditMode(false);
+
+                        // Optional: Show success message
+                        System.out.println("Password changed successfully");
+                    } else {
+                        showError(passwordErrorLabel, "Failed to change password. Current password may be incorrect.");
+                    }
+
+                    changePassBtn.setDisable(false);
+                    changePassBtn.setText("Change Password");
+                });
+            }).start();
         } else {
             showError(passwordErrorLabel, errorMessage.toString().trim());
         }
@@ -239,14 +317,13 @@ public class SettingsController implements Initializable {
         firstNameTxtField.setEditable(editing);
         lastNameTxtField.setEditable(editing);
         phoneTxtField.setEditable(editing);
-        emailTxtField.setEditable(editing);
+        emailTxtField.setEditable(false); // Email is always read-only
 
         // Zmień styl pól
         String styleClass = editing ? "text-field_basic" : "text-field_disabled";
         updateFieldStyle(firstNameTxtField, styleClass);
         updateFieldStyle(lastNameTxtField, styleClass);
         updateFieldStyle(phoneTxtField, styleClass);
-        updateFieldStyle(emailTxtField, styleClass);
 
         // Pokaż/ukryj przyciski
         setNodeVisibility(editBtn, !editing);
@@ -256,7 +333,7 @@ public class SettingsController implements Initializable {
             firstNameTxtField.requestFocus();
         }
 
-        FieldValidator.clearErrors(firstNameTxtField, lastNameTxtField, phoneTxtField, emailTxtField);
+        FieldValidator.clearErrors(firstNameTxtField, lastNameTxtField, phoneTxtField);
         hideError(infoErrorLabel);
     }
 

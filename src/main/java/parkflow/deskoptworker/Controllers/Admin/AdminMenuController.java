@@ -2,7 +2,9 @@ package parkflow.deskoptworker.Controllers.Admin;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import lombok.Setter;
+import parkflow.deskoptworker.Views.ViewFactory;
 
 public class AdminMenuController {
     @FXML private Button dashboardBtn;
@@ -16,6 +18,9 @@ public class AdminMenuController {
     @Setter
     private AdminController parentController;
 
+    ViewFactory viewFactory;
+
+
     public void initialize() {
         setActiveButton(dashboardBtn);
 
@@ -25,6 +30,8 @@ public class AdminMenuController {
         personnelBtn.setOnAction(_ -> handleMenuClick(personnelBtn, "Personnel"));
         settingsBtn.setOnAction(_ -> handleMenuClick(settingsBtn, "Settings"));
         logoutBtn.setOnAction(_ -> handleLogout());
+
+        viewFactory = new ViewFactory();
     }
 
     private void handleMenuClick(Button clickedButton, String viewName) {
@@ -37,9 +44,21 @@ public class AdminMenuController {
         }
     }
 
+    @FXML
     private void handleLogout() {
-        System.out.println("Logging out...");
-        //HANDLE LOGOUT
+        // Show logout confirmation modal
+
+        if (viewFactory != null) {
+            boolean confirmed = viewFactory.showLogoutModal();
+
+            if (confirmed && parentController != null) {
+                parentController.handleLogout();
+            } else {
+                System.out.println("Logout cancelled by user");
+            }
+        } else {
+            System.err.println("ViewFactory is null!");
+        }
     }
 
     private void setActiveButton(Button button) {
