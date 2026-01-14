@@ -81,9 +81,11 @@ public class ReportFinancialController {
             e.printStackTrace();
             setupTopStatusCards(new HashMap<>());
             setupRevenueUsageChart();
+
             if (currentUserRole == UserRole.ADMIN) {
                 setupRevenueDistributionChart();
             }
+
             setupKeyMetrics(new HashMap<>());
         }
     }

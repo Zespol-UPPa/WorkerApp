@@ -105,8 +105,8 @@ public class ParkingItemController {
     private void handleReservations() {
         System.out.println("Navigating to reservations for parking: " + parking.getName());
 
-        // Użyj NavigationManager do nawigacji
-        NavigationManager.getInstance().navigateToReservationsWithParkingFilter(parking);
+//        // Użyj NavigationManager do nawigacji
+//        NavigationManager.getInstance().navigateToReservationsWithParkingFilter(parking);
     }
     /**
      * Obsługuje kliknięcie w ikonę mapy

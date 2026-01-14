@@ -1,25 +1,26 @@
 package parkflow.deskoptworker.utils;
 
-import lombok.Getter;
+import parkflow.deskoptworker.Controllers.Admin.AdminController;
 import parkflow.deskoptworker.Controllers.Worker.CustomersController;
 import parkflow.deskoptworker.Controllers.Worker.WorkerController;
-import parkflow.deskoptworker.models.Customer;
-import parkflow.deskoptworker.models.Parking;
 
 /**
- * Singleton do nawigacji między modułami aplikacji.
- * Używany gdy komponent z jednego modułu (np. Parkings)
- * chce przejść do innego modułu (np. Customers/Reservations) z parametrami.
+ * NavigationManager - Singleton for cross-controller navigation
+ * Allows Dashboard and other controllers to trigger menu navigation
+ *
+ * UPDATED: Added debug logging
  */
-@Getter
 public class NavigationManager {
 
     private static NavigationManager instance;
 
+    private AdminController adminController;
     private WorkerController workerController;
     private CustomersController customersController;
 
-    private NavigationManager() {}
+    private NavigationManager() {
+        System.out.println("NavigationManager: Instance created");
+    }
 
     public static NavigationManager getInstance() {
         if (instance == null) {
@@ -28,61 +29,136 @@ public class NavigationManager {
         return instance;
     }
 
-    // ==================== REJESTRACJA KONTROLERÓW ====================
+    // ==================== REGISTRATION ====================
 
-    /**
-     * Rejestruje WorkerController (wywoływane z WorkerController.initialize())
-     */
+    public void registerAdminController(AdminController controller) {
+        this.adminController = controller;
+        System.out.println("✅ NavigationManager: AdminController registered");
+    }
+
     public void registerWorkerController(WorkerController controller) {
         this.workerController = controller;
-        System.out.println("NavigationManager: WorkerController registered");
+        System.out.println("✅ NavigationManager: WorkerController registered");
     }
 
-    /**
-     * Rejestruje CustomersController (wywoływane z CustomersController.initialize())
-     */
     public void registerCustomersController(CustomersController controller) {
         this.customersController = controller;
-        System.out.println("NavigationManager: CustomersController registered");
+        System.out.println("✅ NavigationManager: CustomersController registered");
     }
 
-    // ==================== NAWIGACJA ====================
+    // ==================== GETTERS ====================
+
+    public CustomersController getCustomersController() {
+        return customersController;
+    }
+
+    // ==================== NAVIGATION METHODS ====================
 
     /**
-     * Nawiguje do Customers → Reservations z filtrem na parking.
-     * Wywoływane z ParkingItemController.
+     * Navigate to Reports from anywhere
      */
-    public void navigateToReservationsWithParkingFilter(Parking parking) {
-        if (workerController == null) {
-            System.err.println("NavigationManager: WorkerController not registered!");
-            return;
-        }
+    public void navigateToReports() {
+        System.out.println("🔷 NavigationManager.navigateToReports() called");
+        System.out.println("   - adminController: " + (adminController != null ? "✅" : "❌"));
+        System.out.println("   - workerController: " + (workerController != null ? "✅" : "❌"));
 
-        System.out.println("NavigationManager: Navigating to reservations for parking: " + parking.getName());
-        workerController.navigateToCustomersReservations(parking);
+        if (adminController != null) {
+            System.out.println("→ Navigating to Reports (Admin)");
+            adminController.onMenuItemSelected("Reports");
+        } else if (workerController != null) {
+            System.out.println("→ Navigating to Reports (Worker)");
+            workerController.onMenuItemSelected("Reports");
+        } else {
+            System.err.println("❌ NavigationManager: No controller registered!");
+        }
     }
 
     /**
-     * Nawiguje do Customers → Reservations z filtrem na klienta.
+     * Navigate to Parkings (Admin only)
      */
-    public void navigateToReservationsWithCustomerFilter(Customer customer) {
-        if (workerController == null) {
-            System.err.println("NavigationManager: WorkerController not registered!");
-            return;
-        }
+    public void navigateToParkings() {
+        System.out.println("🔷 NavigationManager.navigateToParkings() called");
+        System.out.println("   - adminController: " + (adminController != null ? "✅" : "❌"));
 
-        System.out.println("NavigationManager: Navigating to reservations for customer: " + customer.getFullName());
-        workerController.navigateToCustomersReservations(customer);
+        if (adminController != null) {
+            System.out.println("→ Navigating to Parkings");
+            adminController.onMenuItemSelected("Parkings");
+        } else {
+            System.err.println("❌ NavigationManager: AdminController not registered!");
+        }
     }
 
-    // ==================== GETTERY ====================
+    /**
+     * Navigate to Settings from anywhere
+     */
+    public void navigateToSettings() {
+        System.out.println(" NavigationManager.navigateToSettings() called");
+        System.out.println("   - adminController: " + (adminController != null ? "" : "❌"));
+        System.out.println("   - workerController: " + (workerController != null ? "✅" : "❌"));
+
+        if (adminController != null) {
+            System.out.println("→ Navigating to Settings (Admin)");
+            adminController.onMenuItemSelected("Settings");
+        } else if (workerController != null) {
+            System.out.println("→ Navigating to Settings (Worker)");
+            workerController.onMenuItemSelected("Settings");
+        } else {
+            System.err.println(" NavigationManager: No controller registered!");
+        }
+    }
 
     /**
-     * Czyści wszystkie referencje (wywoływane przy wylogowaniu)
+     * Navigate to Dashboard from anywhere
+     */
+    public void navigateToDashboard() {
+        System.out.println("NavigationManager.navigateToDashboard() called");
+
+        if (adminController != null) {
+            System.out.println("→ Navigating to Dashboard (Admin)");
+            adminController.onMenuItemSelected("Dashboard");
+        } else if (workerController != null) {
+            System.out.println("→ Navigating to Dashboard (Worker)");
+            workerController.onMenuItemSelected("Dashboard");
+        } else {
+            System.err.println("NavigationManager: No controller registered!");
+        }
+    }
+
+    /**
+     * Navigate to Personnel (Admin only)
+     */
+    public void navigateToPersonnel() {
+        System.out.println("NavigationManager.navigateToPersonnel() called");
+
+        if (adminController != null) {
+            System.out.println("→ Navigating to Personnel");
+            adminController.onMenuItemSelected("Personnel");
+        } else {
+            System.err.println("NavigationManager: AdminController not registered!");
+        }
+    }
+
+    /**
+     * Navigate to Customers (Worker only)
+     */
+    public void navigateToCustomers() {
+        System.out.println("NavigationManager.navigateToCustomers() called");
+
+        if (workerController != null) {
+            System.out.println("→ Navigating to Customers");
+            workerController.onMenuItemSelected("Customers");
+        } else {
+            System.err.println("NavigationManager: WorkerController not registered!");
+        }
+    }
+
+    /**
+     * Clear all registered controllers (on logout)
      */
     public void clear() {
+        adminController = null;
         workerController = null;
         customersController = null;
-        System.out.println("NavigationManager: Cleared all references");
+        System.out.println("NavigationManager: All controllers cleared");
     }
 }

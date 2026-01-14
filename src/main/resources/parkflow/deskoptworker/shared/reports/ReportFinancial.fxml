@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -9,12 +8,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="1110.0" stylesheets="@../../styles/reports.css, @../../styles/mainPanel.css"
-      xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportFinancialController"
-      style="-fx-background-color: transparent;">
+<VBox prefWidth="1110.0" style="-fx-background-color: transparent;" stylesheets="@../../styles/reports.css, @../../styles/mainPanel.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.sharedPanels.Reports.ReportFinancialController">
 
     <VBox spacing="12" style="-fx-background-color: transparent;">
 
@@ -34,67 +31,68 @@
             </columnConstraints>
 
             <!-- Status Card 1: Total Revenue -->
-            <fx:include source="../../components/statusCard.fxml" fx:id="totalRevenueCard" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <fx:include fx:id="totalRevenueCard" source="../../components/statusCard.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
             <!-- Status Card 2: Parking Usage -->
-            <fx:include source="../../components/statusCard.fxml" fx:id="parkingUsageCard" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <fx:include fx:id="parkingUsageCard" source="../../components/statusCard.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
             <!-- Status Card 3: Pending Payments -->
-            <fx:include source="../../components/statusCard.fxml" fx:id="pendingPaymentsCard" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+            <fx:include fx:id="pendingPaymentsCard" source="../../components/statusCard.fxml" GridPane.columnIndex="2" GridPane.rowIndex="0" />
 
             <!-- Status Card 4: Reservation Fees -->
-            <fx:include source="../../components/statusCard.fxml" fx:id="reservationFeesStatusCard" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <fx:include fx:id="reservationFeesStatusCard" source="../../components/statusCard.fxml" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
 
         <!-- Charts row - Bar Chart and Pie Chart -->
         <HBox spacing="20.0">
             <!-- Revenue vs Usage - Bar Chart -->
-            <VBox styleClass="section_vbox" HBox.hgrow="ALWAYS" prefWidth="50">
-                <Label styleClass="section_title" text="Revenue vs Usage"/>
-                <BarChart fx:id="revenueUsageChart" VBox.vgrow="ALWAYS" minHeight="350">
+            <VBox prefWidth="50" styleClass="section_vbox" HBox.hgrow="ALWAYS">
+                <Label styleClass="section_title" text="Revenue vs Usage" />
+                <BarChart fx:id="revenueUsageChart" minHeight="350" VBox.vgrow="ALWAYS">
                     <xAxis>
-                        <CategoryAxis side="BOTTOM"/>
+                        <CategoryAxis side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis side="LEFT"/>
+                        <NumberAxis side="LEFT" />
                     </yAxis>
                 </BarChart>
             </VBox>
 
             <!-- Revenue Distribution by Parking - Pie Chart -->
-            <VBox styleClass="section_vbox" HBox.hgrow="ALWAYS" prefWidth="50">
-                <Label styleClass="section_title" text="Revenue Distribution by Parking"/>
-                <PieChart fx:id="revenueDistributionChart" VBox.vgrow="ALWAYS"
-                          minHeight="350"/>
+            <VBox fx:id="pieChartContainer" prefWidth="50" styleClass="section_vbox" HBox.hgrow="ALWAYS">
+                <Label styleClass="section_title" text="Revenue Distribution by Parking" />
+                <PieChart fx:id="revenueDistributionChart" minHeight="350" VBox.vgrow="ALWAYS" />
             </VBox>
         </HBox>
 
         <!-- Key Metrics - 4 SIMPLE METRIC CARDS -->
-        <VBox styleClass="section_vbox" spacing="12">
-            <Label styleClass="section_title" text="Key Metrics"/>
+        <VBox spacing="12" styleClass="section_vbox">
+            <Label styleClass="section_title" text="Key Metrics" />
             <GridPane hgap="16" vgap="16">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="25" />
                 </columnConstraints>
 
                 <!-- Simple Metric Card 1: Avg Transaction Value -->
-                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="avgTransactionCard"
-                            GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <fx:include fx:id="avgTransactionCard" source="../../components/SimpleMetricBox.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 
                 <!-- Simple Metric Card 2: Total Transactions -->
-                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="totalTransactionsCard"
-                            GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                <fx:include fx:id="totalTransactionsCard" source="../../components/SimpleMetricBox.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                 <!-- Simple Metric Card 3: Reservation Fees -->
-                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="reservationFeesCard"
-                            GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <fx:include fx:id="reservationFeesCard" source="../../components/SimpleMetricBox.fxml" GridPane.columnIndex="2" GridPane.rowIndex="0" />
 
                 <!-- Simple Metric Card 4: Revenue Growth -->
-                <fx:include source="../../components/SimpleMetricBox.fxml" fx:id="revenueGrowthCard"
-                            GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                <fx:include fx:id="revenueGrowthCard" source="../../components/SimpleMetricBox.fxml" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+            <rowConstraints>
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
         </VBox>
 

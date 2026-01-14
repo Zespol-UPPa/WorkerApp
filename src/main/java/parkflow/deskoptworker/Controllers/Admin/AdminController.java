@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import parkflow.deskoptworker.Views.ViewFactory;
 import parkflow.deskoptworker.api.ApiClient;
 import parkflow.deskoptworker.api.AuthService;
+import parkflow.deskoptworker.utils.NavigationManager; // DODAJ TEN IMPORT!
 
 public class AdminController {
     @FXML private BorderPane contentArea;
@@ -29,6 +30,10 @@ public class AdminController {
     public void initialize() {
         System.out.println("AdminController initialized");
 
+        // ===== DODAJ TĘ LINIĘ! =====
+        NavigationManager.getInstance().registerAdminController(this);
+        // ============================
+
         // Listener na zmianę wybranego menu
         selectedMenuItem.addListener((_, _, newValue) -> {
             switch (newValue) {
@@ -45,8 +50,8 @@ public class AdminController {
                     contentArea.setCenter(viewFactory.getPersonnelView());
                     break;
                 case "Settings":
-                        contentArea.setCenter(viewFactory.getSettingsView());
-                        break;
+                    contentArea.setCenter(viewFactory.getSettingsView());
+                    break;
                 default:
                     System.err.println("Unknown menu item: " + newValue);
             }
@@ -65,8 +70,8 @@ public class AdminController {
         // Załaduj domyślny widok
         selectedMenuItem.set("Dashboard");
     }
-    private void handleSessionExpired() {
 
+    private void handleSessionExpired() {
         Stage stage = (Stage) contentArea.getScene().getWindow();
         stage.close();
 
@@ -84,8 +89,6 @@ public class AdminController {
         viewFactory.clearCache();
         viewFactory.showLoginWindow();
     }
-
-
 
     public void onMenuItemSelected(String menuItem) {
         selectedMenuItem.set(menuItem);
