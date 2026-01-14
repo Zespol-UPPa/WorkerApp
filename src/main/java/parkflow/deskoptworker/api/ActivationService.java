@@ -21,11 +21,11 @@ public class ActivationService {
                     ActivationInfoResponse.class
             );
         } catch (RuntimeException e) {
-            // Alert already shown by ApiClient
-            // Just return null to indicate failure
+
             return null;
         }
     }
+
 
     /**
      * Activate account with password and updated personal data (step 2)

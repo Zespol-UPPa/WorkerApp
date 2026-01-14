@@ -38,7 +38,7 @@
             </graphic>
          </Button>
 
-         <Button fx:id="customersBtn" maxWidth="Infinity" minHeight="50" mnemonicParsing="false" prefHeight="55" styleClass="menu_button" text="Customers">
+         <Button managed="false" visible="false" fx:id="customersBtn" maxWidth="Infinity" minHeight="50" mnemonicParsing="false" prefHeight="55" styleClass="menu_button" text="Customers">
             <graphic>
                <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                   <Image url="@../images/customers.png" />

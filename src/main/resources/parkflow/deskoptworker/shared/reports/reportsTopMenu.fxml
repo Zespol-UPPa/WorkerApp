@@ -10,7 +10,7 @@
    <padding>
       <Insets left="260" />
    </padding>
-   <Button fx:id="overviewButton" mnemonicParsing="false" styleClass="menu-button" text="Overview" HBox.hgrow="ALWAYS">
+   <Button managed="false" visible="false" fx:id="overviewButton" mnemonicParsing="false" styleClass="menu-button" text="Overview" HBox.hgrow="ALWAYS">
       <graphic>
          <ImageView fx:id="overviewIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../../images/beatBlack.png" />
@@ -26,7 +26,7 @@
       </graphic>
    </Button>
 
-   <Button fx:id="occupancyButton" mnemonicParsing="false" styleClass="menu-button" text="Occupancy" HBox.hgrow="ALWAYS">
+   <Button managed="false" visible="false" fx:id="occupancyButton" mnemonicParsing="false" styleClass="menu-button" text="Occupancy" HBox.hgrow="ALWAYS">
       <graphic>
          <ImageView fx:id="sessionIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../../images/beatBlack.png" />
@@ -34,7 +34,7 @@
       </graphic>
    </Button>
 
-   <Button fx:id="customersButton" mnemonicParsing="false" styleClass="menu-button" text="Customers" HBox.hgrow="ALWAYS">
+   <Button managed="false" visible="false" fx:id="customersButton" mnemonicParsing="false" styleClass="menu-button" text="Customers" HBox.hgrow="ALWAYS">
       <graphic>
          <ImageView fx:id="customersIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../../images/customersBlack.png" />

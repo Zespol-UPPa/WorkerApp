@@ -6,12 +6,13 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="rootContainer" spacing="10.0" styleClass="section_item" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.SectionController" maxWidth="Infinity">
+<VBox fx:id="rootContainer" maxWidth="Infinity" spacing="10.0" styleClass="section_item" stylesheets="@../styles/components.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="parkflow.deskoptworker.Controllers.Components.SectionController">
     <padding>
         <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
     </padding>
@@ -23,7 +24,10 @@
                 <Region HBox.hgrow="ALWAYS" />
                 <Button fx:id="deleteButton" minHeight="30.0" minWidth="30.0" styleClass="delete_button">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Vector.png" />
+                     </image></ImageView>
                </graphic></Button>
             </children>
         </HBox>

@@ -56,7 +56,7 @@ public class ReportsController {
         }
 
         // Załaduj domyślny widok
-        selectedMenuItem.set("Overview");
+        selectedMenuItem.set("Financial");
     }
 
     public void onMenuItemSelected(String menuItem) {
